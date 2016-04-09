@@ -4,7 +4,6 @@
 
 #include "Renderer.h"
 #include "../Model/Geometry.h"
-#include "Sprite.h"
 
 using namespace std;
 

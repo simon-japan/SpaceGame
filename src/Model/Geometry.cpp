@@ -40,11 +40,7 @@ bool Geometry::checkCollision( const SDL_Rect & a, const SDL_Rect & b )
         return false;
     }
 
-    if( leftA >= rightB )
-    {
-        return false;
-    }
+    return leftA < rightB;
 
     //If none of the sides from A are outside B
-    return true;
 }

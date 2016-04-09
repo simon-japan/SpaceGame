@@ -8,9 +8,5 @@ void Sprite::render(const int x, const int y, SDL_Renderer* gRenderer) {
     sheet.render(x, y, gRenderer, name);
 }
 
-std::string Sprite::getName() {
-    return name;
-}
-
 
 

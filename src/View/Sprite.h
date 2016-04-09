@@ -13,7 +13,6 @@ class Sprite {
 public:
     Sprite(SpriteSheet & s, std::string n): sheet(s), name(n) {};
     void render(const int x, const int y, SDL_Renderer* gRenderer);
-    std::string getName();
 
 private:
     SpriteSheet& sheet;

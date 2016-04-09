@@ -29,6 +29,7 @@ void Dot::handleEvent( SDL_Event& e )
             case SDLK_DOWN: mVelY += DOT_VEL; break;
             case SDLK_LEFT: mVelX -= DOT_VEL; break;
             case SDLK_RIGHT: mVelX += DOT_VEL; break;
+            default:break;
         }
     }
         //If a key was released
@@ -41,11 +42,12 @@ void Dot::handleEvent( SDL_Event& e )
             case SDLK_DOWN: mVelY -= DOT_VEL; break;
             case SDLK_LEFT: mVelX += DOT_VEL; break;
             case SDLK_RIGHT: mVelX -= DOT_VEL; break;
+            default:break;
         }
     }
 }
 
-bool Dot::touchesWall( const std::vector<Tile> & tiles )
+bool Dot::touchesWall( std::vector<Tile> & tiles )
 {
     //Go through the tiles
     for( auto & tile : tiles )
@@ -60,7 +62,7 @@ bool Dot::touchesWall( const std::vector<Tile> & tiles )
     return false;
 }
 
-void Dot::move( const std::vector<Tile> & tiles, Level * level )
+void Dot::move( std::vector<Tile> & tiles, Level * level )
 {
     //Move the dot left or right
     mBox.x += mVelX;

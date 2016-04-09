@@ -4,13 +4,11 @@ and may not be redistributed without written permission.*/
 //Using SDL, SDL_image, standard IO, strings, and file streams
 #include <SDL.h>
 #include <SDL_image.h>
-#include <stdio.h>
 #include <string>
 #include <fstream>
 #include "View/LTexture.h"
 #include "Model/Tile.h"
 #include "Model/Dot.h"
-#include "Model/Geometry.h"
 #include "View/SpriteSheet.h"
 #include "View/Renderer.h"
 
@@ -38,7 +36,7 @@ void close( );
 //Sets tiles from tile map
 bool setTiles( std::vector<Tile> & tiles );
 
-void addSprite(SpriteSheet & sheet, int x, int y, int w, int h, std::string name);
+void addSprite(SpriteSheet & sheet, int x, int y, int w, int h, std::string name, SpriteRepository & spriteRepository);
 
 //The window we'll be rendering to
 SDL_Window* gWindow = nullptr;
@@ -276,10 +274,10 @@ bool setTiles( vector<Tile> & tiles )
 void addSprite(SpriteSheet & sheet, int x, int y, int w, int h, string name, SpriteRepository & spriteRepository)
 {
     SDL_Rect clip;
-    clip.x = 0;
-    clip.y = 0;
-    clip.w = TILE_WIDTH;
-    clip.h = TILE_HEIGHT;
+    clip.x = x;
+    clip.y = y;
+    clip.w = w;
+    clip.h = h;
     sheet.addClip(name, clip);
     spriteRepository.addSprite(sheet, name);
 }
