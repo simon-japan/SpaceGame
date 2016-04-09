@@ -45,13 +45,28 @@ void Dot::handleEvent( SDL_Event& e )
     }
 }
 
-void Dot::move( Tile *tiles[], Level * level )
+bool Dot::touchesWall( const std::vector<Tile> & tiles )
+{
+    //Go through the tiles
+    for( auto & tile : tiles )
+    {
+        if (tile.collidesWith(mBox))
+        {
+            return true;
+        }
+    }
+
+    //If no wall tiles were touched
+    return false;
+}
+
+void Dot::move( const std::vector<Tile> & tiles, Level * level )
 {
     //Move the dot left or right
     mBox.x += mVelX;
 
     //If the dot went too far to the left or right or touched a wall
-    if( ( mBox.x < 0 ) || ( mBox.x + DOT_WIDTH > level->getWidth() ) || touchesWall( mBox, tiles ) )
+    if( ( mBox.x < 0 ) || ( mBox.x + DOT_WIDTH > level->getWidth() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.x -= mVelX;
@@ -61,7 +76,7 @@ void Dot::move( Tile *tiles[], Level * level )
     mBox.y += mVelY;
 
     //If the dot went too far up or down or touched a wall
-    if( ( mBox.y < 0 ) || ( mBox.y + DOT_HEIGHT > level->getHeight() ) || touchesWall( mBox, tiles ) )
+    if( ( mBox.y < 0 ) || ( mBox.y + DOT_HEIGHT > level->getHeight() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.y -= mVelY;
@@ -96,10 +111,6 @@ void Dot::setCamera( SDL_Rect& camera, Level* level, int screen_width, int scree
     }
 }
 
-void Dot::render( SDL_Rect& camera, SDL_Renderer* gRenderer, LTexture* texture)
-{
-    //Show the dot
-    texture->render( mBox.x - camera.x, mBox.y - camera.y, gRenderer );
+SDL_Rect Dot::getCollisionBox() {
+    return mBox;
 }
-
-// TODO: separate the model from the view a bit more.

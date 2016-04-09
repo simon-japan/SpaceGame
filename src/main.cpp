@@ -7,10 +7,12 @@ and may not be redistributed without written permission.*/
 #include <stdio.h>
 #include <string>
 #include <fstream>
-#include "LTexture.h"
-#include "Tile.h"
-#include "Dot.h"
-#include "Geometry.h"
+#include "View/LTexture.h"
+#include "Model/Tile.h"
+#include "Model/Dot.h"
+#include "Model/Geometry.h"
+#include "View/SpriteSheet.h"
+#include "View/Renderer.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -24,49 +26,32 @@ const int LEVEL_HEIGHT = 960;
 const int TOTAL_TILES = 192;
 const int TOTAL_TILE_SPRITES = 12;
 
-//The different tile sprites
-const int TILE_RED = 0;
-const int TILE_GREEN = 1;
-const int TILE_BLUE = 2;
-const int TILE_CENTER = 3;
-const int TILE_TOP = 4;
-const int TILE_TOPRIGHT = 5;
-const int TILE_RIGHT = 6;
-const int TILE_BOTTOMRIGHT = 7;
-const int TILE_BOTTOM = 8;
-const int TILE_BOTTOMLEFT = 9;
-const int TILE_LEFT = 10;
-const int TILE_TOPLEFT = 11;
-
-
 //Starts up SDL and creates window
 bool init();
 
 //Loads media
-bool loadMedia( Tile* tiles[] );
+bool loadMedia( std::vector<Tile> & tiles );
 
 //Frees media and shuts down SDL
-void close( Tile* tiles[] );
-
-//Checks collision box against set of tiles
-bool touchesWall( SDL_Rect box, Tile* tiles[] );
+void close( );
 
 //Sets tiles from tile map
-bool setTiles( Tile *tiles[] );
+bool setTiles( std::vector<Tile> & tiles );
+
+void addSprite(SpriteSheet & sheet, int x, int y, int w, int h, std::string name);
 
 //The window we'll be rendering to
-SDL_Window* gWindow = NULL;
+SDL_Window* gWindow = nullptr;
 
 //The window renderer
-SDL_Renderer* gRenderer = NULL;
+SDL_Renderer* gRenderer = nullptr;
 
 //Scene textures
 LTexture gDotTexture;
 LTexture gTileTexture;
-SDL_Rect gTileClips[ TOTAL_TILE_SPRITES ];
+//SDL_Rect gTileClips[ TOTAL_TILE_SPRITES ];
 
-Level level (LEVEL_WIDTH, LEVEL_HEIGHT);
-
+using namespace std;
 
 bool init()
 {
@@ -122,7 +107,7 @@ bool init()
 	return success;
 }
 
-bool loadMedia( Tile* tiles[] )
+bool loadMedia( std::vector<Tile> & tiles)
 {
 	//Loading success flag
 	bool success = true;
@@ -141,6 +126,7 @@ bool loadMedia( Tile* tiles[] )
 		success = false;
 	}
 
+    // Todo: put this somewhere else
 	//Load tile map
 	if( !setTiles( tiles ) )
 	{
@@ -151,9 +137,10 @@ bool loadMedia( Tile* tiles[] )
 	return success;
 }
 
-void close( Tile* tiles[] )
+void close( /*std::vector<Tile> tiles*/ )
 {
 	//Deallocate tiles
+    /*
 	for( int i = 0; i < TOTAL_TILES; ++i )
 	{
 		if( tiles[ i ] == NULL )
@@ -162,6 +149,7 @@ void close( Tile* tiles[] )
 			tiles[ i ] = NULL;
 		}
 	}
+     */
 
 	//Free loaded images
 	gDotTexture.free();
@@ -180,8 +168,36 @@ void close( Tile* tiles[] )
 
 
 
-bool setTiles( Tile* tiles[] )
+bool setTiles( vector<Tile> & tiles )
 {
+
+    static vector<string> tile_types = {
+            "tile_red",
+            "tile_green",
+            "tile_blue",
+            "tile_topleft",
+            "tile_left",
+            "tile_bottomleft",
+            "tile_top",
+            "tile_center",
+            "tile_bottom",
+            "tile_topright",
+            "tile_right",
+            "tile_bottomright"
+    };
+
+    static vector<string> tangible_tile_types = {
+            "tile_topleft",
+            "tile_left",
+            "tile_bottomleft",
+            "tile_top",
+            "tile_center",
+            "tile_bottom",
+            "tile_topright",
+            "tile_right",
+            "tile_bottomright"
+    };
+
 	//Success flag
 	bool tilesLoaded = true;
 
@@ -220,7 +236,10 @@ bool setTiles( Tile* tiles[] )
 			//If the number is a valid tile number
 			if( ( tileType >= 0 ) && ( tileType < TOTAL_TILE_SPRITES ) )
 			{
-				tiles[ i ] = new Tile( x, y, tileType );
+                string tileTypeName(tile_types[tileType]);
+                bool isTangible = (find (tangible_tile_types.begin(), tangible_tile_types.end(), tileTypeName) !=
+                        tangible_tile_types.end());
+				tiles.push_back( Tile( x, y, tileTypeName, isTangible));
 			}
 				//If we don't recognize the tile type
 			else
@@ -245,69 +264,6 @@ bool setTiles( Tile* tiles[] )
 			}
 		}
 
-		//Clip the sprite sheet
-		if( tilesLoaded )
-		{
-			gTileClips[ TILE_RED ].x = 0;
-			gTileClips[ TILE_RED ].y = 0;
-			gTileClips[ TILE_RED ].w = TILE_WIDTH;
-			gTileClips[ TILE_RED ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_GREEN ].x = 0;
-			gTileClips[ TILE_GREEN ].y = 80;
-			gTileClips[ TILE_GREEN ].w = TILE_WIDTH;
-			gTileClips[ TILE_GREEN ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_BLUE ].x = 0;
-			gTileClips[ TILE_BLUE ].y = 160;
-			gTileClips[ TILE_BLUE ].w = TILE_WIDTH;
-			gTileClips[ TILE_BLUE ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_TOPLEFT ].x = 80;
-			gTileClips[ TILE_TOPLEFT ].y = 0;
-			gTileClips[ TILE_TOPLEFT ].w = TILE_WIDTH;
-			gTileClips[ TILE_TOPLEFT ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_LEFT ].x = 80;
-			gTileClips[ TILE_LEFT ].y = 80;
-			gTileClips[ TILE_LEFT ].w = TILE_WIDTH;
-			gTileClips[ TILE_LEFT ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_BOTTOMLEFT ].x = 80;
-			gTileClips[ TILE_BOTTOMLEFT ].y = 160;
-			gTileClips[ TILE_BOTTOMLEFT ].w = TILE_WIDTH;
-			gTileClips[ TILE_BOTTOMLEFT ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_TOP ].x = 160;
-			gTileClips[ TILE_TOP ].y = 0;
-			gTileClips[ TILE_TOP ].w = TILE_WIDTH;
-			gTileClips[ TILE_TOP ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_CENTER ].x = 160;
-			gTileClips[ TILE_CENTER ].y = 80;
-			gTileClips[ TILE_CENTER ].w = TILE_WIDTH;
-			gTileClips[ TILE_CENTER ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_BOTTOM ].x = 160;
-			gTileClips[ TILE_BOTTOM ].y = 160;
-			gTileClips[ TILE_BOTTOM ].w = TILE_WIDTH;
-			gTileClips[ TILE_BOTTOM ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_TOPRIGHT ].x = 240;
-			gTileClips[ TILE_TOPRIGHT ].y = 0;
-			gTileClips[ TILE_TOPRIGHT ].w = TILE_WIDTH;
-			gTileClips[ TILE_TOPRIGHT ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_RIGHT ].x = 240;
-			gTileClips[ TILE_RIGHT ].y = 80;
-			gTileClips[ TILE_RIGHT ].w = TILE_WIDTH;
-			gTileClips[ TILE_RIGHT ].h = TILE_HEIGHT;
-
-			gTileClips[ TILE_BOTTOMRIGHT ].x = 240;
-			gTileClips[ TILE_BOTTOMRIGHT ].y = 160;
-			gTileClips[ TILE_BOTTOMRIGHT ].w = TILE_WIDTH;
-			gTileClips[ TILE_BOTTOMRIGHT ].h = TILE_HEIGHT;
-		}
 	}
 
 	//Close the file
@@ -317,24 +273,15 @@ bool setTiles( Tile* tiles[] )
 	return tilesLoaded;
 }
 
-bool touchesWall( SDL_Rect box, Tile* tiles[] )
+void addSprite(SpriteSheet & sheet, int x, int y, int w, int h, string name, SpriteRepository & spriteRepository)
 {
-	//Go through the tiles
-	for( int i = 0; i < TOTAL_TILES; ++i )
-	{
-		//If the tile is a wall type tile
-		if( ( tiles[ i ]->getType() >= TILE_CENTER ) && ( tiles[ i ]->getType() <= TILE_TOPLEFT ) )
-		{
-			//If the collision box touches the wall tile
-			if( Geometry::checkCollision( box, tiles[ i ]->getBox() ) )
-			{
-				return true;
-			}
-		}
-	}
-
-	//If no wall tiles were touched
-	return false;
+    SDL_Rect clip;
+    clip.x = 0;
+    clip.y = 0;
+    clip.w = TILE_WIDTH;
+    clip.h = TILE_HEIGHT;
+    sheet.addClip(name, clip);
+    spriteRepository.addSprite(sheet, name);
 }
 
 int main( int argc, char* args[] )
@@ -347,7 +294,7 @@ int main( int argc, char* args[] )
 	else
 	{
 		//The level tiles
-		Tile* tileSet[ TOTAL_TILES ];
+        std::vector<Tile> tileSet;
 
 		//Load media
 		if( !loadMedia( tileSet ) )
@@ -365,8 +312,44 @@ int main( int argc, char* args[] )
 			//The dot that will be moving around on the screen
 			Dot dot;
 
+            //Level keeps track of the bounds of the world and the set of tiles (pretty simple model)
+            Level level (LEVEL_WIDTH, LEVEL_HEIGHT, tileSet);
+
 			//Level camera
 			SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+
+            //One sprite sheet for all the tiles
+            SpriteSheet tileSpriteSheet(&gTileTexture);
+
+            //Although there is only one clip for the dot sprite (for now), I will use a sprite sheet for it.
+            SpriteSheet dotSpriteSheet(&gDotTexture);
+
+            //This object will provide references to sprite objects indexed by name
+            SpriteRepository spriteRepository;
+
+            // Create all the sprites in the sprite repository
+            // Todo: this should not be hard coded: load it from a file
+            addSprite(tileSpriteSheet, 0, 0, TILE_WIDTH, TILE_HEIGHT, "tile_red", spriteRepository);
+            addSprite(tileSpriteSheet, 0, 80, TILE_WIDTH, TILE_HEIGHT, "tile_green", spriteRepository);
+            addSprite(tileSpriteSheet, 0, 160, TILE_WIDTH, TILE_HEIGHT, "tile_blue", spriteRepository);
+            addSprite(tileSpriteSheet, 80, 0, TILE_WIDTH, TILE_HEIGHT, "tile_topleft", spriteRepository);
+            addSprite(tileSpriteSheet, 80, 80, TILE_WIDTH, TILE_HEIGHT, "tile_left", spriteRepository);
+            addSprite(tileSpriteSheet, 80, 160, TILE_WIDTH, TILE_HEIGHT, "tile_bottomleft", spriteRepository);
+            addSprite(tileSpriteSheet, 160, 0, TILE_WIDTH, TILE_HEIGHT, "tile_top", spriteRepository);
+            addSprite(tileSpriteSheet, 160, 80, TILE_WIDTH, TILE_HEIGHT, "tile_center", spriteRepository);
+            addSprite(tileSpriteSheet, 160, 160, TILE_WIDTH, TILE_HEIGHT, "tile_bottom", spriteRepository);
+            addSprite(tileSpriteSheet, 240, 0, TILE_WIDTH, TILE_HEIGHT, "tile_topright", spriteRepository);
+            addSprite(tileSpriteSheet, 240, 80, TILE_WIDTH, TILE_HEIGHT, "tile_right", spriteRepository);
+            addSprite(tileSpriteSheet, 240, 160, TILE_WIDTH, TILE_HEIGHT, "tile_bottomright", spriteRepository);
+
+            // Don't forget the dot!
+            addSprite(dotSpriteSheet, 0, 0, dot.DOT_WIDTH, dot.DOT_HEIGHT, "dot", spriteRepository);
+
+            // The renderer is the top-level "view" object.
+            // It can render a whole scene: you give it the camera and the level (and for now, just a dot)
+            // It will use the sprite repository to find the sprite for each object it needs to render,
+            // and uses the SDL renderer
+            Renderer renderer(gRenderer, spriteRepository);
 
 			//While application is running
 			while( !quit )
@@ -388,26 +371,13 @@ int main( int argc, char* args[] )
 				dot.move( tileSet, &level );
 				dot.setCamera( camera, &level, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-				//Clear screen
-				SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-				SDL_RenderClear( gRenderer );
+				renderer.renderAll(camera, level, dot);
 
-				//Render level
-				for( int i = 0; i < TOTAL_TILES; ++i )
-				{
-					tileSet[ i ]->render( camera, gRenderer, gTileTexture );
-				}
-
-				//Render dot
-				dot.render( camera, gRenderer, &gDotTexture );
-
-				//Update screen
-				SDL_RenderPresent( gRenderer );
 			}
 		}
 
 		//Free resources and close SDL
-		close( tileSet );
+		close( /*tileSet*/ );
 	}
 
 	return 0;

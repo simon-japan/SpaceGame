@@ -6,7 +6,7 @@
 #define SDTTEST_TILE_H
 
 #include <SDL.h>
-#include "LTexture.h"
+#include <string>
 
 const int TILE_WIDTH = 80;
 const int TILE_HEIGHT = 80;
@@ -15,23 +15,24 @@ class Tile
 {
 public:
     //Initializes position and type
-    Tile( int x, int y, int tileType );
-
-    //Shows the tile
-    void render( SDL_Rect& camera, SDL_Renderer* gRenderer, LTexture & texture );
+    Tile( int x, int y, std::string tileType, bool tangible);
 
     //Get the tile type
-    int getType();
+    std::string getType();
 
     //Get the collision box
-    SDL_Rect getBox();
+    SDL_Rect getCollisionBox();
+
+    bool collidesWith( const SDL_Rect & rect ) const;
 
 private:
     //The attributes of the tile
     SDL_Rect mBox;
 
     //The tile type
-    int mType;
+    std::string mType;
+
+    bool isTangible;
 };
 
 

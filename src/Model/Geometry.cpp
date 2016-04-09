@@ -4,7 +4,7 @@
 
 #include "Geometry.h"
 
-static bool Geometry::checkCollision( SDL_Rect a, SDL_Rect b )
+bool Geometry::checkCollision( const SDL_Rect & a, const SDL_Rect & b )
 {
     //The sides of the rectangles
     int leftA, leftB;

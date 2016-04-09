@@ -12,5 +12,11 @@ int Level::getWidth() {
     return width;
 }
 
+std::vector<Tile> & Level::getTiles() {
+    return tiles;
+}
+
+
+
 
 

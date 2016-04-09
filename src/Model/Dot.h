@@ -6,9 +6,10 @@
 #define SDTTEST_DOT_H
 
 #include <SDL.h>
+#include <vector>
 #include "Tile.h"
 #include "Level.h"
-#include "LTexture.h"
+#include "../View/LTexture.h"
 
 //The dot that will move around on the screen
 class Dot
@@ -28,13 +29,12 @@ public:
     void handleEvent( SDL_Event& e );
 
     //Moves the dot and check collision against tiles
-    void move( Tile *tiles[], Level* level);
+    void move( const std::vector<Tile> & tiles, Level* level);
 
     //Centers the camera over the dot
     void setCamera( SDL_Rect& camera, Level* level, int screen_width, int screen_height );
 
-    //Shows the dot on the screen
-    void render( SDL_Rect& camera, SDL_Renderer* gRenderer, LTexture * texture );
+    SDL_Rect getCollisionBox();
 
 private:
     //Collision box of the dot
@@ -42,6 +42,8 @@ private:
 
     //The velocity of the dot
     int mVelX, mVelY;
+
+    bool touchesWall( const std::vector<Tile> & tiles );
 };
 
 
