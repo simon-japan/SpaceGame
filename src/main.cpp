@@ -47,7 +47,6 @@ SDL_Renderer* gRenderer = nullptr;
 //Scene textures
 LTexture gDotTexture;
 LTexture gTileTexture;
-//SDL_Rect gTileClips[ TOTAL_TILE_SPRITES ];
 
 using namespace std;
 

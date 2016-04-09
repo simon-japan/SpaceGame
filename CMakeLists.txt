@@ -18,13 +18,23 @@ include_directories(
         ${SDLMIXER_INCLUDE_DIR}
 )
 
-set(SOURCE_FILES src/main.cpp src/View/LTexture.cpp src/View/LTexture.h src/Model/Tile.cpp src/Model/Tile.h src/Model/Dot.cpp src/Model/Dot.h src/Model/Geometry.cpp src/Model/Geometry.h src/Model/Level.cpp src/Model/Level.h src/View/SpriteSheet.cpp src/View/SpriteSheet.h src/View/Renderer.cpp src/View/Renderer.h src/View/Sprite.cpp src/View/Sprite.h src/View/SpriteRepository.cpp src/View/SpriteRepository.h)
-add_executable(sdtTest ${SOURCE_FILES})
+set(SOURCE_FILES src/View/LTexture.cpp src/View/LTexture.h src/Model/Tile.cpp src/Model/Tile.h src/Model/Dot.cpp src/Model/Dot.h src/Model/Geometry.cpp src/Model/Geometry.h src/Model/Level.cpp src/Model/Level.h src/View/SpriteSheet.cpp src/View/SpriteSheet.h src/View/Renderer.cpp src/View/Renderer.h src/View/Sprite.cpp src/View/Sprite.h src/View/SpriteRepository.cpp src/View/SpriteRepository.h )
 
-target_link_libraries(sdtTest
+add_library(sdTestLib STATIC ${SOURCE_FILES})
+
+target_link_libraries(
+        sdTestLib
         ${SDL2_LIBRARY}
         ${SDL2_IMAGE_LIBRARY}
         ${SDL2_TTF_LIBRARY}
         ${SDLMIXER_LIBRARY}
+        )
+
+add_executable(sdtTest src/main.cpp)
+
+add_subdirectory(sdtTest_tests)
+
+target_link_libraries(sdtTest
+        sdTestLib
         )
 
