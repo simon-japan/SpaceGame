@@ -48,6 +48,10 @@ bool LTexture::loadFromFile( std::string path, SDL_Renderer* gRenderer)
             //Get image dimensions
             mWidth = loadedSurface->w;
             mHeight = loadedSurface->h;
+            default_clip.x = 0;
+            default_clip.y = 0;
+            default_clip.w = mWidth;
+            default_clip.h = mHeight;
         }
 
         //Get rid of old loaded surface
@@ -152,3 +156,41 @@ int LTexture::getHeight()
 {
     return mHeight;
 }
+
+void LTexture::addClip(int x, int y, int w, int h) {
+    SDL_Rect clip;
+    clip.x = x;
+    clip.y = y;
+    clip.w = w;
+    clip.h = h;
+    clips.push_back(clip);
+}
+
+int LTexture::renderClipByIndex(int x, int y, SDL_Renderer *gRenderer, int clip_index, double angle,
+                                SDL_Point *center,
+                                SDL_RendererFlip flip) {
+    if (clip_index == 0)
+    {
+        render(x, y, gRenderer, &default_clip);
+        return 0;
+    }
+    else
+    {
+        // Requested clip not found
+        if (clip_index >= clips.size())
+        {
+            return 1;
+        }
+        else
+        {
+            render(x, y, gRenderer, &clips[clip_index]);
+            return 0;
+        }
+    }
+}
+
+
+
+
+
+

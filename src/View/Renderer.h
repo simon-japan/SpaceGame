@@ -20,14 +20,11 @@ public:
 
     void renderAll(SDL_Rect& camera, Level & level, Dot & dot);
 
-    //void registerSprite(std::string name, Sprite& sprite);
-
 private:
     SDL_Renderer * sdlRenderer;
 
     SpriteRepository & spriteRepository;
 
-    //std::map<std::string, Sprite> spriteDictionary;
 };
 
 

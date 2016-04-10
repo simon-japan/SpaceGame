@@ -22,6 +22,7 @@
           <root url="file:///Library/Frameworks/SDL2.framework/Headers" />
           <root url="file:///Library/Frameworks/SDL2_image.framework/Headers" />
           <root url="file:///Library/Frameworks/SDL2_image.framework/Frameworks/webp.framework/Headers" />
+          <root url="file:///usr/local/include" />
           <root url="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers" />
           <root url="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Carbon.framework/Headers" />
           <root url="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Carbon.framework/Frameworks/HIToolbox.framework/Headers" />
@@ -209,6 +210,7 @@
           <root url="file:///Library/Frameworks/SDL2.framework/Headers" />
           <root url="file:///Library/Frameworks/SDL2_image.framework/Headers" />
           <root url="file:///Library/Frameworks/SDL2_image.framework/Frameworks/webp.framework/Headers" />
+          <root url="file:///usr/local/include" />
           <root url="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/AudioToolbox.framework/Headers" />
           <root url="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Carbon.framework/Headers" />
           <root url="file:///Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.11.sdk/System/Library/Frameworks/Carbon.framework/Frameworks/HIToolbox.framework/Headers" />

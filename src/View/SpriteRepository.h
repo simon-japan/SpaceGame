@@ -5,7 +5,7 @@
 #ifndef SDTTEST_SPRITEREPOSITORY_H
 #define SDTTEST_SPRITEREPOSITORY_H
 
-
+#include <map>
 #include "Sprite.h"
 
 class SpriteRepository {
@@ -13,7 +13,7 @@ class SpriteRepository {
 public:
     Sprite & getSprite(std::string name);
 
-    void addSprite(SpriteSheet & s, std::string n);
+    void addSprite(Sprite * s);
 
 private:
     std::map<std::string,std::unique_ptr<Sprite>> sprites;

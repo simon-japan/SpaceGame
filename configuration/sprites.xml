@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="sprites.xsd">
+    <textures>
+        <texture name="tiles" file="/Users/simon/Desktop/images/tiles.png">
+            <clip x="0" y="0" w="80" h="80" id="tile_red" is_sprite="true"/>
+            <clip x="0" y="80" w="80" h="80" id="tile_green" is_sprite="true"/>
+            <clip x="0" y="160" w="80" h="80" id="tile_blue" is_sprite="true"/>
+            <clip x="80" y="0" w="80" h="80" id="tile_topleft" is_sprite="true"/>
+            <clip x="80" y="80" w="80" h="80" id="tile_left" is_sprite="true"/>
+            <clip x="80" y="160" w="80" h="80" id="tile_bottomleft" is_sprite="true"/>
+            <clip x="160" y="0" w="80" h="80" id="tile_top" is_sprite="true"/>
+            <clip x="160" y="80" w="80" h="80" id="tile_center" is_sprite="true"/>
+            <clip x="160" y="160" w="80" h="80" id="tile_bottom" is_sprite="true"/>
+            <clip x="240" y="0" w="80" h="80" id="tile_topright" is_sprite="true"/>
+            <clip x="240" y="80" w="80" h="80" id="tile_right" is_sprite="true"/>
+            <clip x="240" y="160" w="80" h="80" id="tile_bottomright" is_sprite="true"/>
+        </texture>
+        <texture name="dot" file="/Users/simon/Desktop/images/dot.bmp">
+            <clip id="dot" x="0" y="0" w="20" h="20" is_sprite="true"/>
+        </texture>
+    </textures>
+</root>

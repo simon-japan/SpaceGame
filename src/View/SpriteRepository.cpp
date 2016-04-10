@@ -4,12 +4,15 @@
 
 #include "SpriteRepository.h"
 
-Sprite & SpriteRepository::getSprite(std::string name) {
-    return *sprites[name];
+using namespace std;
+
+Sprite & SpriteRepository::getSprite(string name) {
+    return *(sprites.at(name));
 }
 
-void SpriteRepository::addSprite(SpriteSheet & s, std::string n) {
-    sprites[n] = std::unique_ptr<Sprite>(new Sprite(s, n));
+void SpriteRepository::addSprite(Sprite * s) {
+    string name = s->getName();
+    sprites.at(name) = unique_ptr<Sprite>(s);
 }
 
 

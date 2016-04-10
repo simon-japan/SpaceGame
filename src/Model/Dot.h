@@ -9,7 +9,6 @@
 #include <vector>
 #include "Tile.h"
 #include "Level.h"
-#include "../View/LTexture.h"
 
 //The dot that will move around on the screen
 class Dot

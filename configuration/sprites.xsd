@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="root" type="rootType"/>
+  <xs:complexType name="rootType">
+    <xs:sequence>
+      <xs:element type="texturesType" name="textures"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="textureType">
+    <xs:sequence>
+      <xs:element type="clipType" name="clip" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+    <xs:attribute type="xs:string" name="file" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="texturesType">
+    <xs:sequence>
+      <xs:element type="textureType" name="texture" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clipType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="x" use="optional"/>
+        <xs:attribute type="xs:string" name="y" use="optional"/>
+        <xs:attribute type="xs:string" name="w" use="optional"/>
+        <xs:attribute type="xs:string" name="h" use="optional"/>
+        <xs:attribute type="xs:string" name="id" use="optional"/>
+        <xs:attribute type="xs:string" name="is_sprite" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

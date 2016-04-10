@@ -9,8 +9,8 @@ and may not be redistributed without written permission.*/
 #include "View/LTexture.h"
 #include "Model/Tile.h"
 #include "Model/Dot.h"
-#include "View/SpriteSheet.h"
 #include "View/Renderer.h"
+#include "Serialization/SpriteLoader.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -35,8 +35,6 @@ void close( );
 
 //Sets tiles from tile map
 bool setTiles( std::vector<Tile> & tiles );
-
-void addSprite(SpriteSheet & sheet, int x, int y, int w, int h, std::string name, SpriteRepository & spriteRepository);
 
 //The window we'll be rendering to
 SDL_Window* gWindow = nullptr;
@@ -109,20 +107,6 @@ bool loadMedia( std::vector<Tile> & tiles)
 	//Loading success flag
 	bool success = true;
 
-	//Load dot texture
-	if( !gDotTexture.loadFromFile( "/Users/simon/Desktop/images/dot.bmp", gRenderer ) )
-	{
-		printf( "Failed to load dot texture!\n" );
-		success = false;
-	}
-
-	//Load tile texture
-	if( !gTileTexture.loadFromFile( "/Users/simon/Desktop/images/tiles.png", gRenderer ) )
-	{
-		printf( "Failed to load tile set texture!\n" );
-		success = false;
-	}
-
     // Todo: put this somewhere else
 	//Load tile map
 	if( !setTiles( tiles ) )
@@ -134,20 +118,8 @@ bool loadMedia( std::vector<Tile> & tiles)
 	return success;
 }
 
-void close( /*std::vector<Tile> tiles*/ )
+void close()
 {
-	//Deallocate tiles
-    /*
-	for( int i = 0; i < TOTAL_TILES; ++i )
-	{
-		if( tiles[ i ] == NULL )
-		{
-			delete tiles[ i ];
-			tiles[ i ] = NULL;
-		}
-	}
-     */
-
 	//Free loaded images
 	gDotTexture.free();
 	gTileTexture.free();
@@ -162,7 +134,6 @@ void close( /*std::vector<Tile> tiles*/ )
 	IMG_Quit();
 	SDL_Quit();
 }
-
 
 
 bool setTiles( vector<Tile> & tiles )
@@ -270,17 +241,6 @@ bool setTiles( vector<Tile> & tiles )
 	return tilesLoaded;
 }
 
-void addSprite(SpriteSheet & sheet, int x, int y, int w, int h, string name, SpriteRepository & spriteRepository)
-{
-    SDL_Rect clip;
-    clip.x = x;
-    clip.y = y;
-    clip.w = w;
-    clip.h = h;
-    sheet.addClip(name, clip);
-    spriteRepository.addSprite(sheet, name);
-}
-
 int main( int argc, char* args[] )
 {
 	//Start up SDL and create window
@@ -315,32 +275,14 @@ int main( int argc, char* args[] )
 			//Level camera
 			SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
-            //One sprite sheet for all the tiles
-            SpriteSheet tileSpriteSheet(&gTileTexture);
-
-            //Although there is only one clip for the dot sprite (for now), I will use a sprite sheet for it.
-            SpriteSheet dotSpriteSheet(&gDotTexture);
-
             //This object will provide references to sprite objects indexed by name
             SpriteRepository spriteRepository;
 
-            // Create all the sprites in the sprite repository
-            // Todo: this should not be hard coded: load it from a file
-            addSprite(tileSpriteSheet, 0, 0, TILE_WIDTH, TILE_HEIGHT, "tile_red", spriteRepository);
-            addSprite(tileSpriteSheet, 0, 80, TILE_WIDTH, TILE_HEIGHT, "tile_green", spriteRepository);
-            addSprite(tileSpriteSheet, 0, 160, TILE_WIDTH, TILE_HEIGHT, "tile_blue", spriteRepository);
-            addSprite(tileSpriteSheet, 80, 0, TILE_WIDTH, TILE_HEIGHT, "tile_topleft", spriteRepository);
-            addSprite(tileSpriteSheet, 80, 80, TILE_WIDTH, TILE_HEIGHT, "tile_left", spriteRepository);
-            addSprite(tileSpriteSheet, 80, 160, TILE_WIDTH, TILE_HEIGHT, "tile_bottomleft", spriteRepository);
-            addSprite(tileSpriteSheet, 160, 0, TILE_WIDTH, TILE_HEIGHT, "tile_top", spriteRepository);
-            addSprite(tileSpriteSheet, 160, 80, TILE_WIDTH, TILE_HEIGHT, "tile_center", spriteRepository);
-            addSprite(tileSpriteSheet, 160, 160, TILE_WIDTH, TILE_HEIGHT, "tile_bottom", spriteRepository);
-            addSprite(tileSpriteSheet, 240, 0, TILE_WIDTH, TILE_HEIGHT, "tile_topright", spriteRepository);
-            addSprite(tileSpriteSheet, 240, 80, TILE_WIDTH, TILE_HEIGHT, "tile_right", spriteRepository);
-            addSprite(tileSpriteSheet, 240, 160, TILE_WIDTH, TILE_HEIGHT, "tile_bottomright", spriteRepository);
+            TextureRepository textureRepository;
 
-            // Don't forget the dot!
-            addSprite(dotSpriteSheet, 0, 0, dot.DOT_WIDTH, dot.DOT_HEIGHT, "dot", spriteRepository);
+            SpriteLoader spriteLoader;
+
+            spriteLoader.loadSprites("sprites.xml", spriteRepository, textureRepository, gRenderer);
 
             // The renderer is the top-level "view" object.
             // It can render a whole scene: you give it the camera and the level (and for now, just a dot)
