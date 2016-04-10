@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string>
 #include <fstream>
+#include <vector>
 
 //Texture wrapper class
 class LTexture
@@ -46,9 +47,18 @@ public:
                  double angle = 0.0, SDL_Point* center = NULL,
                  SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+    // Render texture at given point, using a clip specified by name.
+    // Returns 0 if successful, or 1 if the name was not found.
+    // If the clip_name is null or empty, render the whole texture.
+    int renderClipByIndex(int x, int y, SDL_Renderer *gRenderer = NULL, int clip_index = 0,
+                          double angle = 0.0, SDL_Point *center = NULL,
+                          SDL_RendererFlip flip = SDL_FLIP_NONE);
+
     //Gets image dimensions
     int getWidth();
     int getHeight();
+
+    void addClip(int x, int y, int w, int h);
 
 private:
     //The actual hardware texture
@@ -57,6 +67,10 @@ private:
     //Image dimensions
     int mWidth;
     int mHeight;
+
+    std::vector<SDL_Rect> clips;
+
+    SDL_Rect default_clip;
 };
 
 
