@@ -48,10 +48,6 @@ bool LTexture::loadFromFile( std::string path, SDL_Renderer* gRenderer)
             //Get image dimensions
             mWidth = loadedSurface->w;
             mHeight = loadedSurface->h;
-            default_clip.x = 0;
-            default_clip.y = 0;
-            default_clip.w = mWidth;
-            default_clip.h = mHeight;
         }
 
         //Get rid of old loaded surface
@@ -100,7 +96,7 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 }
 #endif
 
-void LTexture::free()
+void LTexture:: free()
 {
     //Free texture if it exists
     if( mTexture != NULL )
@@ -137,7 +133,7 @@ void LTexture::render( int x, int y, SDL_Renderer* gRenderer, SDL_Rect* clip, do
     SDL_Rect renderQuad = { x, y, mWidth, mHeight };
 
     //Set clip rendering dimensions
-    if( clip != NULL )
+    if( clip != nullptr )
     {
         renderQuad.w = clip->w;
         renderQuad.h = clip->h;
@@ -157,21 +153,22 @@ int LTexture::getHeight()
     return mHeight;
 }
 
-void LTexture::addClip(int x, int y, int w, int h) {
+size_t LTexture::addClip(int x, int y, int w, int h) {
     SDL_Rect clip;
     clip.x = x;
     clip.y = y;
     clip.w = w;
     clip.h = h;
     clips.push_back(clip);
+    return clips.size() - 1;
 }
 
-int LTexture::renderClipByIndex(int x, int y, SDL_Renderer *gRenderer, int clip_index, double angle,
+int LTexture::renderClipByIndex(int x, int y, SDL_Renderer *gRenderer, size_t clip_index, double angle,
                                 SDL_Point *center,
                                 SDL_RendererFlip flip) {
-    if (clip_index == 0)
+    if (clips.size() == 0)
     {
-        render(x, y, gRenderer, &default_clip);
+        render(x, y, gRenderer, nullptr);
         return 0;
     }
     else

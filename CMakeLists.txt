@@ -20,7 +20,7 @@ include_directories(
         ${XercesC_INCLUDE_DIRS}
 )
 
-set(SOURCE_FILES src/View/LTexture.cpp src/View/LTexture.h src/Model/Tile.cpp src/Model/Tile.h src/Model/Dot.cpp src/Model/Dot.h src/Model/Geometry.cpp src/Model/Geometry.h src/Model/Level.cpp src/Model/Level.h src/View/Renderer.cpp src/View/Renderer.h src/View/Sprite.cpp src/View/Sprite.h src/View/SpriteRepository.cpp src/View/SpriteRepository.h src/Serialization/SpriteLoader.cpp src/Serialization/SpriteLoader.h src/View/TextureRepository.cpp src/View/TextureRepository.h)
+set(SOURCE_FILES src/View/LTexture.cpp src/View/LTexture.h src/Model/Tile.cpp src/Model/Tile.h src/Model/Dot.cpp src/Model/Dot.h src/Model/Geometry.cpp src/Model/Geometry.h src/Model/Level.cpp src/Model/Level.h src/View/Renderer.cpp src/View/Renderer.h src/View/Sprite.cpp src/View/Sprite.h src/View/SpriteRepository.cpp src/View/SpriteRepository.h src/Serialization/SpriteLoader.cpp src/Serialization/SpriteLoader.h src/View/TextureRepository.cpp src/View/TextureRepository.h src/Serialization/XmlDomErrorHandler.cpp src/Serialization/XmlDomErrorHandler.h src/Serialization/XmlDOMDocument.cpp src/Serialization/XmlDOMDocument.h)
 
 add_library(sdTestLib STATIC ${SOURCE_FILES})
 
@@ -48,3 +48,6 @@ target_link_libraries(sdtTest sdTestLib)
 #add_custom_command(TARGET sdtTest
 #        POST_BUILD
 #        COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/configuration/sprites.xml ${CMAKE_BINARY_DIR}/configuration/)
+
+# Todo: file copy does work, but it goes into the magical clion build directory.
+# Maybe what I need to do is pick a specific directory to build into.

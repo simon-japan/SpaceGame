@@ -12,7 +12,7 @@
 class TextureRepository {
 
 public:
-    void addTexture(std::string name, LTexture * texture);
+    void addTexture(std::string name, std::unique_ptr<LTexture> texture);
 
     LTexture & getTexture(std::string name);
 

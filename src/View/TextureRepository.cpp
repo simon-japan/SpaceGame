@@ -6,8 +6,8 @@
 
 using namespace std;
 
-void TextureRepository::addTexture(string name, LTexture* texture) {
-    textureDictionary.at(name) = unique_ptr<LTexture>(texture);
+void TextureRepository::addTexture(string name, unique_ptr<LTexture> texture) {
+    textureDictionary.insert(make_pair(name, move(texture)));
 }
 
 LTexture & TextureRepository::getTexture(std::string name) {

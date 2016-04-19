@@ -12,7 +12,7 @@ Sprite & SpriteRepository::getSprite(string name) {
 
 void SpriteRepository::addSprite(Sprite * s) {
     string name = s->getName();
-    sprites.at(name) = unique_ptr<Sprite>(s);
+    sprites.insert(make_pair(name, unique_ptr<Sprite>(s)));
 }
 
 

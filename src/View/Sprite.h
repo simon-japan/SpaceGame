@@ -17,7 +17,7 @@ public:
         clipsOffset = 0;
     };
 
-    Sprite(std::string n, LTexture & t, int f, int l): name(n), texture(t), numberOfClips(f), clipsOffset(l) {};
+    Sprite(std::string n, LTexture & t, size_t f, size_t l): name(n), texture(t), numberOfClips(f), clipsOffset(l) {};
 
     void nextFrame();
 
@@ -26,10 +26,10 @@ public:
     std::string getName();
 
 private:
-    int numberOfClips;
-    int clipsOffset;
+    size_t numberOfClips;
+    size_t clipsOffset;
     std::string name;
-    int nextClipIndex;
+    size_t nextClipIndex;
     LTexture & texture;
 };
 
