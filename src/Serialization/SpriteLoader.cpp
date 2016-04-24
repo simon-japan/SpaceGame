@@ -17,9 +17,10 @@ int SpriteLoader::loadSprites(std::string filename, SpriteRepository & spriteRep
     {
         string textureName(doc->getChildAttribute("textures", 0, i, "texture", "name"));
         string textureFile(doc->getChildAttribute("textures", 0, i, "texture", "file"));
-        std::unique_ptr<LTexture> pTexture (new LTexture());
-        pTexture->loadFromFile(textureFile, renderer);
-        textureRepository.addTexture(textureName, std::move(pTexture));
+        loadTexture(textureFile, textureName, textureRepository, renderer);
+        //std::unique_ptr<LTexture> pTexture (new LTexture());
+        //pTexture->loadFromFile(textureFile, renderer);
+        //textureRepository.addTexture(textureName, std::move(pTexture));
         for (int j = 0; j < doc->getChildCount("texture", i, "clip"); j++) {
             string clipID(doc->getChildAttribute("texture", i, j, "clip", "id"));
             int x = atoi(doc->getChildAttribute("texture", i, j, "clip", "x").c_str());
@@ -39,13 +40,13 @@ bool SpriteLoader::loadTexture(std::string fileName,
                                string textureName,
                                TextureRepository & textureRepository,
                                SDL_Renderer *renderer) {
-    unique_ptr<LTexture> texture;
-    if(texture->loadFromFile(fileName, renderer))
+    unique_ptr<LTexture> pTexture (new LTexture());
+    if(!pTexture->loadFromFile(fileName, renderer))
     {
-        printf( "Failed to load dot texture!\n" );
+        cerr << "Failed to load texture " << textureName << " from file " << fileName << endl;
         return false;
     }
-    textureRepository.addTexture(textureName, std::move(texture));
+    textureRepository.addTexture(textureName, std::move(pTexture));
     return true;
 }
 

@@ -42,10 +42,6 @@ SDL_Window* gWindow = nullptr;
 //The window renderer
 SDL_Renderer* gRenderer = nullptr;
 
-//Scene textures
-LTexture gDotTexture;
-LTexture gTileTexture;
-
 using namespace std;
 
 bool init()
@@ -120,10 +116,6 @@ bool loadMedia( std::vector<Tile> & tiles)
 
 void close()
 {
-	//Free loaded images
-	gDotTexture.free();
-	gTileTexture.free();
-
 	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );

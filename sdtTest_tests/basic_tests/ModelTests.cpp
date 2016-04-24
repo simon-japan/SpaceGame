@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "../../src/Model/Tile.h"
 
-TEST(model_check, test_eq) {
+TEST(TileTest, TileCreation) {
     Tile tile (1,2,"Simon", false);
     EXPECT_EQ(0, strcmp("Simon", tile.getType().c_str()));
 }
