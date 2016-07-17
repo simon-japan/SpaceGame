@@ -14,13 +14,14 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Dot & dot) {
     SDL_SetRenderDrawColor( sdlRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
     SDL_RenderClear( sdlRenderer );
 
-    cout << "Begin render loop" << endl;
+    //cout << "Begin render loop" << endl;
+    // TODO: some kind of logging
 
     //Render tiles from level
     const vector<Tile> & tiles = level.getTiles();
     for( auto & tile : tiles )
     {
-        cout << "\nattempting to render tile: " << tile << endl;
+    //    cout << "\nattempting to render tile: " << tile << endl;
 
         SDL_Rect box = tile.getCollisionBox();
 
@@ -29,17 +30,16 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Dot & dot) {
         {
             // Look up which sprite to use, from the map of registered sprites,
             // based on the string provided by the Tile to identify its visual type.
-            string tileTypeName (tile.getTypeName());
-            Sprite & sprite = spriteRepository.getSprite(tileTypeName);
+            Sprite & sprite = spriteRepository.getSprite(tile.getTypeName());
 
-            cout << "attempting to render sprite: " << sprite << endl;
+    //        cout << "attempting to render sprite: " << sprite << endl;
 
             // Render the sprite at the tile's absolute location, modified by the position of the camera.
             sprite.render(box.x - camera.x, box.y - camera.y, sdlRenderer);
         }
         else
         {
-            cout << "Did not render tile outiside camera: " << box.x << "," << box.y << endl;
+    //        cout << "Did not render tile outside camera: " << box.x << "," << box.y << endl;
         }
 
     }

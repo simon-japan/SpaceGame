@@ -17,7 +17,11 @@ public:
         clipsOffset = 0;
     };
 
-    Sprite(std::string n, LTexture & t, size_t f, size_t l): name(n), texture(t), numberOfClips(f), clipsOffset(l) {};
+    Sprite(std::string n, LTexture & t, size_t f, size_t l): name(n),
+                                                             texture(t),
+                                                             numberOfClips(f),
+                                                             clipsOffset(l),
+                                                             nextClipIndex(0) {};
 
     void nextFrame();
 

@@ -19,39 +19,4 @@
             <clip id="dot" x="0" y="0" w="20" h="20" is_sprite="true"/>
         </texture>
     </textures>
-    <sprites>
-        <sprite>
-            <clipref id="tile_red"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_green"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_blue"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_left"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_bottomleft"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_top"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_center"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_bottom"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_topright"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_right"/>
-        </sprite>
-        <sprite>
-            <clipref id="tile_bottomright"/>
-        </sprite>
-    </sprites>
 </root>

@@ -2,7 +2,10 @@
 // Created by SJ Holland on 4/3/16.
 //
 
+#include <iostream>
 #include "LTexture.h"
+
+using namespace std;
 
 LTexture::LTexture()
 {
@@ -18,7 +21,7 @@ LTexture::~LTexture()
     free();
 }
 
-bool LTexture::loadFromFile( std::string path, SDL_Renderer* gRenderer)
+bool LTexture::loadFromFile( string path, SDL_Renderer* gRenderer)
 {
     //Get rid of preexisting texture
     free();
@@ -166,6 +169,9 @@ size_t LTexture::addClip(int x, int y, int w, int h) {
 int LTexture::renderClipByIndex(int x, int y, SDL_Renderer *gRenderer, size_t clip_index, double angle,
                                 SDL_Point *center,
                                 SDL_RendererFlip flip) {
+
+    //cout << "LTexture::renderClipByIndex(x:" << x << ", y:" << y << ", index: " << clip_index << ")" << endl;
+
     if (clips.size() == 0)
     {
         render(x, y, gRenderer, nullptr);
