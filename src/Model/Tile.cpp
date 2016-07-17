@@ -5,24 +5,24 @@
 #include "Tile.h"
 #include "Geometry.h"
 
-Tile::Tile( int x, int y, std::string tileType, bool tangible): mType (tileType), isTangible(tangible)
+Tile::Tile( int x, int y, const TileType & t): tileType (t)
 {
-    mBox.x = x;
-    mBox.y = y;
     mBox.w = TILE_WIDTH;
     mBox.h = TILE_HEIGHT;
+    mBox.x = x * TILE_WIDTH;
+    mBox.y = y * TILE_HEIGHT;
 }
 
-std::string Tile::getType()
+const std::string Tile::getTypeName() const
 {
-    return mType;
+    return tileType.getName();
 }
 
-SDL_Rect Tile::getCollisionBox()
+const SDL_Rect Tile::getCollisionBox() const
 {
     return mBox;
 }
 
 bool Tile::collidesWith(const SDL_Rect & rect) const {
-    return isTangible && Geometry::checkCollision(rect, mBox);
+    return tileType.isTangible() && Geometry::checkCollision(rect, mBox);
 }

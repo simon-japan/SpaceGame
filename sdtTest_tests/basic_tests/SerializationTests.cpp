@@ -1,9 +1,9 @@
 //
-// Created by SJ Holland on 4/23/16.
+// Created by SJ Holland on 4/24/16.
 //
 
-#include <gtest/gtest.h>
-#include "../../src/Serialization/SpriteLoader.h"
+//#include <gtest/gtest.h>
+//#include "../../src/Serialization/SpriteLoader.h"
 /*
 class SpriteLoaderTest : public testing::Test {
 protected:
@@ -97,4 +97,4 @@ TEST_F(SpriteLoaderTest, SerializationTests)
 {
     this->spriteLoader.loadSprites("tiles.png", spriteRepository, textureRepository, gRenderer);
 }
- */
+*/

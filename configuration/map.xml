@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="map.xsd">
+    <tileTypes>
+        <tileType sprite="tile_red" mapid="00" tangible="false"/>
+        <tileType sprite="tile_green" mapid="01" tangible="false"/>
+        <tileType sprite="tile_blue" mapid="02" tangible="false"/>
+        <tileType sprite="tile_topleft" mapid="03" tangible="true"/>
+        <tileType sprite="tile_left" mapid="04" tangible="true"/>
+        <tileType sprite="tile_bottomleft" mapid="05" tangible="true"/>
+        <tileType sprite="tile_top" mapid="06" tangible="true"/>
+        <tileType sprite="tile_center" mapid="07" tangible="true"/>
+        <tileType sprite="tile_bottom" mapid="08" tangible="true"/>
+        <tileType sprite="tile_topright" mapid="09" tangible="true"/>
+        <tileType sprite="tile_right" mapid="10" tangible="true"/>
+        <tileType sprite="tile_bottomright" mapid="11" tangible="true"/>
+    </tileTypes>
+    <map>
+        00 01 02 03 04
+        05 06 07 08 09
+        10 11 00 00 00
+        00 01 10 03 03
+        01 02 10 03 08
+    </map>
+</root>
+

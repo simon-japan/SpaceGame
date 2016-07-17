@@ -12,18 +12,18 @@
 class Level {
 
 public:
-
-    Level(int w, int h, std::vector<Tile> & t): width(w), height(h), tiles(t) {};
-
+    Level(): max_x(0), min_x(0), max_y(0), min_y(0) {};
+    void addTile(int x, int y, const TileType & tileType);
     int getHeight();
     int getWidth();
-    std::vector<Tile> & getTiles();
-
+    const std::vector<Tile> & getTiles() const { return tiles; }
 
 private:
-    int height;
-    int width;
-    std::vector<Tile> & tiles;
+    int max_x;
+    int min_x;
+    int max_y;
+    int min_y;
+    std::vector<Tile> tiles;
 };
 
 

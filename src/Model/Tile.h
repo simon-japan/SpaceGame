@@ -6,7 +6,8 @@
 #define SDTTEST_TILE_H
 
 #include <SDL.h>
-#include <string>
+#include "TileType.h"
+#include <iostream>
 
 const int TILE_WIDTH = 80;
 const int TILE_HEIGHT = 80;
@@ -15,25 +16,30 @@ class Tile
 {
 public:
     //Initializes position and type
-    Tile( int x, int y, std::string tileType, bool tangible);
+    Tile( int x, int y, const TileType & type);
 
     //Get the tile type
-    std::string getType();
+    const std::string getTypeName() const;
 
     //Get the collision box
-    SDL_Rect getCollisionBox();
+    const SDL_Rect getCollisionBox() const;
 
     bool collidesWith( const SDL_Rect & rect ) const;
+
+    // TODO: add MOVE SEMANTICS!!
 
 private:
     //The attributes of the tile
     SDL_Rect mBox;
 
-    //The tile type
-    std::string mType;
+    const TileType & tileType;
 
-    bool isTangible;
+    friend std::ostream& operator<<(std::ostream &, const Tile&);
 };
 
+inline std::ostream& operator<<(std::ostream &os, const Tile& t)
+{
+    return os << "Tile(x:" << t.mBox.x << ", y:" << t.mBox.y << ", type:" << t.tileType.getName() << ")";
+}
 
 #endif //SDTTEST_TILE_H

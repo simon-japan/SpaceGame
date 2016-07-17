@@ -47,7 +47,7 @@ void Dot::handleEvent( SDL_Event& e )
     }
 }
 
-bool Dot::touchesWall( std::vector<Tile> & tiles )
+bool Dot::touchesWall( const std::vector<Tile> & tiles )
 {
     //Go through the tiles
     for( auto & tile : tiles )
@@ -62,13 +62,16 @@ bool Dot::touchesWall( std::vector<Tile> & tiles )
     return false;
 }
 
-void Dot::move( std::vector<Tile> & tiles, Level * level )
+void Dot::move(Level & level)
 {
+
+    const std::vector<Tile> & tiles(level.getTiles());
+
     //Move the dot left or right
     mBox.x += mVelX;
 
     //If the dot went too far to the left or right or touched a wall
-    if( ( mBox.x < 0 ) || ( mBox.x + DOT_WIDTH > level->getWidth() ) || touchesWall( tiles ) )
+    if( ( mBox.x < 0 ) || ( mBox.x + DOT_WIDTH > level.getWidth() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.x -= mVelX;
@@ -78,21 +81,21 @@ void Dot::move( std::vector<Tile> & tiles, Level * level )
     mBox.y += mVelY;
 
     //If the dot went too far up or down or touched a wall
-    if( ( mBox.y < 0 ) || ( mBox.y + DOT_HEIGHT > level->getHeight() ) || touchesWall( tiles ) )
+    if( ( mBox.y < 0 ) || ( mBox.y + DOT_HEIGHT > level.getHeight() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.y -= mVelY;
     }
 }
 
-void Dot::setCamera( SDL_Rect& camera, Level* level, int screen_width, int screen_height )
+void Dot::setCamera(SDL_Rect & camera, Level & level, int screen_width, int screen_height)
 {
     //Center the camera over the dot
     camera.x = ( mBox.x + DOT_WIDTH / 2 ) - screen_width / 2;
     camera.y = ( mBox.y + DOT_HEIGHT / 2 ) - screen_height / 2;
 
-    int level_width = level->getWidth();
-    int level_height = level->getHeight();
+    int level_width = level.getWidth();
+    int level_height = level.getHeight();
 
     //Keep the camera in bounds
     if( camera.x < 0 )

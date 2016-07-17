@@ -12,7 +12,7 @@ void Sprite::nextFrame() {
     nextClipIndex = nextClipIndex < numberOfClips - 1 ? nextClipIndex + 1 : 0;
 }
 
-std::string Sprite::getName() {
+const std::string Sprite::getName() const{
     return name;
 }
 
