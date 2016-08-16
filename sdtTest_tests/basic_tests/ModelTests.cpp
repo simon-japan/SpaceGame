@@ -6,6 +6,7 @@
 #include "../../src/Model/Tile.h"
 
 TEST(TileTest, TileCreation) {
-    Tile tile (1,2,"Simon", false);
-    EXPECT_EQ(0, strcmp("Simon", tile.getType().c_str()));
+    TileType tt("SimonTile", true);
+    Tile tile (1,2, tt);
+    EXPECT_EQ(0, strcmp("SimonTile", tile.getTypeName().c_str()));
 }
