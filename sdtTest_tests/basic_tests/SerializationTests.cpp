@@ -2,99 +2,41 @@
 // Created by SJ Holland on 4/24/16.
 //
 
-//#include <gtest/gtest.h>
-//#include "../../src/Serialization/SpriteLoader.h"
-/*
-class SpriteLoaderTest : public testing::Test {
-protected:
-    SpriteLoaderTest() : spriteLoader(), spriteRepository(), textureRepository() {
-        init();
-    }
+#include <gtest/gtest.h>
+#include "../../src/Serialization/SpriteLoader.h"
 
-    virtual ~SpriteLoaderTest() {
-        delete spriteLoader;
-        close();
-    }
-
-    bool init()
-    {
-        //Initialization flag
-        bool success = true;
-
-        //Initialize SDL
-        if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
-        {
-            printf( "SDL could not initialize! SDL Error: %s\n", SDL_GetError() );
-            success = false;
-        }
-        else
-        {
-            //Set texture filtering to linear
-            if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
-            {
-                printf( "Warning: Linear texture filtering not enabled!" );
-            }
-
-            //Create window
-            gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
-            if( gWindow == NULL )
-            {
-                printf( "Window could not be created! SDL Error: %s\n", SDL_GetError() );
-                success = false;
-            }
-            else
-            {
-                //Create renderer for window
-                gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
-                if( gRenderer == NULL )
-                {
-                    printf( "Renderer could not be created! SDL Error: %s\n", SDL_GetError() );
-                    success = false;
-                }
-                else
-                {
-                    //Initialize renderer color
-                    SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
-
-                    //Initialize PNG loading
-                    int imgFlags = IMG_INIT_PNG;
-                    if( !( IMG_Init( imgFlags ) & imgFlags ) )
-                    {
-                        printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
-                        success = false;
-                    }
-                }
-            }
+class SpriteLoaderTest : public ::testing::Test {
+    protected:
+        virtual void SetUp() {
+            gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800,
+                                        600, SDL_WINDOW_SHOWN );
+            gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
         }
 
-        return success;
-    }
+        virtual void TearDown() {
+            SDL_DestroyRenderer( gRenderer );
+            SDL_DestroyWindow( gWindow );
+            gWindow = NULL;
+            gRenderer = NULL;
+        }
 
-    void close()
-    {
-        //Destroy window
-        SDL_DestroyRenderer( gRenderer );
-        SDL_DestroyWindow( gWindow );
-        gWindow = NULL;
-        gRenderer = NULL;
-
-        //Quit SDL subsystems
-        IMG_Quit();
-        SDL_Quit();
-    }
-
-    const int SCREEN_WIDTH = 640;
-    const int SCREEN_HEIGHT = 480;
-    SDL_Window* gWindow = nullptr;
-    SDL_Renderer* gRenderer = nullptr;
-    SpriteLoader spriteLoader;
-    SpriteRepository spriteRepository;
-    TextureRepository textureRepository;
-
+        SDL_Window* gWindow = nullptr;
+        SpriteRepository spriteRepository;
+        TextureRepository textureRepository;
+        SDL_Renderer* gRenderer = nullptr;
 };
 
-TEST_F(SpriteLoaderTest, SerializationTests)
+TEST_F(SpriteLoaderTest, CanLoadValidFile)
 {
-    this->spriteLoader.loadSprites("tiles.png", spriteRepository, textureRepository, gRenderer);
+    SpriteLoader spriteLoader;
+    int rc = spriteLoader.loadSprites("sprites.xml", spriteRepository, textureRepository, gRenderer);
+    EXPECT_EQ(rc, 0);
+
 }
-*/
+
+TEST_F(SpriteLoaderTest, ComplainIfFileDoesntExist)
+{
+    SpriteLoader spriteLoader;
+    int rc = spriteLoader.loadSprites("bogus.xml", spriteRepository, textureRepository, gRenderer);
+    EXPECT_NE(rc, 0);
+}

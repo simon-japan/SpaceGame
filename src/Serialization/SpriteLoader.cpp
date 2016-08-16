@@ -32,6 +32,9 @@ int SpriteLoader::loadSprites(std::string filename, SpriteRepository & spriteRep
                 spriteRepository.addSprite(new Sprite(clipID, rtexture, 1, clipOffset));
             }
         }
+        else {
+            return -1;
+        }
     }
     return 0;
 }
