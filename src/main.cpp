@@ -159,7 +159,7 @@ int main( int argc, char* args[] )
 
 			//Move the dot
 			dot.move( *levelPtr );
-			//dot.setCamera( camera, *levelPtr, SCREEN_WIDTH, SCREEN_HEIGHT);
+			dot.setCamera( camera, *levelPtr, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 			renderer.renderAll(camera, *levelPtr, dot);
 

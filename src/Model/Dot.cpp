@@ -62,9 +62,9 @@ bool Dot::touchesWall( const std::vector<Tile> & tiles )
     return false;
 }
 
+// TODO: move control to Controller module
 void Dot::move(Level & level)
 {
-
     const std::vector<Tile> & tiles(level.getTiles());
 
     //Move the dot left or right
