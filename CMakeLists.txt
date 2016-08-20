@@ -40,19 +40,11 @@ include_directories(${Boost_INCLUDE_DIRS})
 add_executable(BoostTest src/main.cpp)
 target_link_libraries(BoostTest ${Boost_LIBRARIES})
 
-#add_executable(sprites.xml configuration/sprites.xml)
-
 add_subdirectory(sdtTest_tests)
 
 add_subdirectory(configuration)
 
 target_link_libraries(sdtTest sdTestLib)
 
-# file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/configuration/sprites.xml DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/configuration/)
-
-#add_custom_command(TARGET sdtTest
-#        POST_BUILD
-#        COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/configuration/sprites.xml ${CMAKE_BINARY_DIR}/configuration/)
-
-# Todo: file copy does work, but it goes into the magical clion build directory.
-# Maybe what I need to do is pick a specific directory to build into.
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/configuration/ DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configuration)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/ DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources)

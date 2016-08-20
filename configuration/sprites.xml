@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="sprites.xsd">
     <textures>
-        <texture name="tiles" file="tiles.png">
+        <texture name="tiles" file="resources/images/tiles.png">
             <clip x="0" y="0" w="80" h="80" id="tile_red"/>
             <clip x="0" y="80" w="80" h="80" id="tile_green"/>
             <clip x="0" y="160" w="80" h="80" id="tile_blue"/>
@@ -15,7 +15,7 @@
             <clip x="240" y="80" w="80" h="80" id="tile_right"/>
             <clip x="240" y="160" w="80" h="80" id="tile_bottomright"/>
         </texture>
-        <texture name="dot" file="dot.bmp">
+        <texture name="dot" file="resources/images/dot.bmp">
             <clip id="dot" x="0" y="0" w="20" h="20" is_sprite="true"/>
         </texture>
     </textures>

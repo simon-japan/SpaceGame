@@ -127,13 +127,13 @@ int main( int argc, char* args[] )
 
 		SpriteLoader spriteLoader;
 
-		spriteLoader.loadSprites("sprites.xml", spriteRepository,
+		spriteLoader.loadSprites("configuration/sprites.xml", spriteRepository,
 								 textureRepository, gRenderer);
 
 		LevelLoader levelLoader(spriteRepository);
 
 		//Level keeps track of the bounds of the world and the set of tiles (pretty simple model)
-		unique_ptr<Level> levelPtr(levelLoader.loadLevel("map.xml"));
+		unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/map.xml"));
 
 		// The renderer is the top-level "view" object.
 		// It can render a whole scene: you give it the camera and the level (and for now, just a dot)
@@ -171,3 +171,5 @@ int main( int argc, char* args[] )
 
 	return 0;
 }
+
+// Todo: animated sprite
