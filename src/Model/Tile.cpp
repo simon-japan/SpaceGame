@@ -9,8 +9,8 @@ Tile::Tile( int x, int y, const TileType & t): tileType (t)
 {
     mBox.w = TILE_WIDTH;
     mBox.h = TILE_HEIGHT;
-    mBox.x = x * TILE_WIDTH;
-    mBox.y = y * TILE_HEIGHT;
+    mBox.x = x;
+    mBox.y = y;
 }
 
 const std::string Tile::getTypeName() const

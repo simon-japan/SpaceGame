@@ -4,8 +4,9 @@
 
 #include <gtest/gtest.h>
 #include "../../src/Serialization/SpriteLoader.h"
+#include "../../src/Serialization/LevelLoader.h"
 
-class SpriteLoaderTest : public ::testing::Test {
+class SerializationTest : public ::testing::Test {
     protected:
         virtual void SetUp() {
             gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800,
@@ -26,7 +27,7 @@ class SpriteLoaderTest : public ::testing::Test {
         SDL_Renderer* gRenderer = nullptr;
 };
 
-TEST_F(SpriteLoaderTest, CanLoadValidFile)
+TEST_F(SerializationTest, SpriteLoaderCanLoadValidSpriteFile)
 {
     SpriteLoader spriteLoader;
     int rc = spriteLoader.loadSprites("sprites.xml", spriteRepository, textureRepository, gRenderer);
@@ -34,9 +35,25 @@ TEST_F(SpriteLoaderTest, CanLoadValidFile)
 
 }
 
-TEST_F(SpriteLoaderTest, ComplainIfFileDoesntExist)
+TEST_F(SerializationTest, SpriteLoaderComplainIfSpriteFileDoesntExist)
 {
     SpriteLoader spriteLoader;
     int rc = spriteLoader.loadSprites("bogus.xml", spriteRepository, textureRepository, gRenderer);
     EXPECT_NE(rc, 0);
 }
+
+TEST_F(SerializationTest, LevelLoaderCanLoadValidFile)
+{
+    LevelLoader levelLoader(spriteRepository);
+    std::unique_ptr<Level> levelPtr(levelLoader.loadLevel("map.xml"));
+    EXPECT_NE(levelPtr, nullptr);
+}
+
+TEST_F(SerializationTest, LevelLoaderReturnsNullForMissingFile)
+{
+    LevelLoader levelLoader(spriteRepository);
+    std::unique_ptr<Level> levelPtr(levelLoader.loadLevel("bogus.xml"));
+    EXPECT_EQ(levelPtr, nullptr);
+}
+
+// Todo: test for file that exists but can't be processed correctly

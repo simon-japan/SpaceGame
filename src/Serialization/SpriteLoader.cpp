@@ -13,6 +13,12 @@ int SpriteLoader::loadSprites(std::string filename, SpriteRepository & spriteRep
                               TextureRepository & textureRepository, SDL_Renderer *renderer) {
 
     XmlDomDocument doc(filename.c_str());
+
+    if (!doc.loadedSuccessfully())
+    {
+        return -1;
+    }
+
     for (int i = 0; i < doc.getChildCount("textures", 0, "texture"); i++)
     {
         string textureName(doc.getChildAttribute("textures", 0, i, "texture", "name"));

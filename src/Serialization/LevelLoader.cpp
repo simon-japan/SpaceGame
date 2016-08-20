@@ -25,6 +25,11 @@ unique_ptr<Level> LevelLoader::loadLevel(std::string filename) {
 
     XmlDomDocument doc (filename.c_str());
 
+    if (!doc.loadedSuccessfully())
+    {
+        return nullptr;
+    }
+
     string map_string = doc.getChildValue("root", 0, "map", 0);
     stringstream ss(map_string);
     string line;
@@ -51,11 +56,11 @@ unique_ptr<Level> LevelLoader::loadLevel(std::string filename) {
             {
                 cout << "Could not find Tile Type: " << tileTypeNumber << endl;
             }
-            x += 1;
+            x += TILE_WIDTH;
         }
 
         if (tokens.begin() != tokens.end()) {
-            y += 1;
+            y += TILE_HEIGHT;
         }
 
     }
@@ -76,7 +81,3 @@ void LevelLoader::loadTileTypes(std::string filename) {
         tileTypeLookup.emplace(make_pair(mapId, TileType(spriteName, tangible)));
     }
 }
-
-
-
-

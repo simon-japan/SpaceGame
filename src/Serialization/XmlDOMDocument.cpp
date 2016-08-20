@@ -2,6 +2,7 @@
 // Created by SJ Holland on 4/12/16.
 //
 
+#include <iostream>
 #include "XmlDOMDocument.h"
 #include "XmlDomErrorHandler.h"
 
@@ -19,10 +20,27 @@ void XmlDomDocument::createParser() {
     }
 }
 
-XmlDomDocument::XmlDomDocument(const char *xmlfile) : m_doc(NULL) {
+XmlDomDocument::XmlDomDocument(const char *xmlFile) : m_doc(nullptr) {
     createParser();
-    parser->parse(xmlfile);
-    m_doc = parser->getDocument();
+    try {
+        parser->parse(xmlFile);
+        m_doc = parser->getDocument();
+    }
+    catch (const XMLException& toCatch) {
+        char* message = XMLString::transcode(toCatch.getMessage());
+        cout << "Exception message is: \n"
+             << message << "\n";
+        XMLString::release(&message);
+    }
+    catch (const DOMException& toCatch) {
+        char* message = XMLString::transcode(toCatch.msg);
+        cout << "Exception message is: \n"
+             << message << "\n";
+        XMLString::release(&message);
+    }
+    catch (...) {
+        cout << "Unexpected Exception \n" ;
+    }
 }
 
 XmlDomDocument::~XmlDomDocument() {
@@ -81,13 +99,23 @@ std::string XmlDomDocument::getChildAttribute(const char* parentTag,
 }
 
 int XmlDomDocument::getChildCount(const char *parentTag, int parentIndex, const char *childTag) {
-    XMLCh* temp = XMLString::transcode(parentTag);
-    DOMNodeList* list = m_doc->getElementsByTagName(temp);
-    XMLString::release(&temp);
+    if (m_doc == nullptr)
+    {
+        return 0;
+    }
+    else {
+        XMLCh *temp = XMLString::transcode(parentTag);
+        DOMNodeList *list = m_doc->getElementsByTagName(temp);
+        XMLString::release(&temp);
 
-    DOMElement* parent = dynamic_cast<DOMElement*>(list->item(parentIndex));
-    DOMNodeList* childList = parent->getElementsByTagName(XMLString::transcode(childTag));
-    return (int)childList->getLength();
+        DOMElement *parent = dynamic_cast<DOMElement *>(list->item(parentIndex));
+        DOMNodeList *childList = parent->getElementsByTagName(XMLString::transcode(childTag));
+        return (int) childList->getLength();
+    }
+}
+
+bool XmlDomDocument::loadedSuccessfully() {
+    return m_doc != nullptr;
 }
 
 

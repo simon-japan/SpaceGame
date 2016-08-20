@@ -29,19 +29,19 @@ void Level::addTile(int x, int y, const TileType & tileType) {
     tiles.emplace_back(x, y, tileType);
     if (x > max_x)
     {
-        max_x = x;
+        max_x = x + TILE_WIDTH;
     }
     if (x < min_x)
     {
-        min_x = x;
+        min_x = x - TILE_WIDTH;
     }
-    if (x > max_y)
+    if (y > max_y)
     {
-        max_y = y;
+        max_y = y + TILE_HEIGHT;
     }
-    if (x < min_y)
+    if (y < min_y)
     {
-        min_y = y;
+        min_y = y + TILE_HEIGHT;
     }
 }
 

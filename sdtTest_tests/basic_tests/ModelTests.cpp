@@ -27,3 +27,12 @@ TEST(TileTest, CollisionDoesWork) {
     EXPECT_TRUE(tile1.collidesWith(should_collide));
     EXPECT_FALSE(tile1.collidesWith(shouldnt_collide));
 }
+
+TEST(TileTest, SerializesCorrectly)
+{
+    TileType tt("SimonTile", true);
+    Tile tile1(1,2, tt);
+    std::ostringstream os;
+    os << tile1;
+    EXPECT_STREQ(os.str().c_str(), "Tile(x:80, y:160, type:SimonTile)");
+}

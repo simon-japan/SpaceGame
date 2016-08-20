@@ -30,6 +30,7 @@ public:
                              const char* attributeTag);
     int getChildCount(const char* parentTag, int parentIndex,
                       const char* childTag);
+    bool loadedSuccessfully();
 
 
 private:
