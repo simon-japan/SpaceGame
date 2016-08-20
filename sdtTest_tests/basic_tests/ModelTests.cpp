@@ -4,6 +4,7 @@
 
 #include <gtest/gtest.h>
 #include "../../src/Model/Tile.h"
+#include "../../src/Model/Level.h"
 
 TEST(TileTest, TileCreation) {
     TileType tt("SimonTile", true);
@@ -28,11 +29,22 @@ TEST(TileTest, CollisionDoesWork) {
     EXPECT_FALSE(tile1.collidesWith(shouldnt_collide));
 }
 
-TEST(TileTest, SerializesCorrectly)
+TEST(TileTest, PrintsCorrectly)
 {
     TileType tt("SimonTile", true);
-    Tile tile1(1,2, tt);
+    Tile tile1(80,160, tt);
     std::ostringstream os;
     os << tile1;
     EXPECT_STREQ(os.str().c_str(), "Tile(x:80, y:160, type:SimonTile)");
+}
+
+TEST(LevelTest, DimensionsUpdateCorrectly)
+{
+    Level level;
+    TileType whateverType("eh", false);
+    level.addTile(0,0, whateverType);
+    level.addTile(0,80, whateverType);
+    level.addTile(-80,0, whateverType);
+    EXPECT_EQ(level.getHeight(),160);
+    EXPECT_EQ(level.getWidth(), 160);
 }
