@@ -2,22 +2,22 @@
 // Created by SJ Holland on 4/3/16.
 //
 
-#include "Dot.h"
+#include "Character.h"
 
-Dot::Dot()
+Character::Character(int w, int h, std::string n): width(w), height(h), name(n)
 {
     //Initialize the collision box
     mBox.x = 0;
     mBox.y = 0;
-    mBox.w = DOT_WIDTH;
-    mBox.h = DOT_HEIGHT;
+    mBox.w = width;
+    mBox.h = height;
 
     //Initialize the velocity
     mVelX = 0;
     mVelY = 0;
 }
 
-void Dot::handleEvent( SDL_Event& e )
+void Character::handleEvent( SDL_Event& e )
 {
     //If a key was pressed
     if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
@@ -25,10 +25,10 @@ void Dot::handleEvent( SDL_Event& e )
         //Adjust the velocity
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mVelY -= DOT_VEL; break;
-            case SDLK_DOWN: mVelY += DOT_VEL; break;
-            case SDLK_LEFT: mVelX -= DOT_VEL; break;
-            case SDLK_RIGHT: mVelX += DOT_VEL; break;
+            case SDLK_UP: mVelY -= CHARACTER_VEL; break;
+            case SDLK_DOWN: mVelY += CHARACTER_VEL; break;
+            case SDLK_LEFT: mVelX -= CHARACTER_VEL; break;
+            case SDLK_RIGHT: mVelX += CHARACTER_VEL; break;
             default:break;
         }
     }
@@ -38,16 +38,16 @@ void Dot::handleEvent( SDL_Event& e )
         //Adjust the velocity
         switch( e.key.keysym.sym )
         {
-            case SDLK_UP: mVelY += DOT_VEL; break;
-            case SDLK_DOWN: mVelY -= DOT_VEL; break;
-            case SDLK_LEFT: mVelX += DOT_VEL; break;
-            case SDLK_RIGHT: mVelX -= DOT_VEL; break;
+            case SDLK_UP: mVelY += CHARACTER_VEL; break;
+            case SDLK_DOWN: mVelY -= CHARACTER_VEL; break;
+            case SDLK_LEFT: mVelX += CHARACTER_VEL; break;
+            case SDLK_RIGHT: mVelX -= CHARACTER_VEL; break;
             default:break;
         }
     }
 }
 
-bool Dot::touchesWall( const std::vector<Tile> & tiles )
+bool Character::touchesWall( const std::vector<Tile> & tiles )
 {
     //Go through the tiles
     for( auto & tile : tiles )
@@ -63,7 +63,7 @@ bool Dot::touchesWall( const std::vector<Tile> & tiles )
 }
 
 // TODO: move control to Controller module
-void Dot::move(Level & level)
+void Character::move(Level & level)
 {
     const std::vector<Tile> & tiles(level.getTiles());
 
@@ -71,7 +71,7 @@ void Dot::move(Level & level)
     mBox.x += mVelX;
 
     //If the dot went too far to the left or right or touched a wall
-    if( ( mBox.x < 0 ) || ( mBox.x + DOT_WIDTH > level.getWidth() ) || touchesWall( tiles ) )
+    if( ( mBox.x < 0 ) || ( mBox.x + width > level.getWidth() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.x -= mVelX;
@@ -81,18 +81,18 @@ void Dot::move(Level & level)
     mBox.y += mVelY;
 
     //If the dot went too far up or down or touched a wall
-    if( ( mBox.y < 0 ) || ( mBox.y + DOT_HEIGHT > level.getHeight() ) || touchesWall( tiles ) )
+    if( ( mBox.y < 0 ) || ( mBox.y + height > level.getHeight() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.y -= mVelY;
     }
 }
 
-void Dot::setCamera(SDL_Rect & camera, Level & level, int screen_width, int screen_height)
+void Character::setCamera(SDL_Rect & camera, Level & level, int screen_width, int screen_height)
 {
     //Center the camera over the dot
-    camera.x = ( mBox.x + DOT_WIDTH / 2 ) - screen_width / 2;
-    camera.y = ( mBox.y + DOT_HEIGHT / 2 ) - screen_height / 2;
+    camera.x = ( mBox.x + width / 2 ) - screen_width / 2;
+    camera.y = ( mBox.y + height / 2 ) - screen_height / 2;
 
     int level_width = level.getWidth();
     int level_height = level.getHeight();
@@ -116,6 +116,6 @@ void Dot::setCamera(SDL_Rect & camera, Level & level, int screen_width, int scre
     }
 }
 
-SDL_Rect Dot::getCollisionBox() {
+SDL_Rect Character::getCollisionBox() {
     return mBox;
 }

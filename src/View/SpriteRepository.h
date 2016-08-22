@@ -13,7 +13,7 @@ class SpriteRepository {
 public:
     Sprite & getSprite(std::string name);
 
-    void addSprite(Sprite * s);
+    void addSprite(std::unique_ptr<Sprite> sp);
 
 private:
     std::map<std::string,std::unique_ptr<Sprite>> sprites;

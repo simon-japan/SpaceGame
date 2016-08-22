@@ -4,14 +4,27 @@
   <xs:complexType name="rootType">
     <xs:sequence>
       <xs:element type="texturesType" name="textures"/>
+      <xs:element type="spritesType" name="sprites"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="textureType">
+  <xs:complexType name="spriteType">
     <xs:sequence>
       <xs:element type="clipType" name="clip" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute type="xs:string" name="name" use="optional"/>
-    <xs:attribute type="xs:string" name="file" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="spritesType">
+    <xs:sequence>
+      <xs:element type="spriteType" name="sprite" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="textureType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="file" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
   </xs:complexType>
   <xs:complexType name="texturesType">
     <xs:sequence>
@@ -21,12 +34,11 @@
   <xs:complexType name="clipType">
     <xs:simpleContent>
       <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="texture" use="optional"/>
         <xs:attribute type="xs:string" name="x" use="optional"/>
         <xs:attribute type="xs:string" name="y" use="optional"/>
         <xs:attribute type="xs:string" name="w" use="optional"/>
         <xs:attribute type="xs:string" name="h" use="optional"/>
-        <xs:attribute type="xs:string" name="id" use="optional"/>
-        <xs:attribute type="xs:string" name="is_sprite" use="optional"/>
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>

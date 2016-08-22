@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void Renderer::renderAll(SDL_Rect& camera, Level & level, Dot & dot) {
+void Renderer::renderAll(SDL_Rect& camera, Level & level, Character & player) {
 
     //Clear screen
     SDL_SetRenderDrawColor( sdlRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -21,7 +21,6 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Dot & dot) {
     const vector<Tile> & tiles = level.getTiles();
     for( auto & tile : tiles )
     {
-    //    cout << "\nattempting to render tile: " << tile << endl;
 
         SDL_Rect box = tile.getCollisionBox();
 
@@ -31,8 +30,6 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Dot & dot) {
             // Look up which sprite to use, from the map of registered sprites,
             // based on the string provided by the Tile to identify its visual type.
             Sprite & sprite = spriteRepository.getSprite(tile.getTypeName());
-
-    //        cout << "attempting to render sprite: " << sprite << endl;
 
             // Render the sprite at the tile's absolute location, modified by the position of the camera.
             sprite.render(box.x - camera.x, box.y - camera.y, sdlRenderer);
@@ -46,10 +43,17 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Dot & dot) {
     cout << endl;
 
 
-    //Render dot - it must be rendered after all of the tiles
-    SDL_Rect dotBox = dot.getCollisionBox();
-    Sprite & dotSprite = spriteRepository.getSprite("dot");
-    dotSprite.render(dotBox.x - camera.x, dotBox.y - camera.y, sdlRenderer);
+    //Render player - it must be rendered after all of the tiles
+    SDL_Rect playerBox = player.getCollisionBox();
+    Sprite & playerSprite = spriteRepository.getSprite("spaceman_walk");
+    playerSprite.render(playerBox.x - camera.x, playerBox.y - camera.y, sdlRenderer);
+
+    // Animation is the same as long as the sprite is moving in any direction.
+    // Todo: direction-specific animation, maybe flipping on x-plane at least
+    if (player.getXVelocity() || player.getYVelocity())
+    {
+        playerSprite.nextAnimationFrame(); // If the sprite is animated, continue the animation loop
+    }
 
     //Update screen
     SDL_RenderPresent( sdlRenderer );

@@ -11,18 +11,14 @@
 #include "Level.h"
 
 //The dot that will move around on the screen
-class Dot
+class Character
 {
 public:
-    //The dimensions of the dot
-    static const int DOT_WIDTH = 20;
-    static const int DOT_HEIGHT = 20;
-
-    //Maximum axis velocity of the dot
-    static const int DOT_VEL = 10;
+    //Maximum axis velocity
+    static const int CHARACTER_VEL = 10;
 
     //Initializes the variables
-    Dot();
+    Character(int w, int h, std::string n);
 
     //Takes key presses and adjusts the dot's velocity
     void handleEvent( SDL_Event& e );
@@ -35,12 +31,20 @@ public:
 
     SDL_Rect getCollisionBox();
 
+    int getXVelocity() { return mVelX; };
+
+    int getYVelocity() { return mVelY; };
+
 private:
     //Collision box of the dot
     SDL_Rect mBox;
 
     //The velocity of the dot
     int mVelX, mVelY;
+
+    int width, height;
+
+    std::string name;
 
     bool touchesWall( const std::vector<Tile> & tiles );
 };

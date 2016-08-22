@@ -6,17 +6,26 @@
 #include "Sprite.h"
 
 void Sprite::render(const int x, const int y, SDL_Renderer* sdlRenderer) {
-    //std::cout << "Sprite::render - clipsOffset:" << clipsOffset << ", nextClipIndex: " << nextClipIndex << std::endl;
-    texture.renderClipByIndex(x, y, sdlRenderer, clipsOffset + nextClipIndex);
+    clips[nextClipIndex].render(x, y, sdlRenderer);
 }
 
-void Sprite::nextFrame() {
-    nextClipIndex = nextClipIndex < numberOfClips - 1 ? nextClipIndex + 1 : 0;
+void Sprite::nextAnimationFrame() {
+    nextClipIndex = nextClipIndex < clips.size() - 1 ? nextClipIndex + 1 : 0;
 }
 
 const std::string Sprite::getName() const{
     return name;
 }
+
+void Sprite::addClip(LTexture & texture, int x, int y, int w, int h) {
+    SDL_Rect clip;
+    clip.x = x;
+    clip.y = y;
+    clip.w = w;
+    clip.h = h;
+    clips.emplace_back(texture, clip);
+}
+
 
 
 

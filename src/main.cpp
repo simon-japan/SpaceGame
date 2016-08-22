@@ -8,7 +8,7 @@ and may not be redistributed without written permission.*/
 #include <fstream>
 #include "View/LTexture.h"
 #include "Model/Tile.h"
-#include "Model/Dot.h"
+#include "Model/Character.h"
 #include "View/Renderer.h"
 #include "Serialization/SpriteLoader.h"
 #include "Serialization/LevelLoader.h"
@@ -114,8 +114,8 @@ int main( int argc, char* args[] )
 		//Event handler
 		SDL_Event e;
 
-		//The dot that will be moving around on the screen
-		Dot dot;
+		//The character that will be moving around on the screen
+		Character player(0, 0, std::string("Player"));
 
 		//Level camera
 		SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
@@ -125,10 +125,9 @@ int main( int argc, char* args[] )
 
 		TextureRepository textureRepository;
 
-		SpriteLoader spriteLoader;
+		SpriteLoader spriteLoader(textureRepository,spriteRepository,gRenderer);
 
-		spriteLoader.loadSprites("configuration/sprites.xml", spriteRepository,
-								 textureRepository, gRenderer);
+		spriteLoader.loadSprites("configuration/sprites.xml");
 
 		LevelLoader levelLoader(spriteRepository);
 
@@ -154,14 +153,14 @@ int main( int argc, char* args[] )
 				}
 
 				//Handle input for the dot
-				dot.handleEvent( e );
+				player.handleEvent( e );
 			}
 
 			//Move the dot
-			dot.move( *levelPtr );
-			dot.setCamera( camera, *levelPtr, SCREEN_WIDTH, SCREEN_HEIGHT);
+			player.move( *levelPtr );
+			player.setCamera( camera, *levelPtr, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-			renderer.renderAll(camera, *levelPtr, dot);
+			renderer.renderAll(camera, *levelPtr, player);
 
 		}
 

@@ -1,22 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="sprites.xsd">
     <textures>
-        <texture name="tiles" file="resources/images/tiles.png">
-            <clip x="0" y="0" w="80" h="80" id="tile_red"/>
-            <clip x="0" y="80" w="80" h="80" id="tile_green"/>
-            <clip x="0" y="160" w="80" h="80" id="tile_blue"/>
-            <clip x="80" y="0" w="80" h="80" id="tile_topleft"/>
-            <clip x="80" y="80" w="80" h="80" id="tile_left"/>
-            <clip x="80" y="160" w="80" h="80" id="tile_bottomleft"/>
-            <clip x="160" y="0" w="80" h="80" id="tile_top"/>
-            <clip x="160" y="80" w="80" h="80" id="tile_center"/>
-            <clip x="160" y="160" w="80" h="80" id="tile_bottom"/>
-            <clip x="240" y="0" w="80" h="80" id="tile_topright"/>
-            <clip x="240" y="80" w="80" h="80" id="tile_right"/>
-            <clip x="240" y="160" w="80" h="80" id="tile_bottomright"/>
-        </texture>
-        <texture name="dot" file="resources/images/dot.bmp">
-            <clip id="dot" x="0" y="0" w="20" h="20" is_sprite="true"/>
-        </texture>
+        <texture name="tiles" file="resources/images/tiles.png"/>
+        <texture name="spaceman" file="resources/images/SpaceSoldier.png"/>
     </textures>
+    <sprites>
+        <sprite name="tile_red">
+            <clip texture="tiles" x="0" y="0" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_green">
+            <clip texture="tiles" x="0" y="80" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_blue">
+            <clip texture="tiles" x="0" y="160" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_topleft">
+            <clip texture="tiles" x="80" y="0" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_left">
+            <clip texture="tiles" x="80" y="80" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_bottomleft">
+            <clip texture="tiles" x="80" y="160" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_top">
+            <clip texture="tiles" x="160" y="0" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_center">
+            <clip texture="tiles" x="160" y="80" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_bottom">
+            <clip texture="tiles" x="160" y="160" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_topright">
+            <clip texture="tiles" x="240" y="0" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_right">
+            <clip texture="tiles" x="240" y="80" w="80" h="80"/>
+        </sprite>
+        <sprite name="tile_bottomright">
+            <clip texture="tiles" x="240" y="160" w="80" h="80"/>
+        </sprite>
+        <sprite name="spaceman_walk">
+            <clip texture="spaceman" x="8" y="67" w="50" h="50"/>
+            <clip texture="spaceman" x="59" y="67" w="50" h="50"/>
+            <clip texture="spaceman" x="110" y="67" w="50" h="50"/>
+            <clip texture="spaceman" x="161" y="67" w="50" h="50"/>
+            <clip texture="spaceman" x="212" y="67" w="50" h="50"/>
+            <clip texture="spaceman" x="263" y="67" w="50" h="50"/>
+            <clip texture="spaceman" x="314" y="67" w="50" h="50"/>
+            <clip texture="spaceman" x="365" y="67" w="50" h="50"/>
+        </sprite>
+    </sprites>
 </root>

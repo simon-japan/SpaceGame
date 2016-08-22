@@ -156,43 +156,6 @@ int LTexture::getHeight()
     return mHeight;
 }
 
-size_t LTexture::addClip(int x, int y, int w, int h) {
-    SDL_Rect clip;
-    clip.x = x;
-    clip.y = y;
-    clip.w = w;
-    clip.h = h;
-    clips.push_back(clip);
-    return clips.size() - 1;
-}
-
-int LTexture::renderClipByIndex(int x, int y, SDL_Renderer *gRenderer, size_t clip_index, double angle,
-                                SDL_Point *center,
-                                SDL_RendererFlip flip) {
-
-    //cout << "LTexture::renderClipByIndex(x:" << x << ", y:" << y << ", index: " << clip_index << ")" << endl;
-
-    if (clips.size() == 0)
-    {
-        render(x, y, gRenderer, nullptr);
-        return 0;
-    }
-    else
-    {
-        // Requested clip not found
-        if (clip_index >= clips.size())
-        {
-            return 1;
-        }
-        else
-        {
-            render(x, y, gRenderer, &clips[clip_index]);
-            return 0;
-        }
-    }
-}
-
-
 
 
 

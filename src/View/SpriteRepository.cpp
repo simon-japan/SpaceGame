@@ -10,9 +10,9 @@ Sprite & SpriteRepository::getSprite(string name) {
     return *(sprites.at(name));
 }
 
-void SpriteRepository::addSprite(Sprite * s) {
-    string name = s->getName();
-    sprites.insert(make_pair(name, unique_ptr<Sprite>(s)));
+void SpriteRepository::addSprite(std::unique_ptr<Sprite> sp) {
+    string name = sp->getName();
+    sprites.insert(make_pair(name, std::move(sp)));
 }
 
 

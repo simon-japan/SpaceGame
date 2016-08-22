@@ -9,7 +9,7 @@
 #include <SDL.h>
 #include "LTexture.h"
 #include "../Model/Level.h"
-#include "../Model/Dot.h"
+#include "../Model/Character.h"
 #include "Sprite.h"
 #include "SpriteRepository.h"
 
@@ -18,7 +18,7 @@ class Renderer {
 public:
     Renderer(SDL_Renderer* r, SpriteRepository & sr): sdlRenderer(r), spriteRepository(sr) {};
 
-    void renderAll(SDL_Rect& camera, Level & level, Dot & dot);
+    void renderAll(SDL_Rect& camera, Level & level, Character & dot);
 
 private:
     SDL_Renderer * sdlRenderer;
