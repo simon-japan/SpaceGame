@@ -29,16 +29,16 @@ class SerializationTest : public ::testing::Test {
 
 TEST_F(SerializationTest, SpriteLoaderCanLoadValidSpriteFile)
 {
-    SpriteLoader spriteLoader;
-    int rc = spriteLoader.loadSprites("configuration/sprites.xml", spriteRepository, textureRepository, gRenderer);
+    SpriteLoader spriteLoader(textureRepository, spriteRepository, gRenderer);
+    int rc = spriteLoader.loadSprites("configuration/sprites.xml");
     EXPECT_EQ(rc, 0);
 
 }
 
 TEST_F(SerializationTest, SpriteLoaderComplainIfSpriteFileDoesntExist)
 {
-    SpriteLoader spriteLoader;
-    int rc = spriteLoader.loadSprites("bogus.xml", spriteRepository, textureRepository, gRenderer);
+    SpriteLoader spriteLoader(textureRepository, spriteRepository, gRenderer);
+    int rc = spriteLoader.loadSprites("bogus.xml");
     EXPECT_NE(rc, 0);
 }
 

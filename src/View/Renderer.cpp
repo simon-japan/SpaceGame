@@ -49,7 +49,7 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Character & player) {
     playerSprite.render(playerBox.x - camera.x, playerBox.y - camera.y, sdlRenderer);
 
     // Animation is the same as long as the sprite is moving in any direction.
-    // Todo: direction-specific animation, maybe flipping on x-plane at least
+    // Todo: switch between sprites depending on the state of the model (eg standing vs running animation)
     if (player.getXVelocity() || player.getYVelocity())
     {
         playerSprite.nextAnimationFrame(); // If the sprite is animated, continue the animation loop
