@@ -8,5 +8,5 @@ add_executable(runBasicTests
 target_link_libraries(
         runBasicTests
         gtest gtest_main
-        sdTestLib
+        SpaceGameLib
 )
