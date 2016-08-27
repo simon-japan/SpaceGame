@@ -7,12 +7,13 @@
 
 #include <SDL.h>
 #include "TileType.h"
+#include "GameObject.h"
 #include <iostream>
 
 const int TILE_WIDTH = 80;
 const int TILE_HEIGHT = 80;
 
-class Tile
+class Tile: public GameObject
 {
 public:
     //Initializes position and type

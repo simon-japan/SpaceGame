@@ -140,6 +140,9 @@ int main( int argc, char* args[] )
                                          *spriteRepository.getSprite("spaceman_standing_right"),
                                          *spriteRepository.getSprite("spaceman_walking_right"));
 
+		vector<Character*> characters;
+		characters.push_back(&player);
+
         Sprite & slugSprite = *(spriteRepository.getSprite("slug"));
         CharacterRenderer slugRenderer(slugSprite,slugSprite,slugSprite,slugSprite);
 
@@ -147,7 +150,7 @@ int main( int argc, char* args[] )
 		// It can render a whole scene: you give it the camera and the level (and for now, just a dot)
 		// It will use the sprite repository to find the sprite for each object it needs to render,
 		// and uses the SDL renderer
-		Renderer renderer(gRenderer, playerRenderer, spriteRepository);
+		Renderer renderer(gRenderer, spriteRepository);
 
 		//While application is running
 		while( !quit )
@@ -169,7 +172,7 @@ int main( int argc, char* args[] )
 			player.move( *levelPtr );
 			player.setCamera( camera, *levelPtr, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-			renderer.renderAll(camera, *levelPtr, player);
+			renderer.renderAll(camera, *levelPtr, characters);
 
 		}
 

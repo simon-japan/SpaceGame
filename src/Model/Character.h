@@ -9,11 +9,12 @@
 #include <vector>
 #include "Tile.h"
 #include "Level.h"
+#include "GameObject.h"
 
 enum Direction { left, right };
 
 //The dot that will move around on the screen
-class Character
+class Character: public GameObject
 {
 public:
     //Maximum axis velocity
@@ -55,6 +56,7 @@ private:
     std::string name;
 
     bool touchesWall( const std::vector<Tile> & tiles );
+
 };
 
 

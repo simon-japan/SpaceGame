@@ -4,7 +4,7 @@
 
 #include "CharacterRenderer.h"
 
-void CharacterRenderer::render(Character character, SDL_Rect camera, SDL_Renderer *sdlRenderer) {
+void CharacterRenderer::render(SDL_Rect camera, SDL_Renderer *sdlRenderer) {
     SDL_Rect playerBox = character.getCollisionBox();
     Sprite * playerSprite = nullptr;
     if (character.getXVelocity() || character.getYVelocity())

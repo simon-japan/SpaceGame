@@ -7,29 +7,28 @@
 
 #include <SDL_system.h>
 #include <SDL.h>
+#include <unordered_map>
 #include "LTexture.h"
 #include "../Model/Level.h"
 #include "../Model/Character.h"
 #include "Sprite.h"
 #include "SpriteRepository.h"
 #include "CharacterRenderer.h"
+#include <boost/functional/hash.hpp>
 
 class Renderer {
 
 public:
-    Renderer(SDL_Renderer* r, CharacterRenderer & cr, SpriteRepository & sr): sdlRenderer(r),
-                                                                              playerRenderer(cr),
-                                                                              spriteRepository(sr){};
+    Renderer(SDL_Renderer* r, SpriteRepository & sr): sdlRenderer(r), spriteRepository(sr){};
 
-    void renderAll(SDL_Rect& camera, Level & level, Character & dot);
+    void renderAll(SDL_Rect& camera, Level & level, std::vector<Character*> & characters);
 
 private:
     SDL_Renderer * sdlRenderer;
 
     SpriteRepository & spriteRepository;
 
-    CharacterRenderer & playerRenderer;
-
+    std::unordered_map<boost::uuids::uuid, GameObjectRenderer *, boost::hash<boost::uuids::uuid>> rendererRegistry;
 };
 
 

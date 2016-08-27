@@ -10,7 +10,7 @@ using namespace std;
 
 // TODO: take a list of characters and figure out somehow which CharacterRenderer to use for each one.
 
-void Renderer::renderAll(SDL_Rect& camera, Level & level, Character & player) {
+void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & characters) {
 
     //Clear screen
     SDL_SetRenderDrawColor( sdlRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -20,6 +20,7 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Character & player) {
     // TODO: some kind of logging
 
     //Render tiles from level
+    // TODO: do something similar (or the same) for tiles as for characters, ie abstract the mapping of model identitiy/state--> sprite identity/state, into a separate class
     const vector<Tile> & tiles = level.getTiles();
     for( auto & tile : tiles )
     {
@@ -49,17 +50,24 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Character & player) {
         }
 
     }
-    cout << endl;
 
-    //Render player - it must be rendered after all of the tiles
-    playerRenderer.render(player, camera, sdlRenderer);
+    CharacterRenderer * characterRenderer;
+
+    //Render characters - after all of the tiles, because the characters are on top.
+    for (auto character: characters) {
+        if (rendererRegistry.find(character->getUUID()) != rendererRegistry.end())
+        {
+            characterRenderer =rendererRegistry[character->getUUID()];
+        }
+        else
+        {
+            // Todo: crate a renderer... need to consider the lifecycle of the object
+        }
+        characterRenderer->render(*character, camera, sdlRenderer);
+    }
 
     //Update screen
     SDL_RenderPresent( sdlRenderer );
 
 }
-
-
-
-
 

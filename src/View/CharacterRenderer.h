@@ -9,18 +9,24 @@
 #include <SDL_system.h>
 #include "../Model/Character.h"
 #include "SpriteRepository.h"
+#include "GameObjectRenderer.h"
 
-class CharacterRenderer {
+class CharacterRenderer: public GameObjectRenderer {
 public:
-    CharacterRenderer(Sprite & sl, Sprite & wl, Sprite & sr, Sprite & wr): standingLeftSprite(sl),
-                                                                           walkingLeftSprite(wl),
-                                                                           standingRightSprite(sr),
-                                                                           walkingRightSprite(wr),
-                                                                           animationState(0){};
+    CharacterRenderer(Character & c, Sprite & sl, Sprite & wl, Sprite & sr, Sprite & wr) :
+            character(c),
+            standingLeftSprite(sl),
+            walkingLeftSprite(wl),
+            standingRightSprite(sr),
+            walkingRightSprite(wr),
+            animationState(0)
+    {};
 
-    void render(Character character, SDL_Rect camera, SDL_Renderer *sdlRenderer);
+    void render(SDL_Rect camera, SDL_Renderer *sdlRenderer) override;
 
 private:
+    Character & character;
+
     Sprite & standingLeftSprite;
     Sprite & walkingLeftSprite;
     Sprite & standingRightSprite;
