@@ -20,7 +20,9 @@ public:
 
     void nextAnimationFrame();
 
-    void render(const int x, const int y, SDL_Renderer* sdlRenderer);
+    void render(const int x, const int y, SDL_Renderer *sdlRenderer);
+
+    void render(SDL_Rect & target,  SDL_Renderer *sdlRenderer);
 
     const std::string getName() const;
 

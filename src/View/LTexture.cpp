@@ -21,7 +21,7 @@ LTexture::~LTexture()
     free();
 }
 
-bool LTexture::loadFromFile( string path, SDL_Renderer* gRenderer)
+bool LTexture::loadFromFile(std::string path, SDL_Renderer *gRenderer)
 {
     //Get rid of preexisting texture
     free();
@@ -37,8 +37,6 @@ bool LTexture::loadFromFile( string path, SDL_Renderer* gRenderer)
     }
     else
     {
-        //Color key image
-        SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
 
         //Create texture from surface pixels
         newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
@@ -146,6 +144,13 @@ void LTexture::render( int x, int y, SDL_Renderer* gRenderer, SDL_Rect* clip, do
     SDL_RenderCopyEx( gRenderer, mTexture, clip, &renderQuad, angle, center, flip );
 }
 
+void LTexture::render(SDL_Rect target, SDL_Renderer *gRenderer, SDL_Rect *clip, double angle, SDL_Point *center,
+                      SDL_RendererFlip flip) {
+
+    SDL_RenderCopyEx( gRenderer, mTexture, clip, &target, angle, center, flip );
+}
+
+
 int LTexture::getWidth()
 {
     return mWidth;
@@ -155,7 +160,6 @@ int LTexture::getHeight()
 {
     return mHeight;
 }
-
 
 
 

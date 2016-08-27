@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="sprites.xsd">
     <textures>
-        <texture name="tiles" file="resources/images/tiles.png"/>
+        <texture name="tiles" file="resources/images/scifitiles-sheet.png"/>
         <texture name="spaceman" file="resources/images/SpaceSoldier.png"/>
+        <texture name="slug" file="resources/images/slug.png"/>
+        <texture name="tile_trak" file="resources/images/trak2_tile1b.png"/>
     </textures>
     <sprites>
-        <sprite name="tile_red">
-            <clip texture="tiles" x="0" y="0" w="80" h="80"/>
+        <sprite name="tile_ground">
+            <clip texture="tiles" x="190" y="126" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_green">
-            <clip texture="tiles" x="0" y="80" w="80" h="80"/>
+        <sprite name="tile_trak2">
+            <clip texture="tile_trak" x="129" y="0" w="128" h="128"/>
         </sprite>
-        <sprite name="tile_blue">
-            <clip texture="tiles" x="0" y="160" w="80" h="80"/>
+        <sprite name="tile_trak3">
+            <clip texture="tile_trak" x="0" y="129" w="128" h="128"/>
         </sprite>
         <sprite name="tile_topleft">
             <clip texture="tiles" x="80" y="0" w="80" h="80"/>
@@ -41,7 +43,7 @@
         <sprite name="tile_bottomright">
             <clip texture="tiles" x="240" y="160" w="80" h="80"/>
         </sprite>
-        <sprite name="spaceman_walk">
+        <sprite name="spaceman_walking_right">
             <clip texture="spaceman" x="8" y="67" w="50" h="50"/>
             <clip texture="spaceman" x="59" y="67" w="50" h="50"/>
             <clip texture="spaceman" x="110" y="67" w="50" h="50"/>
@@ -50,6 +52,25 @@
             <clip texture="spaceman" x="263" y="67" w="50" h="50"/>
             <clip texture="spaceman" x="314" y="67" w="50" h="50"/>
             <clip texture="spaceman" x="365" y="67" w="50" h="50"/>
+        </sprite>
+        <sprite name="spaceman_walking_left">
+            <clip texture="spaceman" x="8" y="123" w="50" h="50"/>
+            <clip texture="spaceman" x="59" y="123" w="50" h="50"/>
+            <clip texture="spaceman" x="110" y="123" w="50" h="50"/>
+            <clip texture="spaceman" x="161" y="123" w="50" h="50"/>
+            <clip texture="spaceman" x="212" y="123" w="50" h="50"/>
+            <clip texture="spaceman" x="263" y="123" w="50" h="50"/>
+            <clip texture="spaceman" x="314" y="123" w="50" h="50"/>
+            <clip texture="spaceman" x="365" y="123" w="50" h="50"/>
+        </sprite>
+        <sprite name="spaceman_standing_right">
+            <clip texture="spaceman" x="8" y="11" w="50" h="50"/>
+        </sprite>
+        <sprite name="spaceman_standing_left">
+            <clip texture="spaceman" x="59" y="11" w="50" h="50"/>
+        </sprite>
+        <sprite name="slug">
+            <clip texture="slug" x="0" y="0" w="32" h="32"/>
         </sprite>
     </sprites>
 </root>

@@ -10,6 +10,8 @@
 #include "Tile.h"
 #include "Level.h"
 
+enum Direction { left, right };
+
 //The dot that will move around on the screen
 class Character
 {
@@ -35,6 +37,8 @@ public:
 
     int getYVelocity() { return mVelY; };
 
+    Direction getDirection() { return direction; };
+
 private:
     //Collision box of the dot
     SDL_Rect mBox;
@@ -43,6 +47,8 @@ private:
     int mVelX, mVelY;
 
     int width, height;
+
+    Direction direction;
 
     std::string name;
 

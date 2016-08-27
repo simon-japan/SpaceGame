@@ -7,3 +7,7 @@
 void Clip::render(const int x, const int y, SDL_Renderer *sdlRenderer) {
     return texture.render(x, y, sdlRenderer, &dimensions);
 }
+
+void Clip::render(SDL_Rect & target, SDL_Renderer *sdlRenderer) {
+    return texture.render(target, sdlRenderer, &dimensions);
+}

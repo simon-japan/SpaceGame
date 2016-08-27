@@ -4,7 +4,7 @@
 
 #include "Character.h"
 
-Character::Character(int w, int h, std::string n): width(w), height(h), name(n)
+Character::Character(int w, int h, std::string n): width(w), height(h), name(n), mVelX(0), mVelY(0), direction(right)
 {
     //Initialize the collision box
     mBox.x = 0;
@@ -12,9 +12,6 @@ Character::Character(int w, int h, std::string n): width(w), height(h), name(n)
     mBox.w = width;
     mBox.h = height;
 
-    //Initialize the velocity
-    mVelX = 0;
-    mVelY = 0;
 }
 
 void Character::handleEvent( SDL_Event& e )
@@ -69,6 +66,15 @@ void Character::move(Level & level)
 
     //Move the dot left or right
     mBox.x += mVelX;
+
+    if (mVelX > 0)
+    {
+        direction = right;
+    }
+    else if (mVelX < 0)
+    {
+        direction = left;
+    }
 
     //If the dot went too far to the left or right or touched a wall
     if( ( mBox.x < 0 ) || ( mBox.x + width > level.getWidth() ) || touchesWall( tiles ) )

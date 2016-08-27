@@ -14,6 +14,8 @@ public:
 
     void render(const int x, const int y, SDL_Renderer* sdlRenderer);
 
+    void render(SDL_Rect & target, SDL_Renderer* sdlRenderer);
+
 private:
     LTexture & texture;
     SDL_Rect dimensions;

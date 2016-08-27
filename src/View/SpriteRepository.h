@@ -11,7 +11,7 @@
 class SpriteRepository {
 
 public:
-    Sprite & getSprite(std::string name);
+    Sprite * getSprite(std::string name);
 
     void addSprite(std::unique_ptr<Sprite> sp);
 

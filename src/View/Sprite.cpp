@@ -5,8 +5,12 @@
 #include <iostream>
 #include "Sprite.h"
 
-void Sprite::render(const int x, const int y, SDL_Renderer* sdlRenderer) {
+void Sprite::render(const int x, const int y, SDL_Renderer *sdlRenderer) {
     clips[nextClipIndex].render(x, y, sdlRenderer);
+}
+
+void Sprite::render(SDL_Rect & target, SDL_Renderer *sdlRenderer) {
+    clips[nextClipIndex].render(target, sdlRenderer);
 }
 
 void Sprite::nextAnimationFrame() {

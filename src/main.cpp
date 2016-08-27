@@ -51,7 +51,7 @@ bool init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
+		gWindow = SDL_CreateWindow( "Simon's Space Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH,
 									SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
 		if( gWindow == NULL )
 		{
@@ -81,6 +81,7 @@ bool init()
 				}
 			}
 		}
+
 	}
 
 	return success;
@@ -115,7 +116,7 @@ int main( int argc, char* args[] )
 		SDL_Event e;
 
 		//The character that will be moving around on the screen
-		Character player(0, 0, std::string("Player"));
+		Character player(50, 50, std::string("Player"));
 
 		//Level camera
 		SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
