@@ -3,18 +3,53 @@
 //
 
 #include <iostream>
+#include <sstream>
 #include "Sprite.h"
 
-void Sprite::render(const int x, const int y, SDL_Renderer *sdlRenderer) {
-    clips[nextClipIndex].render(x, y, sdlRenderer);
+int Sprite::render(const int x, const int y, const int index, SDL_Renderer *sdlRenderer) {
+    if(index >= clips.size())
+    {
+        std::ostringstream ostringstream;
+        ostringstream << index << " is outside the bounds of the clip index: " << clips.size();
+        throw std::invalid_argument(ostringstream.str());
+    }
+    else
+    {
+        clips[index].render(x, y, sdlRenderer);
+
+        // Return the next clip index (possibly looping back to the beginning)
+        if (index == clips.size() - 1)
+        {
+            return 0;
+        }
+        else
+        {
+            return index + 1;
+        }
+    }
 }
 
-void Sprite::render(SDL_Rect & target, SDL_Renderer *sdlRenderer) {
-    clips[nextClipIndex].render(target, sdlRenderer);
-}
+int Sprite::render(SDL_Rect & target, const int index, SDL_Renderer *sdlRenderer) {
+    if(index >= clips.size())
+    {
+        std::ostringstream ostringstream;
+        ostringstream << index << " is outside the bounds of the clip index: " << clips.size();
+        throw std::invalid_argument(ostringstream.str());
+    }
+    else
+    {
+        clips[index].render(target, sdlRenderer);
 
-void Sprite::nextAnimationFrame() {
-    nextClipIndex = nextClipIndex < clips.size() - 1 ? nextClipIndex + 1 : 0;
+        // Return the next clip index (possibly looping back to the beginning)
+        if (index == clips.size())
+        {
+            return 0;
+        }
+        else
+        {
+            return index + 1;
+        }
+    }
 }
 
 const std::string Sprite::getName() const{

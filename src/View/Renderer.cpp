@@ -37,7 +37,7 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Character & player) {
             target.y = box.y - camera.y;
             target.w = TILE_WIDTH;
             target.h = TILE_HEIGHT;
-            sprite->render(target, sdlRenderer);
+            sprite->render(target, 0, sdlRenderer);
 
             //cout << "Rendered tile: " << box.x << "," << box.y << endl;
         }
@@ -49,39 +49,8 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, Character & player) {
     }
     cout << endl;
 
-
     //Render player - it must be rendered after all of the tiles
-    SDL_Rect playerBox = player.getCollisionBox();
-    Sprite * playerSprite = nullptr;
-    if (player.getXVelocity() || player.getYVelocity())
-    {
-        if (player.getDirection() == Direction::right) {
-            playerSprite = spriteRepository.getSprite("spaceman_walking_right");
-        }
-        else
-        {
-            playerSprite = spriteRepository.getSprite("spaceman_walking_left");
-        }
-    }
-    else
-    {
-        if (player.getDirection() == Direction::right)
-        {
-            playerSprite = spriteRepository.getSprite("spaceman_standing_right");
-        }
-        else
-        {
-            playerSprite = spriteRepository.getSprite("spaceman_standing_left");
-        }
-
-    }
-    playerSprite->render(playerBox.x - camera.x, playerBox.y - camera.y, sdlRenderer);
-
-    // I'm treating the animation state as being a part of the view
-    if (player.getXVelocity() || player.getYVelocity())
-    {
-        playerSprite->nextAnimationFrame(); // If the sprite is animated, continue the animation loop
-    }
+    playerRenderer.render(player, camera, sdlRenderer);
 
     //Update screen
     SDL_RenderPresent( sdlRenderer );

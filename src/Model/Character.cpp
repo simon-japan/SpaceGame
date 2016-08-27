@@ -64,7 +64,7 @@ void Character::move(Level & level)
 {
     const std::vector<Tile> & tiles(level.getTiles());
 
-    //Move the dot left or right
+    //Move the character left or right
     mBox.x += mVelX;
 
     if (mVelX > 0)
@@ -76,17 +76,17 @@ void Character::move(Level & level)
         direction = left;
     }
 
-    //If the dot went too far to the left or right or touched a wall
+    //If the character went too far to the left or right or touched a wall
     if( ( mBox.x < 0 ) || ( mBox.x + width > level.getWidth() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.x -= mVelX;
     }
 
-    //Move the dot up or down
+    //Move the character up or down
     mBox.y += mVelY;
 
-    //If the dot went too far up or down or touched a wall
+    //If the character went too far up or down or touched a wall
     if( ( mBox.y < 0 ) || ( mBox.y + height > level.getHeight() ) || touchesWall( tiles ) )
     {
         //move back
@@ -96,7 +96,7 @@ void Character::move(Level & level)
 
 void Character::setCamera(SDL_Rect & camera, Level & level, int screen_width, int screen_height)
 {
-    //Center the camera over the dot
+    //Center the camera over the character
     camera.x = ( mBox.x + width / 2 ) - screen_width / 2;
     camera.y = ( mBox.y + height / 2 ) - screen_height / 2;
 

@@ -20,7 +20,7 @@ include_directories(
         ${XercesC_INCLUDE_DIRS}
 )
 
-set(SOURCE_FILES src/View/LTexture.cpp src/View/LTexture.h src/Model/Tile.cpp src/Model/Tile.h src/Model/Character.cpp src/Model/Character.h src/Model/Geometry.cpp src/Model/Geometry.h src/Model/Level.cpp src/Model/Level.h src/View/Renderer.cpp src/View/Renderer.h src/View/Sprite.cpp src/View/Sprite.h src/View/SpriteRepository.cpp src/View/SpriteRepository.h src/Serialization/SpriteLoader.cpp src/Serialization/SpriteLoader.h src/View/TextureRepository.cpp src/View/TextureRepository.h src/Serialization/XmlDomErrorHandler.cpp src/Serialization/XmlDomErrorHandler.h src/Serialization/XmlDOMDocument.cpp src/Serialization/XmlDOMDocument.h src/Serialization/LevelLoader.cpp src/Serialization/LevelLoader.h src/Model/TileType.cpp src/Model/TileType.h src/View/Clip.cpp src/View/Clip.h)
+set(SOURCE_FILES src/View/LTexture.cpp src/View/LTexture.h src/Model/Tile.cpp src/Model/Tile.h src/Model/Character.cpp src/Model/Character.h src/Model/Geometry.cpp src/Model/Geometry.h src/Model/Level.cpp src/Model/Level.h src/View/Renderer.cpp src/View/Renderer.h src/View/Sprite.cpp src/View/Sprite.h src/View/SpriteRepository.cpp src/View/SpriteRepository.h src/Serialization/SpriteLoader.cpp src/Serialization/SpriteLoader.h src/View/TextureRepository.cpp src/View/TextureRepository.h src/Serialization/XmlDomErrorHandler.cpp src/Serialization/XmlDomErrorHandler.h src/Serialization/XmlDOMDocument.cpp src/Serialization/XmlDOMDocument.h src/Serialization/LevelLoader.cpp src/Serialization/LevelLoader.h src/Model/TileType.cpp src/Model/TileType.h src/View/Clip.cpp src/View/Clip.h src/View/CharacterRenderer.cpp src/View/CharacterRenderer.h)
 
 add_library(SpaceGameLib STATIC ${SOURCE_FILES})
 

@@ -22,10 +22,10 @@ public:
     //Initializes the variables
     Character(int w, int h, std::string n);
 
-    //Takes key presses and adjusts the dot's velocity
+    //Takes key presses and adjusts the character's velocity
     void handleEvent( SDL_Event& e );
 
-    //Moves the dot and check collision against tiles
+    //Moves the character and check collision against tiles
     void move(Level & level);
 
     //Centers the camera over the dot
@@ -38,6 +38,8 @@ public:
     int getYVelocity() { return mVelY; };
 
     Direction getDirection() { return direction; };
+
+    std::string getName() { return name; };
 
 private:
     //Collision box of the dot

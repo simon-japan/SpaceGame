@@ -12,11 +12,14 @@
 #include "../Model/Character.h"
 #include "Sprite.h"
 #include "SpriteRepository.h"
+#include "CharacterRenderer.h"
 
 class Renderer {
 
 public:
-    Renderer(SDL_Renderer* r, SpriteRepository & sr): sdlRenderer(r), spriteRepository(sr) {};
+    Renderer(SDL_Renderer* r, CharacterRenderer & cr, SpriteRepository & sr): sdlRenderer(r),
+                                                                              playerRenderer(cr),
+                                                                              spriteRepository(sr){};
 
     void renderAll(SDL_Rect& camera, Level & level, Character & dot);
 
@@ -24,6 +27,8 @@ private:
     SDL_Renderer * sdlRenderer;
 
     SpriteRepository & spriteRepository;
+
+    CharacterRenderer & playerRenderer;
 
 };
 
