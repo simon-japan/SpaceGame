@@ -4,8 +4,6 @@
 
 #include "CharacterRenderer.h"
 
-// todo: some logic to control animation state
-
 void CharacterRenderer::render(Character character, SDL_Rect camera, SDL_Renderer *sdlRenderer) {
     SDL_Rect playerBox = character.getCollisionBox();
     Sprite * playerSprite = nullptr;

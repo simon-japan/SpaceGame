@@ -8,6 +8,8 @@
 
 using namespace std;
 
+// TODO: take a list of characters and figure out somehow which CharacterRenderer to use for each one.
+
 void Renderer::renderAll(SDL_Rect& camera, Level & level, Character & player) {
 
     //Clear screen

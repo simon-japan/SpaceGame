@@ -30,5 +30,8 @@ private:
 
 };
 
+// TODO: make this a base class so that animation behavior can be customized based on the type of character
+// TODO: make the set of sprites passed in a bit more abstract, eg a map istead of just 4 pointers
+// TODO: make a factory that builds these based on configuration
 
 #endif //SPACEGAME_CHARACTERRENDERER_H
