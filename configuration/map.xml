@@ -2,31 +2,31 @@
 <root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="map.xsd">
     <tileTypes>
         <tileType sprite="tile_ground" mapid="00" tangible="false"/>
-        <tileType sprite="tile_trak2" mapid="01" tangible="false"/>
+        <tileType sprite="tile_ground" mapid="01" tangible="false"/>
         <tileType sprite="tile_trak3" mapid="02" tangible="false"/>
-        <tileType sprite="tile_topleft" mapid="03" tangible="true"/>
-        <tileType sprite="tile_left" mapid="04" tangible="true"/>
-        <tileType sprite="tile_bottomleft" mapid="05" tangible="true"/>
-        <tileType sprite="tile_top" mapid="06" tangible="true"/>
-        <tileType sprite="tile_center" mapid="07" tangible="true"/>
-        <tileType sprite="tile_bottom" mapid="08" tangible="true"/>
-        <tileType sprite="tile_topright" mapid="09" tangible="true"/>
-        <tileType sprite="tile_right" mapid="10" tangible="true"/>
-        <tileType sprite="tile_bottomright" mapid="11" tangible="true"/>
+        <tileType sprite="tile_blue_topleft" mapid="03" tangible="true"/>
+        <tileType sprite="tile_blue_left" mapid="04" tangible="true"/>
+        <tileType sprite="tile_blue_bottomleft" mapid="05" tangible="true"/>
+        <tileType sprite="tile_blue_top" mapid="06" tangible="true"/>
+        <tileType sprite="tile_blue_center" mapid="07" tangible="true"/>
+        <tileType sprite="tile_blue_bottom" mapid="08" tangible="true"/>
+        <tileType sprite="tile_blue_topright" mapid="09" tangible="true"/>
+        <tileType sprite="tile_blue_right" mapid="10" tangible="true"/>
+        <tileType sprite="tile_blue_bottomright" mapid="11" tangible="true"/>
     </tileTypes>
     <map>
-        00 00 00 00 01 02 00 01 02 00 01 02
-        00 03 06 06 09 00 01 03 06 06 09 00
-        00 00 01 02 10 01 02 00 01 02 10 01
-        00 01 02 00 10 02 00 01 02 00 10 02
-        01 05 08 08 11 00 01 05 08 08 11 00
-        02 00 01 02 00 01 02 00 01 02 00 01
-        00 01 02 00 01 02 00 01 02 00 01 02
-        01 03 06 06 09 00 01 03 06 06 09 00
-        02 00 01 02 10 01 02 00 01 02 10 01
-        00 01 02 00 10 02 00 01 02 00 10 02
-        01 05 08 08 11 00 01 05 08 08 11 00
-        02 00 01 02 00 01 02 00 01 02 00 01
+        00 00 00 00 00 00 00 00 00 00 00 00
+        00 03 06 06 09 00 00 03 06 06 09 00
+        00 00 00 00 10 00 00 00 00 00 10 00
+        00 00 00 00 10 00 00 00 00 00 10 00
+        00 05 08 08 11 00 00 05 08 08 11 00
+        00 00 00 00 00 00 00 00 00 00 00 00
+        00 00 00 00 00 00 00 00 00 00 00 00
+        00 03 06 06 09 00 00 03 06 06 09 00
+        00 00 00 00 10 00 00 00 00 00 10 00
+        00 00 00 00 10 00 00 00 00 00 10 00
+        00 05 08 08 11 00 00 05 08 08 11 00
+        00 00 00 00 00 00 00 00 00 00 00 00
     </map>
 </root>
 

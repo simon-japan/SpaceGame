@@ -8,7 +8,10 @@
     </textures>
     <sprites>
         <sprite name="tile_ground">
-            <clip texture="tiles" x="190" y="126" w="32" h="32"/>
+            <clip texture="tiles" x="192" y="127" w="32" h="32"/>
+        </sprite>
+        <sprite name="tile_ground2">
+            <clip texture="tiles" x="192" y="32" w="32" h="32"/>
         </sprite>
         <sprite name="tile_trak2">
             <clip texture="tile_trak" x="129" y="0" w="128" h="128"/>
@@ -16,32 +19,32 @@
         <sprite name="tile_trak3">
             <clip texture="tile_trak" x="0" y="129" w="128" h="128"/>
         </sprite>
-        <sprite name="tile_topleft">
-            <clip texture="tiles" x="80" y="0" w="80" h="80"/>
+        <sprite name="tile_blue_topleft">
+            <clip texture="tiles" x="160" y="0" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_left">
-            <clip texture="tiles" x="80" y="80" w="80" h="80"/>
+        <sprite name="tile_blue_left">
+            <clip texture="tiles" x="160" y="32" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_bottomleft">
-            <clip texture="tiles" x="80" y="160" w="80" h="80"/>
+        <sprite name="tile_blue_bottomleft">
+            <clip texture="tiles" x="160" y="64" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_top">
-            <clip texture="tiles" x="160" y="0" w="80" h="80"/>
+        <sprite name="tile_blue_top">
+            <clip texture="tiles" x="192" y="0" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_center">
-            <clip texture="tiles" x="160" y="80" w="80" h="80"/>
+        <sprite name="tile_blue_center">
+            <clip texture="tiles" x="192" y="32" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_bottom">
-            <clip texture="tiles" x="160" y="160" w="80" h="80"/>
+        <sprite name="tile_blue_bottom">
+            <clip texture="tiles" x="192" y="64" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_topright">
-            <clip texture="tiles" x="240" y="0" w="80" h="80"/>
+        <sprite name="tile_blue_topright">
+            <clip texture="tiles" x="224" y="0" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_right">
-            <clip texture="tiles" x="240" y="80" w="80" h="80"/>
+        <sprite name="tile_blue_right">
+            <clip texture="tiles" x="224" y="32" w="32" h="32"/>
         </sprite>
-        <sprite name="tile_bottomright">
-            <clip texture="tiles" x="240" y="160" w="80" h="80"/>
+        <sprite name="tile_blue_bottomright">
+            <clip texture="tiles" x="224" y="64" w="32" h="32"/>
         </sprite>
         <sprite name="spaceman_walking_right">
             <clip texture="spaceman" x="8" y="67" w="50" h="50"/>

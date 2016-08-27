@@ -6,8 +6,6 @@
       <file path="$PROJECT_DIR$" />
       <file path="$PROJECT_DIR$/cmake" />
     </sourceRoots>
-    <libraryRoots />
-    <excludeRoots />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
