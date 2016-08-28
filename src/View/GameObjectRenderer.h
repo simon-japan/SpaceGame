@@ -11,7 +11,7 @@
 
 class GameObjectRenderer {
 public:
-    virtual void render(SDL_Rect camera, SDL_Renderer *sdlRenderer) {};
+    virtual void render(SDL_Rect camera, SDL_Renderer *sdlRenderer) = 0;
 };
 
 

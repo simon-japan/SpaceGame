@@ -4,11 +4,12 @@
 
 #include "Character.h"
 
-Character::Character(int w, int h, std::string n): width(w), height(h), mVelX(0), mVelY(0), direction(right), GameObject(n)
+Character::Character(int w, int h, int startingX, int startingY, std::string n)
+        : width(w), height(h), mVelX(0), mVelY(0), direction(right), GameObject(n)
 {
     //Initialize the collision box
-    mBox.x = 0;
-    mBox.y = 0;
+    mBox.x = startingX;
+    mBox.y = startingY;
     mBox.w = width;
     mBox.h = height;
 
@@ -122,6 +123,3 @@ void Character::setCamera(SDL_Rect & camera, Level & level, int screen_width, in
     }
 }
 
-SDL_Rect Character::getCollisionBox() {
-    return mBox;
-}

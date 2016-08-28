@@ -23,9 +23,9 @@ public:
         name = rhs.name;
     }
 
-    boost::uuids::uuid getUUID() { return uuid; }
+    const boost::uuids::uuid getUUID() const { return uuid; }
 
-    virtual std::string getName() { return name; }
+    virtual std::string getName() const { return name; }
 
 private:
 

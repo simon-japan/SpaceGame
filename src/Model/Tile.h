@@ -19,7 +19,7 @@ public:
     //Initializes position and type
     Tile( int x, int y, const TileType & type);
 
-    std::string getName() override { return tileType.getName(); }
+    std::string getName() const override { return tileType.getName(); }
 
     //Get the collision box
     const SDL_Rect getCollisionBox() const;

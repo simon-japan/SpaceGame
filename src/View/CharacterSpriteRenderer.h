@@ -13,7 +13,7 @@
 
 class CharacterSpriteRenderer: public GameObjectRenderer {
 public:
-    CharacterSpriteRenderer(Character & c, Sprite & sl, Sprite & wl, Sprite & sr, Sprite & wr) :
+    CharacterSpriteRenderer(const Character & c, Sprite & sl, Sprite & wl, Sprite & sr, Sprite & wr) :
             character(c),
             standingLeftSprite(sl),
             walkingLeftSprite(wl),
@@ -25,7 +25,7 @@ public:
     void render(SDL_Rect camera, SDL_Renderer *sdlRenderer) override;
 
 private:
-    Character & character;
+    const Character & character;
 
     Sprite & standingLeftSprite;
     Sprite & walkingLeftSprite;

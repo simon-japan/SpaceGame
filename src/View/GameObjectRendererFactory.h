@@ -21,9 +21,9 @@ public:
 
     //GameObjectRendererFactory(SpriteRepository & s): spriteRepository(s) {};
 
-    virtual GameObjectRenderer createTileRenderer(Tile & subject) = delete;
+    virtual std::unique_ptr<GameObjectRenderer> createTileRenderer(const Tile & subject) {};
 
-    virtual GameObjectRenderer createCharacterRenderer(Character & subject) = delete;
+    virtual std::unique_ptr<GameObjectRenderer> createCharacterRenderer(const Character & subject) {};
 
 };
 

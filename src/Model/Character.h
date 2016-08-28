@@ -21,7 +21,7 @@ public:
     static const int CHARACTER_VEL = 10;
 
     //Initializes the variables
-    Character(int w, int h, std::string n);
+    Character(int w, int h, int startingX, int startingY, std::string n);
 
     //Takes key presses and adjusts the character's velocity
     void handleEvent( SDL_Event& e );
@@ -29,22 +29,22 @@ public:
     //Moves the character and check collision against tiles
     void move(Level & level);
 
-    //Centers the camera over the dot
+    //Centers the camera over the character
     void setCamera(SDL_Rect & camera, Level & level, int screen_width, int screen_height);
 
-    SDL_Rect getCollisionBox();
+    SDL_Rect getCollisionBox() const { return mBox; };
 
-    int getXVelocity() { return mVelX; };
+    int getXVelocity() const { return mVelX; };
 
-    int getYVelocity() { return mVelY; };
+    int getYVelocity() const { return mVelY; };
 
-    Direction getDirection() { return direction; };
+    Direction getDirection() const { return direction; };
 
 private:
-    //Collision box of the dot
+    //Collision box of the character
     SDL_Rect mBox;
 
-    //The velocity of the dot
+    //The velocity of the character
     int mVelX, mVelY;
 
     int width, height;

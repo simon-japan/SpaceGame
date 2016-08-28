@@ -21,17 +21,14 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & c
 
     //Render tiles from level
     const vector<Tile> & tiles = level.getTiles();
-    for( auto & tile : tiles )
+    for( const auto & tile : tiles )
     {
 
-        if (rendererRegistry.find(tile.getUUID()) != rendererRegistry.end())
+        if (rendererRegistry.find(tile.getUUID()) == rendererRegistry.end())
         {
-            gameObjectRenderer = &(rendererRegistry[tile.getUUID()]);
+            addTileSpriteRenderer(tile);
         }
-        else
-        {
-            addCharacterSpriteRenderer(tile);
-        }
+        gameObjectRenderer = &*rendererRegistry[tile.getUUID()];
         gameObjectRenderer->render(camera, sdlRenderer);
 
     }
@@ -40,7 +37,7 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & c
     for (auto character: characters) {
         if (rendererRegistry.find(character->getUUID()) != rendererRegistry.end())
         {
-            gameObjectRenderer = &(rendererRegistry[character->getUUID()]);
+            gameObjectRenderer = &*rendererRegistry[character->getUUID()];
         }
         else
         {
@@ -55,13 +52,11 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & c
 }
 
 void Renderer::addCharacterSpriteRenderer(Character & subject) {
-    GameObjectRenderer r(spriteRendererFactory.createCharacterRenderer(subject));
-    rendererRegistry.emplace(subject.getUUID(), r);
+    rendererRegistry.emplace(subject.getUUID(), spriteRendererFactory.createCharacterRenderer(subject));
 }
 
-void Renderer::addTileSpriteRenderer(Tile & subject) {
-    GameObjectRenderer r(spriteRendererFactory.createTileRenderer(subject));
-    rendererRegistry.emplace(subject.getUUID(), r);
+void Renderer::addTileSpriteRenderer(const Tile & subject) {
+    rendererRegistry.emplace(subject.getUUID(), spriteRendererFactory.createTileRenderer(subject));
 }
 
 

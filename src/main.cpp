@@ -115,9 +115,6 @@ int main( int argc, char* args[] )
 		//Event handler
 		SDL_Event e;
 
-		//The character that will be moving around on the screen
-		Character player(50, 50, std::string("Player"));
-
 		//Level camera
 		SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
@@ -135,8 +132,14 @@ int main( int argc, char* args[] )
 		//Level keeps track of the bounds of the world and the set of tiles (pretty simple model)
 		unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/map.xml"));
 
+		//The character that will be moving around on the screen
+		Character player(50, 50, 0, 0, std::string("Player"));
+
+		Character slug(50, 50, 200, 0, std::string("Slug"));
+
 		vector<Character*> characters;
 		characters.push_back(&player);
+		characters.push_back(&slug);
 
 		// The renderer is the top-level "view" object.
 		// It can render a whole scene: you give it the camera and the level (and for now, just a dot)

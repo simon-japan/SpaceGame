@@ -30,11 +30,11 @@ private:
 
     SpriteRendererFactory spriteRendererFactory;
 
-    std::unordered_map<boost::uuids::uuid, GameObjectRenderer, boost::hash<boost::uuids::uuid>> rendererRegistry;
+    std::unordered_map<boost::uuids::uuid, std::unique_ptr<GameObjectRenderer>, boost::hash<boost::uuids::uuid>> rendererRegistry;
 
     void addCharacterSpriteRenderer(Character & subject);
 
-    void addTileSpriteRenderer(Tile & subject);
+    void addTileSpriteRenderer(const Tile & subject);
 };
 
 
