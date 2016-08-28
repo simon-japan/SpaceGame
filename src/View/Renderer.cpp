@@ -8,8 +8,6 @@
 
 using namespace std;
 
-// TODO: take a list of characters and figure out somehow which CharacterSpriteRenderer to use for each one.
-
 void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & characters) {
 
     //Clear screen
@@ -32,7 +30,7 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & c
         }
         else
         {
-            addRendererForModelObject(tile);
+            addCharacterSpriteRenderer(tile);
         }
         gameObjectRenderer->render(camera, sdlRenderer);
 
@@ -46,7 +44,7 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & c
         }
         else
         {
-            addRendererForModelObject(*character);
+            addCharacterSpriteRenderer(*character);
         }
         gameObjectRenderer->render(camera, sdlRenderer);
     }
@@ -56,13 +54,14 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & c
 
 }
 
-void Renderer::addRendererForModelObject(GameObject & subject) {
-    gameObjectRendererFactory.createRenderer()
-    rendererRegistry.emplace(subject.getUUID(), )
+void Renderer::addCharacterSpriteRenderer(Character & subject) {
+    GameObjectRenderer r(spriteRendererFactory.createCharacterRenderer(subject));
+    rendererRegistry.emplace(subject.getUUID(), r);
 }
 
-void Renderer::addRendererForTile(GameObject & subject) {
-
+void Renderer::addTileSpriteRenderer(Tile & subject) {
+    GameObjectRenderer r(spriteRendererFactory.createTileRenderer(subject));
+    rendererRegistry.emplace(subject.getUUID(), r);
 }
 
 

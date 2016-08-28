@@ -6,6 +6,8 @@
 
 GameObjectRenderer SpriteRendererFactory::createCharacterRenderer(Character & subject) {
 
+    // Todo: determine which sprites to use based on the character's name (requires some more config)
+
     CharacterSpriteRenderer playerRenderer(subject,
                                      *spriteRepository.getSprite("spaceman_standing_left"),
                                      *spriteRepository.getSprite("spaceman_walking_left"),
