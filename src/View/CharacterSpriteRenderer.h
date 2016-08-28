@@ -11,9 +11,9 @@
 #include "SpriteRepository.h"
 #include "GameObjectRenderer.h"
 
-class CharacterRenderer: public GameObjectRenderer {
+class CharacterSpriteRenderer: public GameObjectRenderer {
 public:
-    CharacterRenderer(Character & c, Sprite & sl, Sprite & wl, Sprite & sr, Sprite & wr) :
+    CharacterSpriteRenderer(Character & c, Sprite & sl, Sprite & wl, Sprite & sr, Sprite & wr) :
             character(c),
             standingLeftSprite(sl),
             walkingLeftSprite(wl),

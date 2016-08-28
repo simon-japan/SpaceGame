@@ -40,8 +40,6 @@ public:
 
     Direction getDirection() { return direction; };
 
-    std::string getName() { return name; };
-
 private:
     //Collision box of the dot
     SDL_Rect mBox;

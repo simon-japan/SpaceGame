@@ -3,8 +3,7 @@
 //
 
 #include "GameObjectRendererFactory.h"
-#include "CharacterRenderer.h"
+#include "CharacterSpriteRenderer.h"
 
-GameObjectRenderer GameObjectRendererFactory::createRenderer() {
-    return CharacterRenderer();
-}
+
+

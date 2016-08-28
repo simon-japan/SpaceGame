@@ -13,22 +13,27 @@
 #include "../Model/Character.h"
 #include "Sprite.h"
 #include "SpriteRepository.h"
-#include "CharacterRenderer.h"
+#include "CharacterSpriteRenderer.h"
+#include "GameObjectRendererFactory.h"
 #include <boost/functional/hash.hpp>
 
 class Renderer {
 
 public:
-    Renderer(SDL_Renderer* r, SpriteRepository & sr): sdlRenderer(r), spriteRepository(sr){};
+    Renderer(SDL_Renderer* r, SpriteRepository & sr): sdlRenderer(r), gameObjectRendererFactory(sr){};
 
     void renderAll(SDL_Rect& camera, Level & level, std::vector<Character*> & characters);
 
 private:
     SDL_Renderer * sdlRenderer;
 
-    SpriteRepository & spriteRepository;
+    GameObjectRendererFactory gameObjectRendererFactory;
 
-    std::unordered_map<boost::uuids::uuid, GameObjectRenderer *, boost::hash<boost::uuids::uuid>> rendererRegistry;
+    std::unordered_map<boost::uuids::uuid, GameObjectRenderer, boost::hash<boost::uuids::uuid>> rendererRegistry;
+
+    void addRendererForModelObject(GameObject & subject);
+
+    void addRendererForTile(GameObject & subject);
 };
 
 

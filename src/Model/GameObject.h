@@ -11,22 +11,27 @@
 class GameObject {
 
 public:
-    GameObject(): uuid(boost::uuids::random_generator()()) {}
+    GameObject(std::string n): uuid(boost::uuids::random_generator()()), name(n) {}
 
-    GameObject(GameObject const & rhs): uuid(rhs.uuid) {}
+    GameObject(GameObject const & rhs): uuid(rhs.uuid), name(rhs.name) {}
 
     bool operator == (GameObject const & rhs) { return uuid == rhs.uuid; }
 
     GameObject& operator = (GameObject const & rhs)
     {
         uuid = rhs.uuid;
+        name = rhs.name;
     }
 
     boost::uuids::uuid getUUID() { return uuid; }
 
+    virtual std::string getName() { return name; }
+
 private:
 
     boost::uuids::uuid uuid;
+
+    std::string name;
 
 };
 

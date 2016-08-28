@@ -4,7 +4,7 @@
 
 #include "Character.h"
 
-Character::Character(int w, int h, std::string n): width(w), height(h), name(n), mVelX(0), mVelY(0), direction(right)
+Character::Character(int w, int h, std::string n): width(w), height(h), mVelX(0), mVelY(0), direction(right), GameObject(n)
 {
     //Initialize the collision box
     mBox.x = 0;

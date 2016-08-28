@@ -10,14 +10,16 @@
 #include <SDL_system.h>
 #include "../Model/Tile.h"
 #include "GameObjectRenderer.h"
+#include "Sprite.h"
 
-class TileRenderer: public GameObjectRenderer {
+class TileSpriteRenderer: public GameObjectRenderer {
 public:
-    TileRenderer(Tile & t): tile(t) {};
+    TileSpriteRenderer(Tile & t, Sprite & s): tile(t), sprite(s) {};
     void render(SDL_Rect camera, SDL_Renderer *sdlRenderer) override;
 
 private:
     Tile & tile;
+    Sprite & sprite; // Todo: I imagine that there could be several sprites to a tile, e.g. different levels of damage
 };
 
 

@@ -7,10 +7,24 @@
 
 
 #include "GameObjectRenderer.h"
+#include "SpriteRepository.h"
+#include "../Model/Character.h"
 
 class GameObjectRendererFactory {
 public:
-    virtual GameObjectRenderer createRenderer();
+
+    enum RENDERER_FACTORIES
+    {
+        CHARACTER,
+        TILE
+    };
+
+    //GameObjectRendererFactory(SpriteRepository & s): spriteRepository(s) {};
+
+    virtual GameObjectRenderer createTileRenderer(Tile & subject) = delete;
+
+    virtual GameObjectRenderer createCharacterRenderer(Character & subject) = delete;
+
 };
 
 

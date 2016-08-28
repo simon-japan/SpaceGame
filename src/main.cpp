@@ -135,16 +135,8 @@ int main( int argc, char* args[] )
 		//Level keeps track of the bounds of the world and the set of tiles (pretty simple model)
 		unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/map.xml"));
 
-        CharacterRenderer playerRenderer(*spriteRepository.getSprite("spaceman_standing_left"),
-                                         *spriteRepository.getSprite("spaceman_walking_left"),
-                                         *spriteRepository.getSprite("spaceman_standing_right"),
-                                         *spriteRepository.getSprite("spaceman_walking_right"));
-
 		vector<Character*> characters;
 		characters.push_back(&player);
-
-        Sprite & slugSprite = *(spriteRepository.getSprite("slug"));
-        CharacterRenderer slugRenderer(slugSprite,slugSprite,slugSprite,slugSprite);
 
 		// The renderer is the top-level "view" object.
 		// It can render a whole scene: you give it the camera and the level (and for now, just a dot)
