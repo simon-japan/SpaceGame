@@ -35,7 +35,7 @@ int SpriteLoader::loadSprites(std::string config_file_name) {
         std::unique_ptr<Sprite> sprite_p(new Sprite(spriteName));
         for(int j = 0; j < doc.getChildCount("sprite", i, "clip"); j++) {
             string textureName(doc.getChildAttribute("sprite", i, j, "clip", "texture"));
-            LTexture & rtexture = textureRepository.getTexture(textureName);
+            GameTexture & rtexture = textureRepository.getTexture(textureName);
             int x = atoi(doc.getChildAttribute("sprite", i, j, "clip", "x").c_str());
             int y = atoi(doc.getChildAttribute("sprite", i, j, "clip", "y").c_str());
             int w = atoi(doc.getChildAttribute("sprite", i, j, "clip", "w").c_str());
@@ -48,7 +48,7 @@ int SpriteLoader::loadSprites(std::string config_file_name) {
 }
 
 bool SpriteLoader::loadTexture(std::string fileName, string textureName) {
-    unique_ptr<LTexture> pTexture (new LTexture());
+    unique_ptr<GameTexture> pTexture (new GameTexture());
     if(!pTexture->loadFromFile(fileName, sdl_renderer))
     {
         // Todo: proper logging

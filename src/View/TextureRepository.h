@@ -7,17 +7,17 @@
 
 
 #include <map>
-#include "LTexture.h"
+#include "GameTexture.h"
 
 class TextureRepository {
 
 public:
-    void addTexture(std::string name, std::unique_ptr<LTexture> texture);
+    void addTexture(std::string name, std::unique_ptr<GameTexture> texture);
 
-    LTexture & getTexture(std::string name);
+    GameTexture & getTexture(std::string name);
 
 private:
-    std::map<std::string, std::unique_ptr<LTexture>> textureDictionary;
+    std::map<std::string, std::unique_ptr<GameTexture>> textureDictionary;
 
 };
 

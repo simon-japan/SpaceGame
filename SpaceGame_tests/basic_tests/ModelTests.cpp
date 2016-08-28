@@ -9,7 +9,7 @@
 TEST(TileTest, TileCreation) {
     TileType tt("SimonTile", true);
     Tile tile (1,2, tt);
-    EXPECT_EQ(0, strcmp("SimonTile", tile.getTypeName().c_str()));
+    EXPECT_EQ(0, strcmp("SimonTile", tile.getName().c_str()));
 }
 
 TEST(TileTest, CollisionDoesWork) {

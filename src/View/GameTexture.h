@@ -13,14 +13,14 @@
 #include <vector>
 
 //Texture wrapper class
-class LTexture
+class GameTexture
 {
 public:
     //Initializes variables
-    LTexture();
+    GameTexture();
 
     //Deallocates memory
-    ~LTexture();
+    ~GameTexture();
 
     //Loads image at specified path
     bool loadFromFile(std::string path, SDL_Renderer *gRenderer);

@@ -6,7 +6,7 @@ and may not be redistributed without written permission.*/
 #include <SDL_image.h>
 #include <string>
 #include <fstream>
-#include "View/LTexture.h"
+#include "View/GameTexture.h"
 #include "Model/Tile.h"
 #include "Model/Character.h"
 #include "View/Renderer.h"
@@ -133,10 +133,9 @@ int main( int argc, char* args[] )
 		unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/map.xml"));
 
 		//The character that will be moving around on the screen
+        // Todo: move character creation into a loader, and have the characters as part of the level
 		Character player(50, 50, 0, 0, std::string("Player"));
-
 		Character slug(50, 50, 200, 0, std::string("Slug"));
-
 		vector<Character*> characters;
 		characters.push_back(&player);
 		characters.push_back(&slug);

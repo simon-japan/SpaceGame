@@ -6,7 +6,7 @@
 #define SDTTEST_SPRITE_H
 
 #include <vector>
-#include "LTexture.h"
+#include "GameTexture.h"
 #include "Clip.h"
 
 class Sprite {
@@ -14,7 +14,7 @@ class Sprite {
 public:
     Sprite(std::string n): name(n) {};
 
-    void addClip(LTexture& texture, int x, int y, int w, int h);
+    void addClip(GameTexture& texture, int x, int y, int w, int h);
 
     int render(const int x, const int y, const int index, SDL_Renderer *sdlRenderer);
 

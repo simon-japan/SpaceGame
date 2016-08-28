@@ -6,18 +6,18 @@
 #define SDTTEST_CLIP_H
 
 
-#include "LTexture.h"
+#include "GameTexture.h"
 
 class Clip {
 public:
-    Clip(LTexture & t, SDL_Rect d): texture(t), dimensions(d){}
+    Clip(GameTexture & t, SDL_Rect d): texture(t), dimensions(d){}
 
     void render(const int x, const int y, SDL_Renderer* sdlRenderer);
 
     void render(SDL_Rect & target, SDL_Renderer* sdlRenderer);
 
 private:
-    LTexture & texture;
+    GameTexture & texture;
     SDL_Rect dimensions;
 };
 

@@ -8,7 +8,7 @@
 #include <SDL_system.h>
 #include <SDL.h>
 #include <unordered_map>
-#include "LTexture.h"
+#include "GameTexture.h"
 #include "../Model/Level.h"
 #include "../Model/Character.h"
 #include "Sprite.h"

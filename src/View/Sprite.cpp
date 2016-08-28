@@ -56,7 +56,7 @@ const std::string Sprite::getName() const{
     return name;
 }
 
-void Sprite::addClip(LTexture & texture, int x, int y, int w, int h) {
+void Sprite::addClip(GameTexture & texture, int x, int y, int w, int h) {
     SDL_Rect clip;
     clip.x = x;
     clip.y = y;
