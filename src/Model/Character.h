@@ -11,7 +11,7 @@
 #include "Level.h"
 #include "GameObject.h"
 
-enum Direction { left, right };
+enum Direction { left, right, up, down };
 
 //The dot that will move around on the screen
 class Character: public GameObject
@@ -22,9 +22,6 @@ public:
 
     //Initializes the variables
     Character(int w, int h, int startingX, int startingY, std::string n);
-
-    //Takes key presses and adjusts the character's velocity
-    void handleEvent( SDL_Event& e );
 
     //Moves the character and check collision against tiles
     void move(Level & level);
@@ -39,6 +36,8 @@ public:
     int getYVelocity() const { return mVelY; };
 
     Direction getDirection() const { return direction; };
+
+    void setThrust( Direction d, bool isActive );
 
 private:
     //Collision box of the character
@@ -57,7 +56,4 @@ private:
 
 };
 
-
 #endif //SDTTEST_DOT_H
-
-// TODO: make everything as const as possible

@@ -15,36 +15,6 @@ Character::Character(int w, int h, int startingX, int startingY, std::string n)
 
 }
 
-void Character::handleEvent( SDL_Event& e )
-{
-    //If a key was pressed
-    if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
-    {
-        //Adjust the velocity
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: mVelY -= CHARACTER_VEL; break;
-            case SDLK_DOWN: mVelY += CHARACTER_VEL; break;
-            case SDLK_LEFT: mVelX -= CHARACTER_VEL; break;
-            case SDLK_RIGHT: mVelX += CHARACTER_VEL; break;
-            default:break;
-        }
-    }
-        //If a key was released
-    else if( e.type == SDL_KEYUP && e.key.repeat == 0 )
-    {
-        //Adjust the velocity
-        switch( e.key.keysym.sym )
-        {
-            case SDLK_UP: mVelY += CHARACTER_VEL; break;
-            case SDLK_DOWN: mVelY -= CHARACTER_VEL; break;
-            case SDLK_LEFT: mVelX += CHARACTER_VEL; break;
-            case SDLK_RIGHT: mVelX -= CHARACTER_VEL; break;
-            default:break;
-        }
-    }
-}
-
 bool Character::touchesWall( const std::vector<Tile> & tiles )
 {
     //Go through the tiles
@@ -60,7 +30,6 @@ bool Character::touchesWall( const std::vector<Tile> & tiles )
     return false;
 }
 
-// TODO: move control to Controller module
 void Character::move(Level & level)
 {
     const std::vector<Tile> & tiles(level.getTiles());
@@ -120,6 +89,45 @@ void Character::setCamera(SDL_Rect & camera, Level & level, int screen_width, in
     if( camera.y > level_height - camera.h )
     {
         camera.y = level_height - camera.h;
+    }
+}
+
+void Character::setThrust(Direction d, bool isActive) {
+    //Adjust the velocity
+    if (isActive) {
+        switch (d) {
+            case up:
+                mVelY -= CHARACTER_VEL;
+                break;
+            case down:
+                mVelY += CHARACTER_VEL;
+                break;
+            case left:
+                mVelX -= CHARACTER_VEL;
+                break;
+            case right:
+                mVelX += CHARACTER_VEL;
+                break;
+            default:
+                break;
+        }
+    } else {
+        switch (d) {
+            case up:
+                mVelY += CHARACTER_VEL;
+                break;
+            case down:
+                mVelY -= CHARACTER_VEL;
+                break;
+            case left:
+                mVelX += CHARACTER_VEL;
+                break;
+            case right:
+                mVelX -= CHARACTER_VEL;
+                break;
+            default:
+                break;
+        }
     }
 }
 

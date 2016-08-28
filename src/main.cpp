@@ -12,6 +12,7 @@ and may not be redistributed without written permission.*/
 #include "View/Renderer.h"
 #include "Serialization/SpriteLoader.h"
 #include "Serialization/LevelLoader.h"
+#include "Controller/GameController.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -140,6 +141,8 @@ int main( int argc, char* args[] )
 		characters.push_back(&player);
 		characters.push_back(&slug);
 
+        GameController gameController(player);
+
 		// The renderer is the top-level "view" object.
 		// It can render a whole scene: you give it the camera and the level (and for now, just a dot)
 		// It will use the sprite repository to find the sprite for each object it needs to render,
@@ -159,7 +162,8 @@ int main( int argc, char* args[] )
 				}
 
 				//Handle input for the dot
-				player.handleEvent( e );
+				//player.handleEvent( e );
+                gameController.handlePlayerInput(e);
 			}
 
 			//Move the dot
