@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/3/16.
 //
 
-#ifndef SDTTEST_LEVEL_H
-#define SDTTEST_LEVEL_H
+#ifndef SPACEGAME_LEVEL_H
+#define SPACEGAME_LEVEL_H
 
 
 #include <vector>
@@ -27,4 +27,4 @@ private:
 };
 
 
-#endif //SDTTEST_LEVEL_H
+#endif //SPACEGAME_LEVEL_H

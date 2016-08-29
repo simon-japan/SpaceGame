@@ -2,8 +2,8 @@
 // Created by SJ Holland on 5/16/16.
 //
 
-#ifndef SDTTEST_LEVELLOADER_H
-#define SDTTEST_LEVELLOADER_H
+#ifndef SPACEGAME_LEVELLOADER_H
+#define SPACEGAME_LEVELLOADER_H
 
 
 #include <string>
@@ -29,4 +29,4 @@ private:
 };
 
 
-#endif //SDTTEST_LEVELLOADER_H
+#endif //SPACEGAME_LEVELLOADER_H

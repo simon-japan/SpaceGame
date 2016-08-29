@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/3/16.
 //
 
-#ifndef SDTTEST_TILE_H
-#define SDTTEST_TILE_H
+#ifndef SPACEGAME_TILE_H
+#define SPACEGAME_TILE_H
 
 #include <SDL.h>
 #include "TileType.h"
@@ -42,4 +42,4 @@ inline std::ostream& operator<<(std::ostream &os, const Tile& t)
     return os << "Tile(x:" << t.mBox.x << ", y:" << t.mBox.y << ", type:" << t.tileType.getName() << ")";
 }
 
-#endif //SDTTEST_TILE_H
+#endif //SPACEGAME_TILE_H

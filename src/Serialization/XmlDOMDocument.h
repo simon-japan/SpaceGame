@@ -3,8 +3,8 @@
 // Copied from http://vichargrave.com/xml-parsing-with-dom-using-c/
 //
 
-#ifndef SDTTEST_XMLDOMDOCUMENT_H
-#define SDTTEST_XMLDOMDOCUMENT_H
+#ifndef SPACEGAME_XMLDOMDOCUMENT_H
+#define SPACEGAME_XMLDOMDOCUMENT_H
 
 
 #include <xercesc/parsers/XercesDOMParser.hpp>
@@ -42,4 +42,4 @@ private:
 };
 
 
-#endif //SDTTEST_XMLDOMDOCUMENT_H
+#endif //SPACEGAME_XMLDOMDOCUMENT_H

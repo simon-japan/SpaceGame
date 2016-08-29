@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/9/16.
 //
 
-#ifndef SDTTEST_SPRITEREPOSITORY_H
-#define SDTTEST_SPRITEREPOSITORY_H
+#ifndef SPACEGAME_SPRITEREPOSITORY_H
+#define SPACEGAME_SPRITEREPOSITORY_H
 
 #include <map>
 #include "Sprite.h"
@@ -21,4 +21,4 @@ private:
 };
 
 
-#endif //SDTTEST_SPRITEREPOSITORY_H
+#endif //SPACEGAME_SPRITEREPOSITORY_H

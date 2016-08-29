@@ -2,8 +2,8 @@
 // Created by SJ Holland on 5/22/16.
 //
 
-#ifndef SDTTEST_TILETYPE_H
-#define SDTTEST_TILETYPE_H
+#ifndef SPACEGAME_TILETYPE_H
+#define SPACEGAME_TILETYPE_H
 
 
 #include <string>
@@ -22,4 +22,4 @@ private:
 };
 
 
-#endif //SDTTEST_TILETYPE_H
+#endif //SPACEGAME_TILETYPE_H

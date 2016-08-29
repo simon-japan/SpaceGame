@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/6/16.
 //
 
-#ifndef SDTTEST_SPRITE_H
-#define SDTTEST_SPRITE_H
+#ifndef SPACEGAME_SPRITE_H
+#define SPACEGAME_SPRITE_H
 
 #include <vector>
 #include "GameTexture.h"
@@ -33,5 +33,5 @@ inline std::ostream& operator<<(std::ostream &os, const Sprite& s)
     return os << "Sprite(name:" << s.getName() << ")";
 }
 
-#endif //SDTTEST_SPRITE_H
+#endif //SPACEGAME_SPRITE_H
 

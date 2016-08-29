@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/12/16.
 //
 
-#ifndef SDTTEST_XMLDOMERRORHANDLER_H
-#define SDTTEST_XMLDOMERRORHANDLER_H
+#ifndef SPACEGAME_XMLDOMERRORHANDLER_H
+#define SPACEGAME_XMLDOMERRORHANDLER_H
 
 #include <xercesc/sax/HandlerBase.hpp>
 
@@ -15,4 +15,4 @@ public:
 };
 
 
-#endif //SDTTEST_XMLDOMERRORHANDLER_H
+#endif //SPACEGAME_XMLDOMERRORHANDLER_H

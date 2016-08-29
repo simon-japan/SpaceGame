@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/3/16.
 //
 
-#ifndef SDTTEST_DOT_H
-#define SDTTEST_DOT_H
+#ifndef SPACEGAME_CHARACTER_H
+#define SPACEGAME_CHARACTER_H
 
 #include <SDL.h>
 #include <vector>
@@ -13,7 +13,7 @@
 
 enum Direction { left, right, up, down };
 
-//The dot that will move around on the screen
+// Todo: proper comments to explain what this class does
 class Character: public GameObject
 {
 public:
@@ -56,4 +56,4 @@ private:
 
 };
 
-#endif //SDTTEST_DOT_H
+#endif //SPACEGAME_CHARACTER_H

@@ -144,7 +144,7 @@ int main( int argc, char* args[] )
         GameController gameController(player);
 
 		// The renderer is the top-level "view" object.
-		// It can render a whole scene: you give it the camera and the level (and for now, just a dot)
+		// It can render a whole scene: you give it the camera and the level (which contains all renderable objects)
 		// It will use the sprite repository to find the sprite for each object it needs to render,
 		// and uses the SDL renderer
 		Renderer renderer(gRenderer, spriteRepository);
@@ -161,12 +161,11 @@ int main( int argc, char* args[] )
 					quit = true;
 				}
 
-				//Handle input for the dot
-				//player.handleEvent( e );
+				//Handle input from the player
                 gameController.handlePlayerInput(e);
 			}
 
-			//Move the dot
+			// TODO: do something with these lines
 			player.move( *levelPtr );
 			player.setCamera( camera, *levelPtr, SCREEN_WIDTH, SCREEN_HEIGHT);
 

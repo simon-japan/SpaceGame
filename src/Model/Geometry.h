@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/3/16.
 //
 
-#ifndef SDTTEST_GEOMETRY_H
-#define SDTTEST_GEOMETRY_H
+#ifndef SPACEGAME_GEOMETRY_H
+#define SPACEGAME_GEOMETRY_H
 
 #include <SDL.h>
 
@@ -15,4 +15,4 @@ public:
 
 };
 
-#endif //SDTTEST_GEOMETRY_H
+#endif //SPACEGAME_GEOMETRY_H

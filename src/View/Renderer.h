@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/5/16.
 //
 
-#ifndef SDTTEST_RENDERER_H
-#define SDTTEST_RENDERER_H
+#ifndef SPACEGAME_RENDERER_H
+#define SPACEGAME_RENDERER_H
 
 #include <SDL_system.h>
 #include <SDL.h>
@@ -38,4 +38,4 @@ private:
 };
 
 
-#endif //SDTTEST_RENDERER_H
+#endif //SPACEGAME_RENDERER_H

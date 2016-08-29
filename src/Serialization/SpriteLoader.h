@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/9/16.
 //
 
-#ifndef SDTTEST_SPRITELOADER_H
-#define SDTTEST_SPRITELOADER_H
+#ifndef SPACEGAME_SPRITELOADER_H
+#define SPACEGAME_SPRITELOADER_H
 
 
 #include "../View/SpriteRepository.h"
@@ -34,4 +34,4 @@ private:
 };
 
 
-#endif //SDTTEST_SPRITELOADER_H
+#endif //SPACEGAME_SPRITELOADER_H

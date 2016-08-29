@@ -2,8 +2,8 @@
 // Created by SJ Holland on 4/3/16.
 //
 
-#ifndef SDTTEST_LTEXTURE_H
-#define SDTTEST_LTEXTURE_H
+#ifndef SPACEGAME_GAMETEXTURE_H
+#define SPACEGAME_GAMETEXTURE_H
 
 #include <SDL.h>
 #include <SDL_image.h>
@@ -69,4 +69,4 @@ private:
 };
 
 
-#endif //SDTTEST_LTEXTURE_H
+#endif //SPACEGAME_GAMETEXTURE_H

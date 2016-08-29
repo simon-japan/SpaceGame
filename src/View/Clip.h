@@ -2,8 +2,8 @@
 // Created by SJ Holland on 8/21/16.
 //
 
-#ifndef SDTTEST_CLIP_H
-#define SDTTEST_CLIP_H
+#ifndef SPACEGAME_CLIP_H
+#define SPACEGAME_CLIP_H
 
 
 #include "GameTexture.h"
@@ -22,4 +22,4 @@ private:
 };
 
 
-#endif //SDTTEST_CLIP_H
+#endif //SPACEGAME_CLIP_H
