@@ -5,13 +5,13 @@
 #include "Character.h"
 
 Character::Character(int w, int h, int startingX, int startingY, std::string n)
-        : width(w), height(h), mVelX(0), mVelY(0), direction(right), GameObject(n)
+        : mVelX(0), mVelY(0), direction(right), GameObject(n)
 {
     //Initialize the collision box
     mBox.x = startingX;
     mBox.y = startingY;
-    mBox.w = width;
-    mBox.h = height;
+    mBox.w = w;
+    mBox.h = h;
 
 }
 
@@ -47,7 +47,7 @@ void Character::move(Level & level)
     }
 
     //If the character went too far to the left or right or touched a wall
-    if( ( mBox.x < 0 ) || ( mBox.x + width > level.getWidth() ) || touchesWall( tiles ) )
+    if( ( mBox.x < 0 ) || ( mBox.x + mBox.w > level.getWidth() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.x -= mVelX;
@@ -57,38 +57,10 @@ void Character::move(Level & level)
     mBox.y += mVelY;
 
     //If the character went too far up or down or touched a wall
-    if( ( mBox.y < 0 ) || ( mBox.y + height > level.getHeight() ) || touchesWall( tiles ) )
+    if( ( mBox.y < 0 ) || ( mBox.y + mBox.h > level.getHeight() ) || touchesWall( tiles ) )
     {
         //move back
         mBox.y -= mVelY;
-    }
-}
-
-void Character::setCamera(SDL_Rect & camera, Level & level, int screen_width, int screen_height)
-{
-    //Center the camera over the character
-    camera.x = ( mBox.x + width / 2 ) - screen_width / 2;
-    camera.y = ( mBox.y + height / 2 ) - screen_height / 2;
-
-    int level_width = level.getWidth();
-    int level_height = level.getHeight();
-
-    //Keep the camera in bounds
-    if( camera.x < 0 )
-    {
-        camera.x = 0;
-    }
-    if( camera.y < 0 )
-    {
-        camera.y = 0;
-    }
-    if( camera.x > level_width - camera.w )
-    {
-        camera.x = level_width - camera.w;
-    }
-    if( camera.y > level_height - camera.h )
-    {
-        camera.y = level_height - camera.h;
     }
 }
 

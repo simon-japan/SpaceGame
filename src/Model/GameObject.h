@@ -21,6 +21,7 @@ public:
     {
         uuid = rhs.uuid;
         name = rhs.name;
+        return *this;
     }
 
     const boost::uuids::uuid getUUID() const { return uuid; }

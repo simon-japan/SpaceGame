@@ -13,6 +13,7 @@ and may not be redistributed without written permission.*/
 #include "Serialization/SpriteLoader.h"
 #include "Serialization/LevelLoader.h"
 #include "Controller/GameController.h"
+#include "Controller/CameraController.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -165,9 +166,9 @@ int main( int argc, char* args[] )
                 gameController.handlePlayerInput(e);
 			}
 
-			// TODO: do something with these lines
-			player.move( *levelPtr );
-			player.setCamera( camera, *levelPtr, SCREEN_WIDTH, SCREEN_HEIGHT);
+			player.move( *levelPtr ); // Todo: do this in a more systematic way
+
+            CameraController::setCameraOnCharacter(camera, *levelPtr, player, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 			renderer.renderAll(camera, *levelPtr, characters);
 

@@ -8,6 +8,9 @@
 
 #include <vector>
 #include "Tile.h"
+#include "Character.h"
+
+class Character;
 
 class Level {
 
@@ -24,6 +27,7 @@ private:
     int max_y;
     int min_y;
     std::vector<Tile> tiles;
+    std::vector<Character> characters;
 };
 
 

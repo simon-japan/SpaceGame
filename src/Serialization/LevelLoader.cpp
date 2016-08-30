@@ -78,6 +78,7 @@ void LevelLoader::loadTileTypes(std::string filename) {
         {
             tangible = true;
         }
-        tileTypeLookup.emplace(make_pair(mapId, TileType(spriteName, tangible)));
+        //tileTypeLookup.emplace(make_pair(mapId, TileType(spriteName, tangible)));
+        tileTypeLookup.emplace(mapId, TileType(spriteName, tangible));
     }
 }

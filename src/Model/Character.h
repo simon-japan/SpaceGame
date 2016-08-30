@@ -13,6 +13,8 @@
 
 enum Direction { left, right, up, down };
 
+class Level;
+
 // Todo: proper comments to explain what this class does
 class Character: public GameObject
 {
@@ -25,9 +27,6 @@ public:
 
     //Moves the character and check collision against tiles
     void move(Level & level);
-
-    //Centers the camera over the character
-    void setCamera(SDL_Rect & camera, Level & level, int screen_width, int screen_height);
 
     SDL_Rect getCollisionBox() const { return mBox; };
 
@@ -45,8 +44,6 @@ private:
 
     //The velocity of the character
     int mVelX, mVelY;
-
-    int width, height;
 
     Direction direction;
 
