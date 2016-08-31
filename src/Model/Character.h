@@ -47,8 +47,6 @@ private:
 
     Direction direction;
 
-    std::string name;
-
     bool touchesWall( const std::vector<Tile> & tiles );
 
 };

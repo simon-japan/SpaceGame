@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & characters) {
+void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
 
     //Clear screen
     SDL_SetRenderDrawColor( sdlRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
@@ -23,7 +23,6 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & c
     const vector<Tile> & tiles = level.getTiles();
     for( const auto & tile : tiles )
     {
-
         if (rendererRegistry.find(tile.getUUID()) == rendererRegistry.end())
         {
             addTileSpriteRenderer(tile);
@@ -34,15 +33,13 @@ void Renderer::renderAll(SDL_Rect& camera, Level & level, vector<Character*> & c
     }
 
     //Render characters - after all of the tiles, because the characters are on top.
-    for (auto character: characters) {
-        if (rendererRegistry.find(character->getUUID()) != rendererRegistry.end())
+    for (auto it = level.beginCharacters(); it != level.endCharacters(); it++) {
+
+        if (rendererRegistry.find(it->second->getUUID()) == rendererRegistry.end())
         {
-            gameObjectRenderer = &*rendererRegistry[character->getUUID()];
+            addCharacterSpriteRenderer(*it->second);
         }
-        else
-        {
-            addCharacterSpriteRenderer(*character);
-        }
+        gameObjectRenderer = &*rendererRegistry[it->second->getUUID()];
         gameObjectRenderer->render(camera, sdlRenderer);
     }
 

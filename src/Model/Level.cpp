@@ -14,17 +14,6 @@ int Level::getWidth() {
     return max_x - min_x;
 }
 
-/*std::vector<std::reference_wrapper<Tile>> & Level::getTiles() {
-    std::vector<std::reference_wrapper<Tile>> tile_refs;
-    for (auto & tile : tiles)
-    {
-        tile_refs.push_back(std::reference_wrapper<Tile>(*tile));
-    }
-    return tile_refs;
-}*/
-
-
-
 void Level::addTile(int x, int y, const TileType & tileType) {
     tiles.emplace_back(x, y, tileType);
     if (x > max_x)
@@ -44,6 +33,12 @@ void Level::addTile(int x, int y, const TileType & tileType) {
         min_y = y + TILE_HEIGHT;
     }
 }
+
+void Level::addCharacter(std::shared_ptr<Character> character) {
+    characters.insert(pair<string, shared_ptr<Character>>(character->getName(), character));
+}
+
+
 
 
 

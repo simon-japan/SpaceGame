@@ -22,7 +22,8 @@ unique_ptr<GameObjectRenderer> SpriteRendererFactory::createCharacterRenderer(co
                                                                            "spaceman_standing_right"),
                                                                    *spriteRepository.getSprite(
                                                                            "spaceman_walking_right"));
-    } else if (!subject.getName().compare("Slug")) {
+    } else {
+        // Default sprite
         playerRenderer = std::make_unique<CharacterSpriteRenderer>(subject,
                                                                    *spriteRepository.getSprite(
                                                                            "slug"),

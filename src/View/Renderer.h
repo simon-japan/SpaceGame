@@ -23,7 +23,7 @@ class Renderer {
 public:
     Renderer(SDL_Renderer* r, SpriteRepository & sr): sdlRenderer(r), spriteRendererFactory(sr){};
 
-    void renderAll(SDL_Rect& camera, Level & level, std::vector<Character*> & characters);
+    void renderLevel(SDL_Rect & camera, Level & level);
 
 private:
     SDL_Renderer * sdlRenderer;

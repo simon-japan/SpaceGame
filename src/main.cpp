@@ -120,29 +120,28 @@ int main( int argc, char* args[] )
 		//Level camera
 		SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
-		//This object will provide references to sprite objects indexed by name
+        //SpriteRepository owns all the textures loaded in memory. They can be retrieved from it by name.
+        TextureRepository textureRepository;
+
+		//SpriteRepository owns all the sprite objects. They can be retrieved from it by name.
 		SpriteRepository spriteRepository;
 
-		TextureRepository textureRepository;
-
-		SpriteLoader spriteLoader(textureRepository,spriteRepository,gRenderer);
-
+		SpriteLoader spriteLoader(textureRepository, spriteRepository, gRenderer);
 		spriteLoader.loadSprites("configuration/sprites.xml");
 
-		LevelLoader levelLoader(spriteRepository);
-
-		//Level keeps track of the bounds of the world and the set of tiles (pretty simple model)
+        // The level is the root element of the Model.
+        // It is loaded from configuration by a LevelLoader.
+        // For now, it is created & destroyed in the main loop. Currently there's only one level.
+		LevelLoader levelLoader;
 		unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/map.xml"));
 
-		//The character that will be moving around on the screen
-        // Todo: move character creation into a loader, and have the characters as part of the level
-		Character player(50, 50, 0, 0, std::string("Player"));
-		Character slug(50, 50, 200, 0, std::string("Slug"));
-		vector<Character*> characters;
-		characters.push_back(&player);
-		characters.push_back(&slug);
+		//The player's avatar is a special character that is always loaded, regardless of the level.
+		auto player = make_shared<Character>(50, 50, 0, 0, std::string("Player"));
+        levelPtr->addCharacter(player);
 
-        GameController gameController(player);
+        // The GameController responds to user input (all it does at the moment is to move the avatar around).
+        // Todo: add any more required functionality here
+        GameController gameController(*player);
 
 		// The renderer is the top-level "view" object.
 		// It can render a whole scene: you give it the camera and the level (which contains all renderable objects)
@@ -166,12 +165,17 @@ int main( int argc, char* args[] )
                 gameController.handlePlayerInput(e);
 			}
 
-			player.move( *levelPtr ); // Todo: do this in a more systematic way
+            // Update the player model's position based on its updated velocity + collision detection.
+			player->move( *levelPtr ); // Todo: invoke this in a more systematic way
 
-            CameraController::setCameraOnCharacter(camera, *levelPtr, player, SCREEN_WIDTH, SCREEN_HEIGHT);
+			// Todo: AI
+			// Todo: interactions between characters
 
-			renderer.renderAll(camera, *levelPtr, characters);
+            // The camera constantly centers on the player, modulo the boundaries of the level.
+            CameraController::setCameraOnCharacter(camera, *levelPtr, *player, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+            // Render everything in the level that is visible to the camera
+            renderer.renderLevel(camera, *levelPtr);
 		}
 
 		//Free resources and close SDL

@@ -11,21 +11,23 @@
 #include "../Model/Tile.h"
 #include "../View/SpriteRepository.h"
 #include "../Model/Level.h"
+#include "XmlDOMDocument.h"
 
 class LevelLoader {
 
 public:
-    LevelLoader(SpriteRepository & s): spriteRepository(s), tileTypeLookup() {};
+    LevelLoader() : tileTypeLookup() {};
 
     std::unique_ptr<Level> loadLevel(std::string filename);
 
-    void loadTileTypes(std::string filename);
-
 private:
-    SpriteRepository & spriteRepository;
     std::map<int, TileType> tileTypeLookup;
 
     const char SEPARATOR = '\n';
+
+    void loadTileTypes(XmlDomDocument & doc);
+
+    void loadCharacters(XmlDomDocument & doc, Level & level);
 };
 
 

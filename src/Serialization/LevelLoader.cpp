@@ -5,7 +5,6 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include "XmlDOMDocument.h"
 #include "LevelLoader.h"
 #include <boost/tokenizer.hpp>
 #include <iostream>
@@ -15,8 +14,6 @@ using namespace xercesc;
 using namespace boost;
 
 unique_ptr<Level> LevelLoader::loadLevel(std::string filename) {
-
-    loadTileTypes(filename);
 
     //The tile offsets
     int x = 0, y = 0;
@@ -29,6 +26,10 @@ unique_ptr<Level> LevelLoader::loadLevel(std::string filename) {
     {
         return nullptr;
     }
+
+    loadTileTypes(doc);
+
+    loadCharacters(doc, *levelPointer);
 
     string map_string = doc.getChildValue("root", 0, "map", 0);
     stringstream ss(map_string);
@@ -62,14 +63,12 @@ unique_ptr<Level> LevelLoader::loadLevel(std::string filename) {
         if (tokens.begin() != tokens.end()) {
             y += TILE_HEIGHT;
         }
-
     }
 
     return levelPointer;
 }
 
-void LevelLoader::loadTileTypes(std::string filename) {
-    XmlDomDocument doc (filename.c_str());
+void LevelLoader::loadTileTypes(XmlDomDocument & doc) {
     for (int i = 0; i < doc.getChildCount("tileTypes", 0, "tileType"); i++) {
         string spriteName(doc.getChildAttribute("tileTypes", 0, i, "tileType", "sprite"));
         int mapId(atoi(doc.getChildAttribute("tileTypes", 0, i, "tileType", "mapid").c_str()));
@@ -82,3 +81,16 @@ void LevelLoader::loadTileTypes(std::string filename) {
         tileTypeLookup.emplace(mapId, TileType(spriteName, tangible));
     }
 }
+
+void LevelLoader::loadCharacters(XmlDomDocument & doc, Level & level) {
+    for (int i = 0; i < doc.getChildCount("Characters", 0, "Character"); i++) {
+        string characterName(doc.getChildAttribute("Characters", 0, i, "Character", "name"));
+        int w(atoi(doc.getChildAttribute("Character", i, 0, "Rect", "w").c_str()));
+        int h(atoi(doc.getChildAttribute("Character", i, 0, "Rect", "h").c_str()));
+        int x(atoi(doc.getChildAttribute("Character", i, 0, "Rect", "x").c_str()));
+        int y(atoi(doc.getChildAttribute("Character", i, 0, "Rect", "y").c_str()));
+        auto characterP(make_shared<Character>(w, h, x, y, characterName));
+        level.addCharacter(characterP);
+    }
+}
+

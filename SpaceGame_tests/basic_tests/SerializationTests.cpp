@@ -44,14 +44,14 @@ TEST_F(SerializationTest, SpriteLoaderComplainIfSpriteFileDoesntExist)
 
 TEST_F(SerializationTest, LevelLoaderCanLoadValidFile)
 {
-    LevelLoader levelLoader(spriteRepository);
+    LevelLoader levelLoader;
     std::unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/map.xml"));
     EXPECT_NE(levelPtr, nullptr);
 }
 
 TEST_F(SerializationTest, LevelLoaderReturnsNullForMissingFile)
 {
-    LevelLoader levelLoader(spriteRepository);
+    LevelLoader levelLoader;
     std::unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/bogus.xml"));
     EXPECT_EQ(levelPtr, nullptr);
 }

@@ -13,12 +13,34 @@
   <xs:complexType name="rootType">
     <xs:sequence>
       <xs:element type="tileTypesType" name="tileTypes"/>
+      <xs:element type="CharactersType" name="Characters"/>
       <xs:element type="xs:string" name="map"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="tileTypesType">
     <xs:sequence>
       <xs:element type="tileTypeType" name="tileType" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CharacterType">
+    <xs:sequence>
+      <xs:element type="RectType" name="Rect"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="RectType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="w" use="optional"/>
+        <xs:attribute type="xs:string" name="h" use="optional"/>
+        <xs:attribute type="xs:string" name="x" use="optional"/>
+        <xs:attribute type="xs:string" name="y" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="CharactersType">
+    <xs:sequence>
+      <xs:element type="CharacterType" name="Character" maxOccurs="unbounded" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

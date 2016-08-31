@@ -14,6 +14,14 @@
         <tileType sprite="tile_blue_right" mapid="10" tangible="true"/>
         <tileType sprite="tile_blue_bottomright" mapid="11" tangible="true"/>
     </tileTypes>
+    <Characters>
+        <Character name="Slug">
+            <Rect w="50" h="50" x="200" y="0"/>
+        </Character>
+        <Character name="Slug2">
+            <Rect w="50" h="50" x="300" y="0"/>
+        </Character>
+    </Characters>
     <map>
         00 00 00 00 00 00 00 00 00 00 00 00
         00 03 06 06 09 00 00 03 06 06 09 00
