@@ -25,11 +25,6 @@ public:
     //Initializes the variables
     Character(int w, int h, int startingX, int startingY, std::string n);
 
-    //Moves the character and check collision against tiles
-    void move(Level & level);
-
-    SDL_Rect getCollisionBox() const { return mBox; };
-
     int getXVelocity() const { return mVelX; };
 
     int getYVelocity() const { return mVelY; };
@@ -39,15 +34,11 @@ public:
     void setThrust( Direction d, bool isActive );
 
 private:
-    //Collision box of the character
-    SDL_Rect mBox;
 
     //The velocity of the character
     int mVelX, mVelY;
 
     Direction direction;
-
-    bool touchesWall( const std::vector<Tile> & tiles );
 
 };
 

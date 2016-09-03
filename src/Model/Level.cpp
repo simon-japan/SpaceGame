@@ -3,6 +3,7 @@
 //
 
 #include "Level.h"
+#include "Geometry.h"
 
 using namespace std;
 
@@ -38,8 +39,88 @@ void Level::addCharacter(std::shared_ptr<Character> character) {
     characters.insert(pair<string, shared_ptr<Character>>(character->getName(), character));
 }
 
+void Level::moveCharacters() {
+    for (auto it = beginCharacters(); it != endCharacters(); it++)
+    {
+        auto c = it->second;
+        auto xVelocity = c->getXVelocity();
+        auto yVelocity = c->getYVelocity();
 
+        if (xVelocity == 0 && yVelocity == 0)
+        {
+            continue;
+        }
 
+        tryMoveGameObject(*c, xVelocity, Xaxis);
+        tryMoveGameObject(*c, yVelocity, Yaxis);
+    }
+}
+
+void Level::tryMoveGameObject(GameObject & o, int amount, Axis axis) {
+    // Copy of the object's collision box
+    SDL_Rect collisionBox = o.getCollisionBox();
+
+    if (axis == Xaxis)
+    {
+        collisionBox.x += amount;
+
+        //If the character went too far to the left or right or touched a wall
+        if(wouldCollide(collisionBox, Xaxis, o))
+        {
+            //move back
+            collisionBox.x -= amount;
+        }
+    }
+    else
+    {
+        collisionBox.y += amount;
+
+        //If the character went too far to the left or right or touched a wall
+        if(wouldCollide(collisionBox, Yaxis, o))
+        {
+            //move back
+            collisionBox.y -= amount;
+        }
+    }
+    o.setCollisionBox(collisionBox);
+}
+
+bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
+
+    if (axis == Xaxis)
+    {
+        if (target.x < min_x  || target.x + target.w > max_x)
+        {
+            return true;
+        }
+    }
+    else
+    {
+        if (target.y < min_y  || target.y + target.h > max_y)
+        {
+            return true;
+        }
+    }
+
+    // Super-naive collision detection: BAD
+    // Todo: use BSP etc
+    for (auto & tile : tiles)
+    {
+        if (tile.isTangible() && Geometry::checkCollision(target, tile.getCollisionBox()))
+        {
+            return true;
+        }
+    }
+    for (auto it = beginCharacters(); it != endCharacters(); it++)
+    {
+        if (o.getUUID() != it->second->getUUID() && Geometry::checkCollision(target, it->second->getCollisionBox()))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
 
 
 

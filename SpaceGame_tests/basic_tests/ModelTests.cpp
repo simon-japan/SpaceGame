@@ -25,8 +25,8 @@ TEST(TileTest, CollisionDoesWork) {
     shouldnt_collide.y = 160;
     shouldnt_collide.w = 1;
     shouldnt_collide.h = 1;
-    EXPECT_TRUE(tile1.collidesWith(should_collide));
-    EXPECT_FALSE(tile1.collidesWith(shouldnt_collide));
+    EXPECT_TRUE(tile1.collidesWith(<#initializer#>));
+    EXPECT_FALSE(tile1.collidesWith(<#initializer#>));
 }
 
 TEST(TileTest, PrintsCorrectly)

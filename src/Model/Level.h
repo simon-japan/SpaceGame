@@ -13,6 +13,8 @@
 
 class Character;
 
+enum Axis { Xaxis, Yaxis };
+
 class Level {
 
 public:
@@ -25,6 +27,10 @@ public:
     std::shared_ptr<Character> getCharacter(std::string name) { return characters[name]; }
     auto beginCharacters() { return characters.begin(); }
     auto endCharacters() { return characters.end(); }
+    void moveCharacters();
+    void tryMoveGameObject(GameObject & o, int amount, Axis axis);
+    bool wouldCollide(SDL_Rect target, Axis axis, GameObject & o);
+
 
 private:
     int max_x;
@@ -32,7 +38,6 @@ private:
     int max_y;
     int min_y;
     std::vector<Tile> tiles;
-    //std::vector<Character> characters;
     std::unordered_map<std::string, std::shared_ptr<Character>> characters;
 };
 

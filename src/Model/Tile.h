@@ -21,16 +21,11 @@ public:
 
     std::string getName() const override { return tileType.getName(); }
 
-    //Get the collision box
-    const SDL_Rect getCollisionBox() const;
-
-    bool collidesWith( const SDL_Rect & rect ) const;
+    bool isTangible() const override { return tileType.isTangible(); }
 
     // TODO: add MOVE SEMANTICS!!
 
 private:
-    //The attributes of the tile
-    SDL_Rect mBox;
 
     const TileType & tileType;
 

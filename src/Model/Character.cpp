@@ -12,56 +12,7 @@ Character::Character(int w, int h, int startingX, int startingY, std::string n)
     mBox.y = startingY;
     mBox.w = w;
     mBox.h = h;
-
-}
-
-bool Character::touchesWall( const std::vector<Tile> & tiles )
-{
-    //Go through the tiles
-    for( auto & tile : tiles )
-    {
-        if (tile.collidesWith(mBox))
-        {
-            return true;
-        }
-    }
-
-    //If no wall tiles were touched
-    return false;
-}
-
-void Character::move(Level & level)
-{
-    const std::vector<Tile> & tiles(level.getTiles());
-
-    //Move the character left or right
-    mBox.x += mVelX;
-
-    if (mVelX > 0)
-    {
-        direction = right;
-    }
-    else if (mVelX < 0)
-    {
-        direction = left;
-    }
-
-    //If the character went too far to the left or right or touched a wall
-    if( ( mBox.x < 0 ) || ( mBox.x + mBox.w > level.getWidth() ) || touchesWall( tiles ) )
-    {
-        //move back
-        mBox.x -= mVelX;
-    }
-
-    //Move the character up or down
-    mBox.y += mVelY;
-
-    //If the character went too far up or down or touched a wall
-    if( ( mBox.y < 0 ) || ( mBox.y + mBox.h > level.getHeight() ) || touchesWall( tiles ) )
-    {
-        //move back
-        mBox.y -= mVelY;
-    }
+    tangible = true;
 }
 
 void Character::setThrust(Direction d, bool isActive) {
@@ -100,6 +51,15 @@ void Character::setThrust(Direction d, bool isActive) {
             default:
                 break;
         }
+    }
+
+    if (mVelX > 0)
+    {
+        direction = right;
+    }
+    else if (mVelX < 0)
+    {
+        direction = left;
     }
 }
 

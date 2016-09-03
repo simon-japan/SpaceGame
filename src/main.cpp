@@ -140,7 +140,6 @@ int main( int argc, char* args[] )
         levelPtr->addCharacter(player);
 
         // The GameController responds to user input (all it does at the moment is to move the avatar around).
-        // Todo: add any more required functionality here
         GameController gameController(*player);
 
 		// The renderer is the top-level "view" object.
@@ -165,8 +164,8 @@ int main( int argc, char* args[] )
                 gameController.handlePlayerInput(e);
 			}
 
-            // Update the player model's position based on its updated velocity + collision detection.
-			player->move( *levelPtr ); // Todo: invoke this in a more systematic way
+            // Update the player & enemy positions based on their updated velocity + collision detection.
+			levelPtr->moveCharacters();
 
 			// Todo: AI
 			// Todo: interactions between characters

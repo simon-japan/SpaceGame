@@ -13,11 +13,3 @@ Tile::Tile( int x, int y, const TileType & t): tileType (t), GameObject(t.getNam
     mBox.y = y;
 }
 
-const SDL_Rect Tile::getCollisionBox() const
-{
-    return mBox;
-}
-
-bool Tile::collidesWith(const SDL_Rect & rect) const {
-    return tileType.isTangible() && Geometry::checkCollision(rect, mBox);
-}
