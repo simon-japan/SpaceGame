@@ -9,7 +9,7 @@ void CharacterSpriteRenderer::render(SDL_Rect camera, SDL_Renderer *sdlRenderer)
     Sprite * playerSprite = nullptr;
     if (character.getXVelocity() || character.getYVelocity())
     {
-        if (character.getDirection() == Direction::right) {
+        if (character.getFacingDirection() == Direction::right) {
             playerSprite = &walkingRightSprite;
         }
         else
@@ -20,7 +20,7 @@ void CharacterSpriteRenderer::render(SDL_Rect camera, SDL_Renderer *sdlRenderer)
     else
     {
         animationState = 0;
-        if (character.getDirection() == Direction::right)
+        if (character.getFacingDirection() == Direction::right)
         {
             playerSprite = &standingRightSprite;
         }

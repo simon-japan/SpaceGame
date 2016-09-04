@@ -4,6 +4,7 @@
 
 #include "Level.h"
 #include "Geometry.h"
+#include "EnemyAI.h"
 
 using namespace std;
 
@@ -51,6 +52,8 @@ void Level::moveCharacters() {
             continue;
         }
 
+        c->setBlocked(false);
+
         tryMoveGameObject(*c, xVelocity, Xaxis);
         tryMoveGameObject(*c, yVelocity, Yaxis);
     }
@@ -69,6 +72,7 @@ void Level::tryMoveGameObject(GameObject & o, int amount, Axis axis) {
         {
             //move back
             collisionBox.x -= amount;
+            o.setBlocked(true);
         }
     }
     else
@@ -80,6 +84,7 @@ void Level::tryMoveGameObject(GameObject & o, int amount, Axis axis) {
         {
             //move back
             collisionBox.y -= amount;
+            o.setBlocked(true);
         }
     }
     o.setCollisionBox(collisionBox);
@@ -120,6 +125,16 @@ bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
     }
 
     return false;
+}
+
+void Level::updateAI() {
+    for (auto it = beginCharacters(); it != endCharacters(); it++) {
+        auto c = it->second;
+        if (c->getName().compare("Player")) // Update the AI state if it's a NPC
+        {
+            EnemyAI::updateState(*c);
+        }
+    }
 }
 
 

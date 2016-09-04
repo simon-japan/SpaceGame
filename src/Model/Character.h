@@ -8,12 +8,9 @@
 #include <SDL.h>
 #include <vector>
 #include "Tile.h"
-#include "Level.h"
 #include "GameObject.h"
 
 enum Direction { left, right, up, down };
-
-class Level;
 
 // Todo: proper comments to explain what this class does
 class Character: public GameObject
@@ -29,7 +26,7 @@ public:
 
     int getYVelocity() const { return mVelY; };
 
-    Direction getDirection() const { return direction; };
+    Direction getFacingDirection() const { return direction; };
 
     void setThrust( Direction d, bool isActive );
 

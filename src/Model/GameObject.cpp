@@ -16,3 +16,11 @@ bool GameObject::collidesWith(GameObject & o) {
 void GameObject::setCollisionBox(SDL_Rect b) {
     mBox = b;
 }
+
+bool GameObject::isBlocked() const {
+    return blocked;
+}
+
+void GameObject::setBlocked(bool isBlocked) {
+    GameObject::blocked = isBlocked;
+}

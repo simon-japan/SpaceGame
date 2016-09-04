@@ -14,6 +14,7 @@ and may not be redistributed without written permission.*/
 #include "Serialization/LevelLoader.h"
 #include "Controller/GameController.h"
 #include "Controller/CameraController.h"
+#include "Model/EnemyAI.h"
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -137,6 +138,7 @@ int main( int argc, char* args[] )
 
 		//The player's avatar is a special character that is always loaded, regardless of the level.
 		auto player = make_shared<Character>(50, 50, 0, 0, std::string("Player"));
+
         levelPtr->addCharacter(player);
 
         // The GameController responds to user input (all it does at the moment is to move the avatar around).
@@ -164,11 +166,10 @@ int main( int argc, char* args[] )
                 gameController.handlePlayerInput(e);
 			}
 
+            levelPtr->updateAI();
+
             // Update the player & enemy positions based on their updated velocity + collision detection.
 			levelPtr->moveCharacters();
-
-			// Todo: AI
-			// Todo: interactions between characters
 
             // The camera constantly centers on the player, modulo the boundaries of the level.
             CameraController::setCameraOnCharacter(camera, *levelPtr, *player, SCREEN_WIDTH, SCREEN_HEIGHT);

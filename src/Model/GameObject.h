@@ -12,9 +12,10 @@
 class GameObject {
 
 public:
-    GameObject(std::string n): uuid(boost::uuids::random_generator()()), name(n), mBox() {}
+    GameObject(std::string n): uuid(boost::uuids::random_generator()()), name(n), mBox(), blocked(false) {}
 
-    GameObject(GameObject const & rhs): uuid(rhs.uuid), name(rhs.name), mBox(rhs.mBox) {}
+    GameObject(GameObject const & rhs): uuid(rhs.uuid), name(rhs.name), mBox(rhs.mBox), blocked(rhs.blocked),
+                                        tangible(rhs.tangible) {}
 
     bool operator == (GameObject const & rhs) { return uuid == rhs.uuid; }
 
@@ -23,6 +24,8 @@ public:
         uuid = rhs.uuid;
         name = rhs.name;
         mBox = rhs.mBox;
+        blocked = rhs.blocked;
+        tangible = rhs.tangible;
         return *this;
     }
 
@@ -40,6 +43,10 @@ public:
 
     void setCollisionBox(SDL_Rect b);
 
+    bool isBlocked() const;
+
+    void setBlocked(bool b);
+
 private:
 
     boost::uuids::uuid uuid;
@@ -50,6 +57,8 @@ protected:
     bool tangible;
 
     SDL_Rect mBox;
+
+    bool blocked;
 
 };
 

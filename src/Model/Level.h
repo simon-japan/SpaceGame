@@ -30,6 +30,7 @@ public:
     void moveCharacters();
     void tryMoveGameObject(GameObject & o, int amount, Axis axis);
     bool wouldCollide(SDL_Rect target, Axis axis, GameObject & o);
+    void updateAI();
 
 
 private:
