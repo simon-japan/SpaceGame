@@ -4,7 +4,6 @@
         <texture name="tiles" file="resources/images/scifitiles-sheet.png"/>
         <texture name="spaceman" file="resources/images/SpaceSoldier.png"/>
         <texture name="slug" file="resources/images/slug.png"/>
-        <texture name="tile_trak" file="resources/images/trak2_tile1b.png"/>
     </textures>
     <sprites>
         <sprite name="tile_ground">
@@ -12,12 +11,6 @@
         </sprite>
         <sprite name="tile_ground2">
             <clip texture="tiles" x="192" y="32" w="32" h="32"/>
-        </sprite>
-        <sprite name="tile_trak2">
-            <clip texture="tile_trak" x="129" y="0" w="128" h="128"/>
-        </sprite>
-        <sprite name="tile_trak3">
-            <clip texture="tile_trak" x="0" y="129" w="128" h="128"/>
         </sprite>
         <sprite name="tile_blue_topleft">
             <clip texture="tiles" x="160" y="0" w="32" h="32"/>
