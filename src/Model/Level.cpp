@@ -109,7 +109,11 @@ bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
 
     // Super-naive collision detection: BAD
     // Todo: use BSP etc
-    for (auto & tile : tiles)
+
+    vector<GameObject> tilesWithinReach;
+    collisionQuadTree.retrieve(tilesWithinReach, o);
+
+    for (auto & tile : tilesWithinReach)
     {
         if (tile.isTangible() && Geometry::checkCollision(target, tile.getCollisionBox()))
         {
@@ -134,6 +138,21 @@ void Level::updateAI() {
         {
             EnemyAI::updateState(*c);
         }
+    }
+}
+
+void Level::refreshQuadTree() {
+    // Clear all objects from the quad tree, and set its bounds to be the same as the shape of the level
+    SDL_Rect levelBounds;
+    levelBounds.x = min_x;
+    levelBounds.y = min_y;
+    levelBounds.w = getWidth();
+    levelBounds.h = getHeight();
+    collisionQuadTree.clear( levelBounds );
+
+    for (auto & object : tiles)
+    {
+        collisionQuadTree.insert(object);
     }
 }
 
