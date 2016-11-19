@@ -25,7 +25,7 @@ public:
     void addCharacter(std::shared_ptr<Character> character);
     int getHeight();
     int getWidth();
-    const std::vector<Tile> & getTiles() const { return tiles; };
+    const std::vector<std::shared_ptr<Tile>> & getTiles() const { return tiles; };
     std::shared_ptr<Character> getCharacter(std::string name) { return characters[name]; }
     auto beginCharacters() { return characters.begin(); }
     auto endCharacters() { return characters.end(); }
@@ -44,7 +44,7 @@ private:
     int min_x;
     int max_y;
     int min_y;
-    std::vector<Tile> tiles;
+    std::vector<std::shared_ptr<Tile>> tiles;
     std::unordered_map<std::string, std::shared_ptr<Character>> characters;
     QuadTree collisionQuadTree;
 };

@@ -35,10 +35,11 @@ public:
 
     // Determines whether the node has any child nodes and tries to add the object there.
     // If there are no child nodes or the object doesn’t fit in a child node, it adds the object to the parent node.
-    void insert(GameObject & pGameObject);
+    void insert(std::shared_ptr<GameObject> pGameObject);
 
     // returns all objects in all nodes that the given object could potentially collide with.
-    std::vector<GameObject> & retrieve(std::vector<GameObject> & returnObjects, GameObject & pObject);
+    std::vector<std::shared_ptr<GameObject>> & retrieve(std::vector<std::shared_ptr<GameObject>> & returnObjects,
+                                                        GameObject & pObject);
 
 private:
     // Splits the node into four subnodes by dividing the node into four equal parts
@@ -52,7 +53,7 @@ private:
     int level;          // The current node level; 0 is the topmost
     SDL_Rect bounds;    // The 2D space that the node occupies
     std::array<std::unique_ptr<QuadTree>, 4> nodes; // Child nodes
-    std::vector<GameObject&> objects;    // Game objects that are inside this node
+    std::vector<std::shared_ptr<GameObject>> objects;    // Game objects that are inside this node
 };
 
 

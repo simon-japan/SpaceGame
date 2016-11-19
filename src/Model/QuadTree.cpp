@@ -4,6 +4,8 @@
 
 #include "QuadTree.h"
 
+using namespace std;
+
 void QuadTree::clear() {
     objects.clear();
 
@@ -21,10 +23,10 @@ void QuadTree::clear() {
  * exceeds the capacity, it will split and add all
  * objects to their corresponding nodes.
  */
-void QuadTree::insert(GameObject & pGameObject) {
+void QuadTree::insert(std::shared_ptr<GameObject> pGameObject) {
     if (nodes[0] != nullptr)
     {
-        int index(getIndex(pGameObject.getCollisionBox()));
+        int index(getIndex(pGameObject->getCollisionBox()));
         if (index != -1)
         {
             nodes[index]->insert(pGameObject);
@@ -41,29 +43,30 @@ void QuadTree::insert(GameObject & pGameObject) {
             split();
         }
 
-        size_t i = 0;
-        while (i < objects.size())
+        for (std::vector<std::shared_ptr<GameObject>>::iterator it = objects.begin();
+                it != objects.end();)
         {
-            int index(getIndex(objects.at(i).getCollisionBox()));
-            if (index != -1)
-            {
+            int index(getIndex((*it)->getCollisionBox()));
+            if (index != -1) {
                 nodes[index]->insert(objects[index]);
-                objects.erase(objects.begin() + index);
+                objects.erase(it);
             }
             else
             {
-                i++;
+                it++;
             }
         }
     }
 }
 
-std::vector<GameObject> & QuadTree::retrieve(std::vector<GameObject> & returnObjects, GameObject & pObject) {
+vector<shared_ptr<GameObject>> & QuadTree::retrieve(vector<shared_ptr<GameObject>> & returnObjects, GameObject & pObject) {
     int index(getIndex(pObject.getCollisionBox()));
     if (index != -1 && nodes[0] != nullptr)
     {
         nodes[index]->retrieve(returnObjects, pObject);
     }
+
+    returnObjects.insert(returnObjects.end(), objects.begin(), objects.end());
 
     return returnObjects;
 }
@@ -74,10 +77,10 @@ void QuadTree::split() {
     int x = bounds.x;
     int y = bounds.y;
 
-    nodes[0] = new QuadTree(level+1, SDL_Rect{x + subWidth, y, subWidth, subHeight};
-    nodes[1] = new QuadTree(level+1, SDL_Rect{x, y, subWidth, subHeight};
-    nodes[2] = new QuadTree(level+1, SDL_Rect{x, y + subHeight, subWidth, subHeight};
-    nodes[3] = new QuadTree(level+1, SDL_Rect{x + subWidth, y + subHeight, subWidth, subHeight};
+    nodes[0].reset(new QuadTree(level+1, SDL_Rect{x + subWidth, y, subWidth, subHeight}));
+    nodes[1].reset(new QuadTree(level+1, SDL_Rect{x, y, subWidth, subHeight}));
+    nodes[2].reset(new QuadTree(level+1, SDL_Rect{x, y + subHeight, subWidth, subHeight}));
+    nodes[3].reset(new QuadTree(level+1, SDL_Rect{x + subWidth, y + subHeight, subWidth, subHeight}));
 }
 
 /*

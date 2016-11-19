@@ -17,7 +17,7 @@ int Level::getWidth() {
 }
 
 void Level::addTile(int x, int y, const TileType & tileType) {
-    tiles.emplace_back(x, y, tileType);
+    tiles.emplace_back(new Tile(x, y, tileType));
     if (x > max_x)
     {
         max_x = x + TILE_WIDTH;
@@ -41,6 +41,8 @@ void Level::addCharacter(std::shared_ptr<Character> character) {
 }
 
 void Level::moveCharacters() {
+    refreshQuadTree();
+
     for (auto it = beginCharacters(); it != endCharacters(); it++)
     {
         auto c = it->second;
@@ -107,19 +109,18 @@ bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
         }
     }
 
-    // Super-naive collision detection: BAD
-    // Todo: use BSP etc
-
-    vector<GameObject> tilesWithinReach;
+    vector<shared_ptr<GameObject>> tilesWithinReach;
     collisionQuadTree.retrieve(tilesWithinReach, o);
 
     for (auto & tile : tilesWithinReach)
     {
-        if (tile.isTangible() && Geometry::checkCollision(target, tile.getCollisionBox()))
+        if (tile->isTangible() && Geometry::checkCollision(target, tile->getCollisionBox()))
         {
             return true;
         }
     }
+
+    // Currently, not using BSP for collision detection between characters (because they may move around the map)
     for (auto it = beginCharacters(); it != endCharacters(); it++)
     {
         if (o.getUUID() != it->second->getUUID() && Geometry::checkCollision(target, it->second->getCollisionBox()))
@@ -150,7 +151,7 @@ void Level::refreshQuadTree() {
     levelBounds.h = getHeight();
     collisionQuadTree.clear( levelBounds );
 
-    for (auto & object : tiles)
+    for (auto object : tiles)
     {
         collisionQuadTree.insert(object);
     }
