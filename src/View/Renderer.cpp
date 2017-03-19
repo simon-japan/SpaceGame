@@ -20,14 +20,14 @@ void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
     GameObjectRenderer * gameObjectRenderer = nullptr;
 
     //Render tiles from level
-    const vector<Tile> & tiles = level.getTiles();
+    const std::vector<std::shared_ptr<Tile> > & tiles = level.getTiles();
     for( const auto & tile : tiles )
     {
-        if (rendererRegistry.find(tile.getUUID()) == rendererRegistry.end())
+        if (rendererRegistry.find(tile->getUUID()) == rendererRegistry.end())
         {
-            addTileSpriteRenderer(tile);
+            addTileSpriteRenderer(*tile);
         }
-        gameObjectRenderer = &*rendererRegistry[tile.getUUID()];
+        gameObjectRenderer = &*rendererRegistry[tile->getUUID()];
         gameObjectRenderer->render(camera, sdlRenderer);
 
     }
