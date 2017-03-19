@@ -30,7 +30,7 @@ class SerializationTest : public ::testing::Test {
 TEST_F(SerializationTest, SpriteLoaderCanLoadValidSpriteFile)
 {
     SpriteLoader spriteLoader(textureRepository, spriteRepository, gRenderer);
-    int rc = spriteLoader.loadSprites("configuration/sprites.xml");
+    int rc = spriteLoader.loadSprites("../../configuration/sprites.xml");
     EXPECT_EQ(rc, 0);
 
 }
@@ -45,7 +45,7 @@ TEST_F(SerializationTest, SpriteLoaderComplainIfSpriteFileDoesntExist)
 TEST_F(SerializationTest, LevelLoaderCanLoadValidFile)
 {
     LevelLoader levelLoader;
-    std::unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/map.xml"));
+    std::unique_ptr<Level> levelPtr(levelLoader.loadLevel("../../configuration/map.xml"));
     EXPECT_NE(levelPtr, nullptr);
 }
 
