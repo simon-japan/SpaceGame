@@ -15,18 +15,28 @@ TEST(TileTest, TileCreation) {
 TEST(TileTest, CollisionDoesWork) {
     TileType tt("SimonTile", true);
     Tile tile1(0,0, tt);
-    SDL_Rect should_collide;
-    SDL_Rect shouldnt_collide;
-    should_collide.x = 0;
-    should_collide.y = 0;
-    should_collide.w = 1;
-    should_collide.h = 1;
-    shouldnt_collide.x = 160;
-    shouldnt_collide.y = 160;
-    shouldnt_collide.w = 1;
-    shouldnt_collide.h = 1;
-    EXPECT_TRUE(tile1.collidesWith(should_collide));
-    EXPECT_FALSE(tile1.collidesWith(<#initializer#>));
+
+    // Can collide with an object that overlaps
+    SDL_Rect should_collide_box;
+    should_collide_box.x = 0;
+    should_collide_box.y = 0;
+    should_collide_box.w = 1;
+    should_collide_box.h = 1;
+    GameObject should_collide_obj("ShouldCollide");
+    should_collide_obj.setCollisionBox(should_collide_box);
+    should_collide_obj.setTangible(true);
+    EXPECT_TRUE(tile1.collidesWith(should_collide_obj));
+
+    // Does not collide with an object that doesn't overlap
+    SDL_Rect shouldnt_collide_box;
+    shouldnt_collide_box.x = 160;
+    shouldnt_collide_box.y = 160;
+    shouldnt_collide_box.w = 1;
+    shouldnt_collide_box.h = 1;
+    GameObject shouldnt_collide_obj("ShouldCollide");
+    should_collide_obj.setCollisionBox(shouldnt_collide_box);
+    should_collide_obj.setTangible(true);
+    EXPECT_FALSE(tile1.collidesWith(shouldnt_collide_obj));
 }
 
 TEST(TileTest, PrintsCorrectly)
@@ -47,4 +57,35 @@ TEST(LevelTest, DimensionsUpdateCorrectly)
     level.addTile(-80,0, whateverType);
     EXPECT_EQ(level.getHeight(),160);
     EXPECT_EQ(level.getWidth(), 160);
+}
+
+TEST(QuadTreeTest, InsertsProperly)
+{
+    // Construct a quad tree for a 100*100 area
+    QuadTree quadTree(0, SDL_Rect {0, 0, 100, 100});
+
+    std::vector<std::shared_ptr<GameObject>> gameObjects;
+
+    for (int i = 0; i < 100; i++)
+    {
+        SDL_Rect rect;
+        rect.x = i;
+        rect.y = i;
+        rect.w = 1;
+        rect.h = 1;
+        std::shared_ptr<GameObject> gameObjectPtr (new GameObject(std::to_string(i)));
+        gameObjectPtr->setCollisionBox(rect);
+        gameObjectPtr->setTangible(true);
+        gameObjects.push_back(gameObjectPtr);
+        quadTree.insert(gameObjectPtr);
+    }
+
+    std::vector<std::shared_ptr<GameObject>> results;
+
+    for (auto goPtr : gameObjects)
+    {
+        results.clear();
+        quadTree.retrieve(results, *goPtr);
+        EXPECT_EQ(results.size(), 7);
+    }
 }

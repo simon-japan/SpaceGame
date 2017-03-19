@@ -47,8 +47,9 @@ void QuadTree::insert(std::shared_ptr<GameObject> pGameObject) {
                 it != objects.end();)
         {
             int index(getIndex((*it)->getCollisionBox()));
-            if (index != -1) {
+            if (index != -1 && index < objects.size()) {
                 nodes[index]->insert(objects[index]);
+                it->reset();
                 objects.erase(it);
             }
             else

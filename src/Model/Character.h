@@ -1,6 +1,8 @@
-//
-// Created by SJ Holland on 4/3/16.
-//
+/*
+ Created by SJ Holland on 4/3/16.
+
+ Represents an entity (player or NPC) that is capable of moving around the game world.
+*/
 
 #ifndef SPACEGAME_CHARACTER_H
 #define SPACEGAME_CHARACTER_H
@@ -12,7 +14,6 @@
 
 enum Direction { left, right, up, down };
 
-// Todo: proper comments to explain what this class does
 class Character: public GameObject
 {
 public:
