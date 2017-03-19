@@ -31,7 +31,7 @@ target_link_libraries(
         ${SDL2_TTF_LIBRARY}
         ${SDLMIXER_LIBRARY}
         ${XercesC_LIBRARIES}
-        )
+)
 
 add_executable(SpaceGame src/main.cpp)
 
@@ -42,9 +42,9 @@ target_link_libraries(BoostTest ${Boost_LIBRARIES})
 
 add_subdirectory(SpaceGame_tests)
 
-add_subdirectory(configuration)
+# add_subdirectory(configuration)
 
 target_link_libraries(SpaceGame SpaceGameLib)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/configuration/ DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/configuration)
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources/ DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/resources)
+file(COPY configuration DESTINATION .)
+file(COPY resources DESTINATION .)

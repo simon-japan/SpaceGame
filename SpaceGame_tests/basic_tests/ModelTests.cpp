@@ -15,18 +15,22 @@ TEST(TileTest, TileCreation) {
 TEST(TileTest, CollisionDoesWork) {
     TileType tt("SimonTile", true);
     Tile tile1(0,0, tt);
-    SDL_Rect should_collide;
-    SDL_Rect shouldnt_collide;
-    should_collide.x = 0;
-    should_collide.y = 0;
-    should_collide.w = 1;
-    should_collide.h = 1;
-    shouldnt_collide.x = 160;
-    shouldnt_collide.y = 160;
-    shouldnt_collide.w = 1;
-    shouldnt_collide.h = 1;
-    EXPECT_TRUE(tile1.collidesWith(should_collide));
-    EXPECT_FALSE(tile1.collidesWith(<#initializer#>));
+    GameObject shouldCollide("shouldCollide");
+    GameObject shouldntCollide("shouldntCollide");
+    SDL_Rect shouldCollideBox ;
+    SDL_Rect shouldntCollideBox;
+    shouldCollideBox.x = 0;
+    shouldCollideBox.y = 0;
+    shouldCollideBox.w = 1;
+    shouldCollideBox.h = 1;
+    shouldntCollideBox.x = 160;
+    shouldntCollideBox.y = 160;
+    shouldntCollideBox.w = 1;
+    shouldntCollideBox.h = 1;
+    shouldCollide.setCollisionBox(shouldCollideBox);
+    shouldntCollide.setCollisionBox(shouldntCollideBox);
+    EXPECT_TRUE(tile1.collidesWith(shouldCollide));
+    EXPECT_FALSE(tile1.collidesWith(shouldntCollide));
 }
 
 TEST(TileTest, PrintsCorrectly)
