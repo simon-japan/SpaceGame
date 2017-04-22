@@ -48,9 +48,9 @@ void QuadTree::insert(std::shared_ptr<GameObject> pGameObject) {
         {
             int index(getIndex((*it)->getCollisionBox()));
             if (index != -1 && index < objects.size()) {
-                nodes[index]->insert(objects[index]);
+                nodes[index]->insert(*it);
                 it->reset();
-                objects.erase(it);
+                it = objects.erase(it);
             }
             else
             {
@@ -121,3 +121,50 @@ int QuadTree::getIndex(SDL_Rect pRect) {
     return index;
 }
 
+std::ostream & operator<<(std::ostream & os, const QuadTree & t) {
+    int indent = (t.level) * 4;
+    while (indent > 0) {
+        os << " ";
+        indent--;
+    }
+    os << "NODE - objects (this node): " << t.objectsCount(false) << ", total: " << t.objectsCount(true)
+       << ", level: " << t.level <<
+       ", bounds: [x=" << t.bounds.x << ", y=" << t.bounds.y <<
+       ", w=" << t.bounds.w << ", h=" << t.bounds.h << "]"<< endl;
+    for (auto & o : t.objects)
+    {
+        indent = (t.level + 1) * 4;
+        while (indent > 0) {
+            os << " ";
+            indent--;
+        }
+        SDL_Rect box = o->getCollisionBox();
+        os << "GAMEOBJECT: " << "[x=" << box.x << ", y=" << box.y << ", w=" << box.w << ", h=" << box.h << "]" << endl;
+    }
+    for (auto & node : t.nodes)
+    {
+        if (node != nullptr)
+            os << *node;
+    }
+    return os;
+}
+
+long QuadTree::objectsCount(bool includeChildren) const {
+    if (includeChildren)
+    {
+        long total = objects.size();
+        for (auto & node : nodes)
+        {
+            if (node != nullptr)
+            {
+                total += node->objectsCount(true);
+            }
+        }
+        return total;
+    }
+    else
+    {
+        return objects.size();
+    }
+
+}

@@ -13,6 +13,7 @@
 #include <vector>
 #include <array>
 #include "GameObject.h"
+#include <iostream>
 
 class QuadTree {
 
@@ -41,6 +42,15 @@ public:
     std::vector<std::shared_ptr<GameObject>> & retrieve(std::vector<std::shared_ptr<GameObject>> & returnObjects,
                                                         GameObject & pObject);
 
+    // Methods for testing
+    long objectsCount(bool includeChildren) const;
+
+    SDL_Rect getBounds() { return bounds; }
+
+    std::array<std::unique_ptr<QuadTree>, 4> & getNodes() { return nodes; }
+
+    friend std::ostream& operator<<(std::ostream& os, const QuadTree& t);
+
 private:
     // Splits the node into four subnodes by dividing the node into four equal parts
     // and initializing the four subnodes with the new bounds.
@@ -55,6 +65,5 @@ private:
     std::array<std::unique_ptr<QuadTree>, 4> nodes; // Child nodes
     std::vector<std::shared_ptr<GameObject>> objects;    // Game objects that are inside this node
 };
-
 
 #endif //SPACEGAME_QUADTREE_H
