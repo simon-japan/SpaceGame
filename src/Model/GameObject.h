@@ -29,6 +29,8 @@ public:
         return *this;
     }
 
+    virtual ~GameObject() {}
+
     const boost::uuids::uuid getUUID() const { return uuid; }
 
     virtual std::string getName() const { return name; }
