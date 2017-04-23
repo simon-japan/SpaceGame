@@ -12,8 +12,6 @@
 #include "Character.h"
 #include "QuadTree.h"
 
-class Character;
-
 enum Axis { Xaxis, Yaxis };
 
 class Level {
@@ -26,26 +24,20 @@ public:
     int getHeight();
     int getWidth();
     const std::vector<std::shared_ptr<Tile>> & getTiles() const { return tiles; };
-    std::shared_ptr<Character> getCharacter(std::string name) { return characters[name]; }
-    auto beginCharacters() { return characters.begin(); }
-    auto endCharacters() { return characters.end(); }
+    const std::vector<std::shared_ptr<Character>> & getCharacters() const { return characters; };
     void moveCharacters();
     void tryMoveGameObject(GameObject & o, int amount, Axis axis);
     bool wouldCollide(SDL_Rect target, Axis axis, GameObject & o);
     void updateAI();
 
-
 private:
-
     void refreshQuadTree();
-
-
     int max_x;
     int min_x;
     int max_y;
     int min_y;
     std::vector<std::shared_ptr<Tile>> tiles;
-    std::unordered_map<std::string, std::shared_ptr<Character>> characters;
+    std::vector<std::shared_ptr<Character>> characters;
     QuadTree collisionQuadTree;
 };
 

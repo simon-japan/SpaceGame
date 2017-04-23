@@ -37,15 +37,14 @@ void Level::addTile(int x, int y, const TileType & tileType) {
 }
 
 void Level::addCharacter(std::shared_ptr<Character> character) {
-    characters.insert(pair<string, shared_ptr<Character>>(character->getName(), character));
+    characters.push_back(character);
 }
 
 void Level::moveCharacters() {
     refreshQuadTree();
 
-    for (auto it = beginCharacters(); it != endCharacters(); it++)
+    for (auto c : characters)
     {
-        auto c = it->second;
         auto xVelocity = c->getXVelocity();
         auto yVelocity = c->getYVelocity();
 
@@ -121,9 +120,9 @@ bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
     }
 
     // Currently, not using BSP for collision detection between characters (because they may move around the map)
-    for (auto it = beginCharacters(); it != endCharacters(); it++)
+    for (auto character : characters)
     {
-        if (o.getUUID() != it->second->getUUID() && Geometry::checkCollision(target, it->second->getCollisionBox()))
+        if (o.getUUID() != character->getUUID() && Geometry::checkCollision(target, character->getCollisionBox()))
         {
             return true;
         }
@@ -133,11 +132,10 @@ bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
 }
 
 void Level::updateAI() {
-    for (auto it = beginCharacters(); it != endCharacters(); it++) {
-        auto c = it->second;
-        if (c->getName().compare("Player")) // Update the AI state if it's a NPC
+    for (auto character : characters) {
+        if (character->getName().compare("Player")) // Update the AI state if it's a NPC
         {
-            EnemyAI::updateState(*c);
+            EnemyAI::updateState(*character);
         }
     }
 }

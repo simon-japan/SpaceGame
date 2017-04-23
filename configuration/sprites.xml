@@ -4,6 +4,7 @@
         <texture name="tiles" file="resources/images/scifitiles-sheet.png"/>
         <texture name="spaceman" file="resources/images/SpaceSoldier.png"/>
         <texture name="slug" file="resources/images/slug.png"/>
+        <texture name="bullets" file="resources/images/bullets.png"/>
     </textures>
     <sprites>
         <sprite name="tile_ground">
@@ -67,6 +68,9 @@
         </sprite>
         <sprite name="slug">
             <clip texture="slug" x="0" y="0" w="32" h="32"/>
+        </sprite>
+        <sprite name="bullet_blue">
+            <clip texture="bullets" x="7" y="7" w="20" h="20"/>
         </sprite>
     </sprites>
 </root>

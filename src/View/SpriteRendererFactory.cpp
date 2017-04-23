@@ -11,10 +11,11 @@ unique_ptr<GameObjectRenderer> SpriteRendererFactory::createCharacterRenderer(co
 
     // Todo: make determining which sprites to use based on the character's name less dumb (requires some more config)
 
-    unique_ptr<GameObjectRenderer> playerRenderer;
+    unique_ptr<GameObjectRenderer> renderer;
 
-    if (!subject.getName().compare("Player")) {
-        playerRenderer = std::make_unique<CharacterSpriteRenderer>(subject,
+    if (!subject.getName().compare("Player"))
+    {
+        renderer = std::make_unique<CharacterSpriteRenderer>(subject,
                                                                    *spriteRepository.getSprite(
                                                                            "spaceman_standing_left"),
                                                                    *spriteRepository.getSprite("spaceman_walking_left"),
@@ -22,9 +23,16 @@ unique_ptr<GameObjectRenderer> SpriteRendererFactory::createCharacterRenderer(co
                                                                            "spaceman_standing_right"),
                                                                    *spriteRepository.getSprite(
                                                                            "spaceman_walking_right"));
-    } else {
+    }
+    else if (!subject.getName().compare("bullet"))
+    {
+        Sprite * sprite = spriteRepository.getSprite("bullet_blue");
+        renderer = std::make_unique<CharacterSpriteRenderer>(subject, *sprite, *sprite, *sprite, *sprite);
+    }
+    else
+    {
         // Default sprite
-        playerRenderer = std::make_unique<CharacterSpriteRenderer>(subject,
+        renderer = std::make_unique<CharacterSpriteRenderer>(subject,
                                                                    *spriteRepository.getSprite(
                                                                            "slug"),
                                                                    *spriteRepository.getSprite("slug"),
@@ -33,7 +41,7 @@ unique_ptr<GameObjectRenderer> SpriteRendererFactory::createCharacterRenderer(co
                                                                    *spriteRepository.getSprite(
                                                                            "slug"));
     }
-    return playerRenderer;
+    return renderer;
 }
 
 unique_ptr<GameObjectRenderer> SpriteRendererFactory::createTileRenderer(const Tile & subject) {

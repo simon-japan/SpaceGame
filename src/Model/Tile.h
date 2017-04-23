@@ -23,6 +23,8 @@ public:
 
     bool isTangible() const override { return tileType.isTangible(); }
 
+    ~Tile() {}
+
     // TODO: add MOVE SEMANTICS!!
 
 private:

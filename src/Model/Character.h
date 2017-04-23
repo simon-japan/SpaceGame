@@ -31,6 +31,8 @@ public:
 
     void setThrust( Direction d, bool isActive );
 
+    ~Character() {}
+
 private:
 
     //The velocity of the character

@@ -109,12 +109,6 @@ int main( int argc, char* args[] )
 	}
 	else
 	{
-		//Main loop flag
-		bool quit = false;
-
-		//Event handler
-		SDL_Event e;
-
 		//Level camera
 		SDL_Rect camera = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
@@ -139,13 +133,16 @@ int main( int argc, char* args[] )
         levelPtr->addCharacter(player);
 
         // The GameController responds to user input (all it does at the moment is to move the avatar around).
-        GameController gameController(*player);
+        GameController gameController(*player, *levelPtr);
 
 		// The renderer is the top-level "view" object.
 		// It can render a whole scene: you give it the camera and the level (which contains all renderable objects)
 		// It will use the sprite repository to find the sprite for each object it needs to render,
 		// and uses the SDL renderer
 		Renderer renderer(gRenderer, spriteRepository);
+
+        SDL_Event e; //Event handler
+        bool quit = false; //Main loop flag
 
 		//While application is running
 		while( !quit )

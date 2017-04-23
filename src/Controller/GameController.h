@@ -7,14 +7,16 @@
 
 #include <SDL_events.h>
 #include "../Model/Character.h"
+#include "../Model/Level.h"
 
 class GameController {
 public:
-    GameController(Character & p): player(p) {};
+    GameController(Character & p, Level & l): player(p), level(l) {};
     void handlePlayerInput(SDL_Event& e);
 
 private:
     Character & player;
+    Level & level;
 };
 
 

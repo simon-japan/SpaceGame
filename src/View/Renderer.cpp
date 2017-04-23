@@ -33,13 +33,13 @@ void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
     }
 
     //Render characters - after all of the tiles, because the characters are on top.
-    for (auto it = level.beginCharacters(); it != level.endCharacters(); it++) {
+    for (auto character : level.getCharacters()) {
 
-        if (rendererRegistry.find(it->second->getUUID()) == rendererRegistry.end())
+        if (rendererRegistry.find(character->getUUID()) == rendererRegistry.end())
         {
-            addCharacterSpriteRenderer(*it->second);
+            addCharacterSpriteRenderer(*character);
         }
-        gameObjectRenderer = &*rendererRegistry[it->second->getUUID()];
+        gameObjectRenderer = &*rendererRegistry[character->getUUID()];
         gameObjectRenderer->render(camera, sdlRenderer);
     }
 
