@@ -26,5 +26,6 @@ script:
   # Run your build commands next
   - mkdir -p build
   - cd build
-  - sudo apt-get upgrade
+  - sudo api-get update
+  - sudo apt-get upgrade cmake
   - cmake -DCMAKE_BUILD_TYPE=Debug ..
