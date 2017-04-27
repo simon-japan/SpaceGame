@@ -16,7 +16,7 @@ addons:
       - cmake
 before_script:
   - sudo apt-get install -y libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev
-  - sudo apt-get install xerces-c
+  - sudo apt-get install libxerces-c3.1
   - sudo apt-get install libboost-dev
 script:
   # Link gcc-6 and g++-6 to their standard commands
