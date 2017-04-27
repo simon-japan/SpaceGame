@@ -4,6 +4,8 @@ language:
   - cpp
 compiler:
   - gcc
+os:
+  - linux
 addons:
   apt:
     sources:
