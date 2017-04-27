@@ -13,7 +13,7 @@ addons:
     packages:
       - gcc-6
       - g++-6
-      - cmake
+      - cmake=3.3
 script:
   # Link gcc-6 and g++-6 to their standard commands
   - ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
@@ -26,6 +26,4 @@ script:
   # Run your build commands next
   - mkdir -p build
   - cd build
-  - sudo api-get update
-  - sudo apt-get upgrade cmake
   - cmake -DCMAKE_BUILD_TYPE=Debug ..
