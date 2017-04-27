@@ -14,6 +14,9 @@ addons:
       - gcc-6
       - g++-6
       - cmake
+      - xerces-c
+      - libboost-dev
+      - sudo apt-get install libgtest0 libgtest-dev
 before_script:
   - sudo apt-get install -y libsdl2-dev libsdl2-ttf-dev libsdl2-image-dev
 script:
