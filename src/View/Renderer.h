@@ -10,7 +10,7 @@
 #include <unordered_map>
 #include "GameTexture.h"
 #include "../Model/Level.h"
-#include "../Model/Character.h"
+#include "../Model/GameObject.h"
 #include "Sprite.h"
 #include "SpriteRepository.h"
 #include "CharacterSpriteRenderer.h"
@@ -32,7 +32,7 @@ private:
 
     std::unordered_map<boost::uuids::uuid, std::unique_ptr<GameObjectRenderer>, boost::hash<boost::uuids::uuid>> rendererRegistry;
 
-    void addCharacterSpriteRenderer(Character & subject);
+    void addCharacterSpriteRenderer(GameObject & subject);
 
     void addTileSpriteRenderer(const Tile & subject);
 };

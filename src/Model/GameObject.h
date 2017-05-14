@@ -9,6 +9,8 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <SDL_rect.h>
 #include "Property.h"
+#include "Physical.h"
+#include "EnemyAI.h"
 
 
 class GameObject {
@@ -19,10 +21,18 @@ public:
             uuid(boost::uuids::random_generator()()),
             name(n),
             mBox(),
-            blocked(false),
-            properties()
+            physical(*this, 0, 0, left),
+            ai(*this)
+    {}
+
+    // Constructors
+    GameObject(std::string n, int x, int y, int w, int h):
+            GameObject(n)
     {
-        properties.push_back(std::unique_ptr<>)
+        mBox.x = x;
+        mBox.y = y;
+        mBox.w = w;
+        mBox.h = h;
     }
 
     // Copy constructor
@@ -30,8 +40,13 @@ public:
             uuid(rhs.uuid),
             name(rhs.name),
             mBox(rhs.mBox),
-            blocked(rhs.blocked),
-            tangible(rhs.tangible) {}
+            physical(*this,
+                     rhs.physical.getXVelocity(),
+                     rhs.physical.getYVelocity(),
+                     rhs.physical.getFacingDirection()
+            ),
+            ai(*this)
+    {}
 
     // Copy assignment
     GameObject& operator = (GameObject const & rhs)
@@ -39,8 +54,6 @@ public:
         uuid = rhs.uuid;
         name = rhs.name;
         mBox = rhs.mBox;
-        blocked = rhs.blocked;
-        tangible = rhs.tangible;
         return *this;
     }
 
@@ -57,32 +70,27 @@ public:
 
     SDL_Rect getCollisionBox() const { return mBox; };
 
-    bool isBlocked() const;
-
     bool collidesWith(GameObject & o);
 
+    Physical & getPhysical() { return physical; }
+
     // Mutators
-
     void setCollisionBox(SDL_Rect b);
-
-    void setBlocked(bool b);
 
     virtual void onLevelExit();
 
     virtual void onCollide(GameObject & o);
 
-    virtual void updateState();
+    virtual void updateState(Level & level);
 
 private:
     boost::uuids::uuid uuid;
     std::string name;
-    std::vector<std::unique_ptr<Property>> properties;
 
 protected:
-    bool tangible;
     SDL_Rect mBox;
-    bool blocked;
-
+    Physical physical;
+    EnemyAI ai;
 };
 
 

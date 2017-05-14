@@ -6,13 +6,13 @@
 #include "../../src/Model/Tile.h"
 #include "../../src/Model/Level.h"
 
-TEST(TileTest, TileCreation) {
+TEST(TileTests, TileCreation) {
     TileType tt("SimonTile", true);
     Tile tile (1,2, tt);
     EXPECT_EQ(0, strcmp("SimonTile", tile.getName().c_str()));
 }
 
-TEST(TileTest, CollisionDoesWork) {
+TEST(TileTests, CollisionDoesWork) {
     TileType tt("SimonTile", true);
     Tile tile1(0,0, tt);
     GameObject shouldCollide("shouldCollide");
@@ -33,7 +33,7 @@ TEST(TileTest, CollisionDoesWork) {
     EXPECT_FALSE(tile1.collidesWith(shouldntCollide));
 }
 
-TEST(TileTest, PrintsCorrectly)
+TEST(TileTests, PrintsCorrectly)
 {
     TileType tt("SimonTile", true);
     Tile tile1(80,160, tt);
@@ -42,7 +42,7 @@ TEST(TileTest, PrintsCorrectly)
     EXPECT_STREQ(os.str().c_str(), "Tile(x:80, y:160, type:SimonTile)");
 }
 
-TEST(LevelTest, DimensionsUpdateCorrectly)
+TEST(LevelTests, DimensionsUpdateCorrectly)
 {
     Level level;
     TileType whateverType("eh", false);
@@ -51,4 +51,14 @@ TEST(LevelTest, DimensionsUpdateCorrectly)
     level.addTile(-80,0, whateverType);
     EXPECT_EQ(level.getHeight(),160);
     EXPECT_EQ(level.getWidth(), 160);
+}
+
+TEST(GameObjectTests, GameObjectsCanMove)
+{
+    Level level(100, 100);
+    auto objectPtr(std::make_shared<GameObject>("myObject", 0, 0, 1, 1));
+    objectPtr->getPhysical().setThrust(right, true);
+    level.addCharacter(std::shared_ptr<GameObject>(objectPtr));
+    level.updateObjects();
+    EXPECT_NE(objectPtr->getCollisionBox().x, 0);
 }

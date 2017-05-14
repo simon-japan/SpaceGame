@@ -6,16 +6,16 @@
 #define SPACEGAME_GAMECONTROLLER_H
 
 #include <SDL_events.h>
-#include "../Model/Character.h"
+#include "../Model/GameObject.h"
 #include "../Model/Level.h"
 
 class GameController {
 public:
-    GameController(Character & p, Level & l): player(p), level(l) {};
+    GameController(GameObject & p, Level & l): player(p), level(l) {};
     void handlePlayerInput(SDL_Event& e);
 
 private:
-    Character & player;
+    GameObject & player;
     Level & level;
 };
 

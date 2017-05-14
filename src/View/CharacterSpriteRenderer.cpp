@@ -7,9 +7,10 @@
 void CharacterSpriteRenderer::render(SDL_Rect camera, SDL_Renderer *sdlRenderer) {
     SDL_Rect playerBox = character.getCollisionBox();
     Sprite * playerSprite = nullptr;
-    if (character.getXVelocity() || character.getYVelocity())
+    Physical & physical = character.getPhysical();
+    if (physical.getXVelocity() || physical.getYVelocity())
     {
-        if (character.getFacingDirection() == Direction::right) {
+        if (physical.getFacingDirection() == Direction::right) {
             playerSprite = &walkingRightSprite;
         }
         else
@@ -20,7 +21,7 @@ void CharacterSpriteRenderer::render(SDL_Rect camera, SDL_Renderer *sdlRenderer)
     else
     {
         animationState = 0;
-        if (character.getFacingDirection() == Direction::right)
+        if (physical.getFacingDirection() == Direction::right)
         {
             playerSprite = &standingRightSprite;
         }

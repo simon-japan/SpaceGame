@@ -4,6 +4,7 @@
 
 #include "EnemyAI.h"
 #include "Physical.h"
+#include "GameObject.h"
 
 // TODO: ensure that bodies don't teleport through walls
 // TODO: different types of AI - not just decided by one big function
@@ -45,7 +46,7 @@ void EnemyAI::updateState() {
             }
         }
     }
-    else if(gameObject.isBlocked())
+    else if(gameObject.getPhysical().isBlocked())
     {
         if (gameObject.getName().compare("bullet")) // It's not a bullet, so must be an enemy
         {

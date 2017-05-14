@@ -7,7 +7,7 @@
 
 using namespace std;
 
-unique_ptr<GameObjectRenderer> SpriteRendererFactory::createCharacterRenderer(const Character & subject) {
+unique_ptr<GameObjectRenderer> SpriteRendererFactory::createCharacterRenderer(GameObject & subject) {
 
     // Todo: make determining which sprites to use based on the character's name less dumb (requires some more config)
 

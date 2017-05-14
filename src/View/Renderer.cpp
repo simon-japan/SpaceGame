@@ -45,7 +45,7 @@ void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
 
 }
 
-void Renderer::addCharacterSpriteRenderer(Character & subject) {
+void Renderer::addCharacterSpriteRenderer(GameObject & subject) {
     rendererRegistry.emplace(subject.getUUID(), spriteRendererFactory.createCharacterRenderer(subject));
 }
 

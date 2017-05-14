@@ -15,7 +15,7 @@ class SpriteRendererFactory: public GameObjectRendererFactory {
 public:
     SpriteRendererFactory(SpriteRepository & s): spriteRepository(s) {};
 
-    std::unique_ptr<GameObjectRenderer> createCharacterRenderer(const Character & subject) override;
+    std::unique_ptr<GameObjectRenderer> createCharacterRenderer(GameObject & subject) override;
 
     std::unique_ptr<GameObjectRenderer> createTileRenderer(const Tile & subject) override;
 

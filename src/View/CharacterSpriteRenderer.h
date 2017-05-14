@@ -7,13 +7,13 @@
 
 
 #include <SDL_system.h>
-#include "../Model/Character.h"
+#include "../Model/GameObject.h"
 #include "SpriteRepository.h"
 #include "GameObjectRenderer.h"
 
 class CharacterSpriteRenderer: public GameObjectRenderer {
 public:
-    CharacterSpriteRenderer(const Character & c, Sprite & sl, Sprite & wl, Sprite & sr, Sprite & wr) :
+    CharacterSpriteRenderer(GameObject & c, Sprite & sl, Sprite & wl, Sprite & sr, Sprite & wr) :
             character(c),
             standingLeftSprite(sl),
             walkingLeftSprite(wl),
@@ -25,7 +25,7 @@ public:
     void render(SDL_Rect camera, SDL_Renderer *sdlRenderer) override;
 
 private:
-    const Character & character;
+    GameObject & character;
 
     Sprite & standingLeftSprite;
     Sprite & walkingLeftSprite;

@@ -21,7 +21,7 @@ public:
 
     std::string getName() const override { return tileType.getName(); }
 
-    bool isTangible() const override { return tileType.isTangible(); }
+    bool isTangible() const { return tileType.isTangible(); }
 
     ~Tile() {}
 

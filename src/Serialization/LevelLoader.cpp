@@ -84,11 +84,13 @@ void LevelLoader::loadTileTypes(XmlDomDocument & doc) {
 void LevelLoader::loadCharacters(XmlDomDocument & doc, Level & level) {
     for (int i = 0; i < doc.getChildCount("Characters", 0, "Character"); i++) {
         string characterName(doc.getChildAttribute("Characters", 0, i, "Character", "name"));
-        int w(atoi(doc.getChildAttribute("Character", i, 0, "Rect", "w").c_str()));
-        int h(atoi(doc.getChildAttribute("Character", i, 0, "Rect", "h").c_str()));
-        int x(atoi(doc.getChildAttribute("Character", i, 0, "Rect", "x").c_str()));
-        int y(atoi(doc.getChildAttribute("Character", i, 0, "Rect", "y").c_str()));
-        auto characterP(make_shared<Character>(w, h, x, y, characterName));
+        SDL_Rect characterRect;
+        characterRect.w = atoi(doc.getChildAttribute("Character", i, 0, "Rect", "w").c_str());
+        characterRect.h = atoi(doc.getChildAttribute("Character", i, 0, "Rect", "h").c_str());
+        characterRect.x = atoi(doc.getChildAttribute("Character", i, 0, "Rect", "x").c_str());
+        characterRect.y =atoi(doc.getChildAttribute("Character", i, 0, "Rect", "y").c_str());
+        auto characterP(make_shared<GameObject>(characterName));
+        characterP->setCollisionBox(characterRect);
         level.addCharacter(characterP);
     }
 }

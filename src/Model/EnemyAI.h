@@ -5,13 +5,13 @@
 #ifndef SPACEGAME_ENEMYAI_H
 #define SPACEGAME_ENEMYAI_H
 
-
-#include "Character.h"
 #include "Property.h"
+
+class GameObject;
 
 class EnemyAI : public Property{
 public:
-    EnemyAI::EnemyAI(GameObject & go) : Property(go) {}
+    EnemyAI(GameObject & go) : Property(go) {}
     void updateState();
 };
 

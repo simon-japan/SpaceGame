@@ -9,27 +9,35 @@
 #include <vector>
 #include <unordered_map>
 #include "Tile.h"
-#include "Character.h"
 #include "QuadTree.h"
+
+class GameObject;
 
 enum Axis { Xaxis, Yaxis };
 
 class Level {
 
 public:
-    Level(): max_x(0), min_x(0), max_y(0), min_y(0),
-             collisionQuadTree(0, SDL_Rect{0,0,0,0}) {};
+    Level(int w, int h):
+            max_x(w),
+            min_x(0),
+            max_y(h),
+            min_y(0),
+            collisionQuadTree(0, SDL_Rect{.x=0, .y=0 ,.w=w, .h=h}) {
+
+    };
+    Level(): Level(0, 0) {};
     void addTile(int x, int y, const TileType & tileType);
-    void addCharacter(std::shared_ptr<Character> character);
+    void addCharacter(std::shared_ptr<GameObject> character);
     int getHeight();
     int getWidth();
     const std::vector<std::shared_ptr<Tile>> & getTiles() const { return tiles; };
-    const std::vector<std::shared_ptr<Character>> & getCharacters() const { return characters; };
+    const std::vector<std::shared_ptr<GameObject>> & getCharacters() const { return characters; };
     //void moveCharacters();
     void tryMoveGameObject(GameObject & o, int xAmount, int yAmount);
     bool wouldExitLevel(SDL_Rect target, Axis axis);
     void checkCollisions(SDL_Rect target, GameObject & o);
-    void updateAI();
+    void updateObjects();
 
 private:
     void refreshQuadTree();
@@ -38,7 +46,7 @@ private:
     int max_y;
     int min_y;
     std::vector<std::shared_ptr<Tile>> tiles;
-    std::vector<std::shared_ptr<Character>> characters;
+    std::vector<std::shared_ptr<GameObject>> characters;
     QuadTree collisionQuadTree;
 };
 

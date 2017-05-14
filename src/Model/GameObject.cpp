@@ -17,23 +17,18 @@ void GameObject::setCollisionBox(SDL_Rect b) {
     mBox = b;
 }
 
-bool GameObject::isBlocked() const {
-    return blocked;
-}
-
-void GameObject::setBlocked(bool isBlocked) {
-    blocked = isBlocked;
-}
-
 void GameObject::onLevelExit() {
-    setBlocked(true);
+    physical.setBlocked(true);
 }
 
 void GameObject::onCollide(GameObject & o) {
 
 }
 
-void GameObject::updateState() {
-
+void GameObject::updateState(Level & level) {
+    if (name.compare("Player") != 0 ) {
+        ai.updateState();
+    }
+    physical.updateState(level);
 }
 

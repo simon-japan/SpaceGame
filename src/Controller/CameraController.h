@@ -12,7 +12,7 @@
 class CameraController {
 public:
     //Centers the camera over the character
-    static void setCameraOnCharacter(SDL_Rect & camera, Level & level, Character & character,
+    static void setCameraOnCharacter(SDL_Rect & camera, Level & level, GameObject & character,
                               int screen_width, int screen_height);
 
 };

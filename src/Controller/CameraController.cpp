@@ -4,7 +4,7 @@
 
 #include "CameraController.h"
 
-void CameraController::setCameraOnCharacter(SDL_Rect & camera, Level & level, Character & character, int screen_width,
+void CameraController::setCameraOnCharacter(SDL_Rect & camera, Level & level, GameObject & character, int screen_width,
                                             int screen_height) {
 
     SDL_Rect characterBox = character.getCollisionBox();

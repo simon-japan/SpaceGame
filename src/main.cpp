@@ -5,7 +5,7 @@
 #include <fstream>
 #include "View/GameTexture.h"
 #include "Model/Tile.h"
-#include "Model/Character.h"
+#include "Model/GameObject.h"
 #include "View/Renderer.h"
 #include "Serialization/SpriteLoader.h"
 #include "Serialization/LevelLoader.h"
@@ -128,7 +128,7 @@ int main( int argc, char* args[] )
 		unique_ptr<Level> levelPtr(levelLoader.loadLevel("configuration/map.xml"));
 
 		//The player's avatar is a special character that is always loaded, regardless of the level.
-		auto player = make_shared<Character>(50, 50, 0, 0, std::string("Player"));
+		auto player = make_shared<GameObject>(std::string("Player"), 0, 0, 50, 50);
 
         levelPtr->addCharacter(player);
 
@@ -160,7 +160,7 @@ int main( int argc, char* args[] )
                 gameController.handlePlayerInput(e);
 			}
 
-            levelPtr->updateAI();
+            levelPtr->updateObjects();
 
             // Update the player & enemy positions based on their updated velocity + collision detection.
 			//levelPtr->moveCharacters();

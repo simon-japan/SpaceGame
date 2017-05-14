@@ -5,13 +5,13 @@
 #ifndef SPACEGAME_PROPERTY_H
 #define SPACEGAME_PROPERTY_H
 
-#include "GameObject.h"
+class GameObject;
 
 class Property {
 public:
     Property(GameObject & go): gameObject(go){};
-    virtual ~Physical(){};
-    virtual void updateState() = 0;
+    virtual ~Property(){};
+    virtual void updateState() {};
 
 protected:
     GameObject & gameObject;

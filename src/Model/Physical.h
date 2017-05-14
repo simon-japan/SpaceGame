@@ -8,6 +8,8 @@
 
 #include "Property.h"
 
+class Level;
+
 enum Direction { left, right, up, down };
 
 //Maximum axis velocity
@@ -15,9 +17,16 @@ static const int MAX_VEL = 10;
 
 class Physical : public Property{
 public:
-    Physical(GameObject & go) : Property(go) {}
+    Physical(GameObject & go, int x, int y, Direction d) :
+            Property(go),
+            mVelX(x),
+            mVelY(y),
+            direction(left)
+    {}
+
     virtual ~Physical(){};
-    void updateState();
+
+    void updateState(Level & level);
 
     // Accessors
 
@@ -29,16 +38,20 @@ public:
 
     bool isTangible() const { return tangible; }
 
+    bool isBlocked() { return blocked; }
+
     // Mutators
 
     void setThrust( Direction d, bool isActive );
 
     void setTangible(bool t) { tangible = t; }
 
+    void setBlocked(bool b) { blocked = b; }
+
     // Move somewhere else
-    virtual int getHealth() const = 0;
-    virtual void takeHit(int attackPower) = 0;
-    virtual void getAttackPower() = 0;
+    //virtual int getHealth() const = 0;
+    //virtual void takeHit(int attackPower) = 0;
+    //virtual void getAttackPower() = 0;
 
 private:
     //The velocity of the character
@@ -49,6 +62,8 @@ private:
     bool tangible;
 
     bool movable;
+
+    bool blocked;
 };
 
 

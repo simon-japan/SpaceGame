@@ -8,7 +8,8 @@
 
 #include "GameObjectRenderer.h"
 #include "SpriteRepository.h"
-#include "../Model/Character.h"
+#include "../Model/GameObject.h"
+#include "../Model/Tile.h"
 
 class GameObjectRendererFactory {
 public:
@@ -23,7 +24,7 @@ public:
 
     virtual std::unique_ptr<GameObjectRenderer> createTileRenderer(const Tile & subject) { return nullptr; };
 
-    virtual std::unique_ptr<GameObjectRenderer> createCharacterRenderer(const Character & subject) {return nullptr;};
+    virtual std::unique_ptr<GameObjectRenderer> createCharacterRenderer(GameObject & subject) {return nullptr;};
 
 };
 

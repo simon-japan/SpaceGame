@@ -4,7 +4,6 @@
 
 #include "Level.h"
 #include "Geometry.h"
-#include "EnemyAI.h"
 
 using namespace std;
 
@@ -36,7 +35,7 @@ void Level::addTile(int x, int y, const TileType & tileType) {
     }
 }
 
-void Level::addCharacter(std::shared_ptr<Character> character) {
+void Level::addCharacter(std::shared_ptr<GameObject> character) {
     characters.push_back(character);
 }
 
@@ -124,7 +123,7 @@ void Level::checkCollisions(SDL_Rect target, GameObject & o) {
 
     for (auto & tile : tilesWithinReach)
     {
-        if (tile->isTangible() && Geometry::checkCollision(target, tile->getCollisionBox()))
+        if (tile->getPhysical().isTangible() && Geometry::checkCollision(target, tile->getCollisionBox()))
         {
             o.onCollide(*tile);
         }
@@ -141,12 +140,11 @@ void Level::checkCollisions(SDL_Rect target, GameObject & o) {
 
 }
 
-void Level::updateAI() {
+void Level::updateObjects() {
+    refreshQuadTree();
+
     for (auto character : characters) {
-        if (character->getName().compare("Player"))
-        {
-            EnemyAI::updateState(*character);
-        }
+        character->updateState(*this);
     }
 }
 

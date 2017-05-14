@@ -3,13 +3,14 @@
 //
 
 #include "Physical.h"
+#include "Level.h"
 
-void Physical::updateState() {
+void Physical::updateState(Level & level) {
     if (mVelX != 0 || mVelY != 0)
     {
-        gameObject.setBlocked(false);
+        blocked = false;
         SDL_Rect box = gameObject.getCollisionBox();
-        level.tryMoveGameObject(*this, mVelX * box.x, mVelY * box.y);
+        level.tryMoveGameObject(gameObject, mVelX, mVelY);
     }
 }
 
