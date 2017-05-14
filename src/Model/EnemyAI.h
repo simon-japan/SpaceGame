@@ -7,12 +7,12 @@
 
 
 #include "Character.h"
+#include "Property.h"
 
-class EnemyAI {
+class EnemyAI : public Property{
 public:
-
-    static void updateState(Character & body);
-
+    EnemyAI::EnemyAI(GameObject & go) : Property(go) {}
+    void updateState();
 };
 
 

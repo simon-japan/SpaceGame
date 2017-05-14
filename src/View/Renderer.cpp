@@ -14,9 +14,6 @@ void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
     SDL_SetRenderDrawColor( sdlRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
     SDL_RenderClear( sdlRenderer );
 
-    //cout << "Begin render loop" << endl;
-    // TODO: some kind of logging
-
     GameObjectRenderer * gameObjectRenderer = nullptr;
 
     //Render tiles from level

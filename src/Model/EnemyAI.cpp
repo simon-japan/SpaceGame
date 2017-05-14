@@ -3,13 +3,16 @@
 //
 
 #include "EnemyAI.h"
+#include "Physical.h"
 
 // TODO: ensure that bodies don't teleport through walls
+// TODO: different types of AI - not just decided by one big function
 // (doesn't happen right now, but would be good to have some kind of guarantee)
 
-void EnemyAI::updateState(Character & body) {
-    auto xVel = body.getXVelocity();
-    auto yVel = body.getYVelocity();
+void EnemyAI::updateState() {
+    Physical physical = gameObject.getPhysical();
+    auto xVel = physical.getXVelocity();
+    auto yVel = physical.getYVelocity();
 
     if (xVel == 0 && yVel == 0)
     {
@@ -18,22 +21,22 @@ void EnemyAI::updateState(Character & body) {
         {
             case 1:
             {
-                body.setThrust(Direction::up, true);
+                physical.setThrust(Direction::up, true);
                 break;
             }
             case 2:
             {
-                body.setThrust(Direction::down, true);
+                physical.setThrust(Direction::down, true);
                 break;
             }
             case 3:
             {
-                body.setThrust(Direction::left, true);
+                physical.setThrust(Direction::left, true);
                 break;
             }
             case 4:
             {
-                body.setThrust(Direction::right, true);
+                physical.setThrust(Direction::right, true);
                 break;
             }
             default:
@@ -42,27 +45,24 @@ void EnemyAI::updateState(Character & body) {
             }
         }
     }
-    else if(body.isBlocked())
+    else if(gameObject.isBlocked())
     {
-        if (xVel > 0)
+        if (gameObject.getName().compare("bullet")) // It's not a bullet, so must be an enemy
         {
-            body.setThrust(right, false);
-            body.setThrust(Direction::down, true);
-        }
-        else if (xVel < 0)
-        {
-            body.setThrust(left, false);
-            body.setThrust(Direction::up, true);
-        }
-        else if (yVel > 0)
-        {
-            body.setThrust(down, false);
-            body.setThrust(Direction::left, true);
-        }
-        else if (yVel < 0)
-        {
-            body.setThrust(up, false);
-            body.setThrust(Direction::right, true);
+            if (xVel > 0) {
+                physical.setThrust(right, false);
+                physical.setThrust(Direction::down, true);
+            } else if (xVel < 0) {
+                physical.setThrust(left, false);
+                physical.setThrust(Direction::up, true);
+            } else if (yVel > 0) {
+                physical.setThrust(down, false);
+                physical.setThrust(Direction::left, true);
+            } else if (yVel < 0) {
+                physical.setThrust(up, false);
+                physical.setThrust(Direction::right, true);
+            }
         }
     }
 }
+

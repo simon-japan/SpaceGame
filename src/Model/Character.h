@@ -12,33 +12,26 @@
 #include "Tile.h"
 #include "GameObject.h"
 
-enum Direction { left, right, up, down };
+class Level;
 
 class Character: public GameObject
 {
 public:
-    //Maximum axis velocity
-    static const int CHARACTER_VEL = 10;
 
-    //Initializes the variables
     Character(int w, int h, int startingX, int startingY, std::string n);
-
-    int getXVelocity() const { return mVelX; };
-
-    int getYVelocity() const { return mVelY; };
-
-    Direction getFacingDirection() const { return direction; };
-
-    void setThrust( Direction d, bool isActive );
 
     ~Character() {}
 
-private:
 
-    //The velocity of the character
-    int mVelX, mVelY;
 
-    Direction direction;
+
+    // Mutators
+
+    void onCollide(GameObject & o);
+
+    virtual void updateState();
+
+
 
 };
 

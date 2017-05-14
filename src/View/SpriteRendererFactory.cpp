@@ -32,14 +32,8 @@ unique_ptr<GameObjectRenderer> SpriteRendererFactory::createCharacterRenderer(co
     else
     {
         // Default sprite
-        renderer = std::make_unique<CharacterSpriteRenderer>(subject,
-                                                                   *spriteRepository.getSprite(
-                                                                           "slug"),
-                                                                   *spriteRepository.getSprite("slug"),
-                                                                   *spriteRepository.getSprite(
-                                                                           "slug"),
-                                                                   *spriteRepository.getSprite(
-                                                                           "slug"));
+        Sprite * sprite = spriteRepository.getSprite("slug");
+        renderer = std::make_unique<CharacterSpriteRenderer>(subject, *sprite, *sprite, *sprite, *sprite);
     }
     return renderer;
 }

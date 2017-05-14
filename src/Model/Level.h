@@ -25,9 +25,10 @@ public:
     int getWidth();
     const std::vector<std::shared_ptr<Tile>> & getTiles() const { return tiles; };
     const std::vector<std::shared_ptr<Character>> & getCharacters() const { return characters; };
-    void moveCharacters();
-    void tryMoveGameObject(GameObject & o, int amount, Axis axis);
-    bool wouldCollide(SDL_Rect target, Axis axis, GameObject & o);
+    //void moveCharacters();
+    void tryMoveGameObject(GameObject & o, int xAmount, int yAmount);
+    bool wouldExitLevel(SDL_Rect target, Axis axis);
+    void checkCollisions(SDL_Rect target, GameObject & o);
     void updateAI();
 
 private:

@@ -22,5 +22,18 @@ bool GameObject::isBlocked() const {
 }
 
 void GameObject::setBlocked(bool isBlocked) {
-    GameObject::blocked = isBlocked;
+    blocked = isBlocked;
 }
+
+void GameObject::onLevelExit() {
+    setBlocked(true);
+}
+
+void GameObject::onCollide(GameObject & o) {
+
+}
+
+void GameObject::updateState() {
+
+}
+

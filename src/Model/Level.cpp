@@ -40,7 +40,7 @@ void Level::addCharacter(std::shared_ptr<Character> character) {
     characters.push_back(character);
 }
 
-void Level::moveCharacters() {
+/*void Level::moveCharacters() {
     refreshQuadTree();
 
     for (auto c : characters)
@@ -58,41 +58,49 @@ void Level::moveCharacters() {
         tryMoveGameObject(*c, xVelocity, Xaxis);
         tryMoveGameObject(*c, yVelocity, Yaxis);
     }
-}
+}*/
 
-void Level::tryMoveGameObject(GameObject & o, int amount, Axis axis) {
+void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount) {
     // Copy of the object's collision box
     SDL_Rect collisionBox = o.getCollisionBox();
 
-    if (axis == Xaxis)
-    {
-        collisionBox.x += amount;
 
-        //If the character went too far to the left or right or touched a wall
-        if(wouldCollide(collisionBox, Xaxis, o))
-        {
-            //move back
-            collisionBox.x -= amount;
-            o.setBlocked(true);
-        }
-    }
-    else
-    {
-        collisionBox.y += amount;
+    collisionBox.x += xAmount;
 
-        //If the character went too far to the left or right or touched a wall
-        if(wouldCollide(collisionBox, Yaxis, o))
-        {
-            //move back
-            collisionBox.y -= amount;
-            o.setBlocked(true);
-        }
+    //If the character went too far to the left or right or touched a wall
+    if(wouldExitLevel(collisionBox, Xaxis))
+    {
+        collisionBox.x -= xAmount;
+        o.onLevelExit();
     }
+    checkCollisions(collisionBox, o);
+//        if(checkCollisions(collisionBox, o))
+//        {
+//            //move back
+//            collisionBox.x -= xAmount;
+//            o.setBlocked(true);
+//        }
+
+        collisionBox.y += yAmount;
+
+    //If the character went too far to the left or right or touched a wall
+    if(wouldExitLevel(collisionBox, Yaxis))
+    {
+        //move back
+        collisionBox.y -= yAmount;
+        o.onLevelExit();
+    }
+    checkCollisions(collisionBox, o);
+//        if(checkCollisions(collisionBox, o))
+//        {
+//            //move back
+//            collisionBox.y -= yAmount;
+//            o.setBlocked(true);
+//        }
     o.setCollisionBox(collisionBox);
 }
 
-bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
-
+bool Level::wouldExitLevel(SDL_Rect target, Axis axis) {
     if (axis == Xaxis)
     {
         if (target.x < min_x  || target.x + target.w > max_x)
@@ -107,7 +115,10 @@ bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
             return true;
         }
     }
+    return false;
+}
 
+void Level::checkCollisions(SDL_Rect target, GameObject & o) {
     vector<shared_ptr<GameObject>> tilesWithinReach;
     collisionQuadTree.retrieve(tilesWithinReach, o);
 
@@ -115,7 +126,7 @@ bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
     {
         if (tile->isTangible() && Geometry::checkCollision(target, tile->getCollisionBox()))
         {
-            return true;
+            o.onCollide(*tile);
         }
     }
 
@@ -124,16 +135,15 @@ bool Level::wouldCollide(SDL_Rect target, Axis axis, GameObject & o) {
     {
         if (o.getUUID() != character->getUUID() && Geometry::checkCollision(target, character->getCollisionBox()))
         {
-            return true;
+            o.onCollide(*character);
         }
     }
 
-    return false;
 }
 
 void Level::updateAI() {
     for (auto character : characters) {
-        if (character->getName().compare("Player")) // Update the AI state if it's a NPC
+        if (character->getName().compare("Player"))
         {
             EnemyAI::updateState(*character);
         }

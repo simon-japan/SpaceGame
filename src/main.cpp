@@ -163,7 +163,7 @@ int main( int argc, char* args[] )
             levelPtr->updateAI();
 
             // Update the player & enemy positions based on their updated velocity + collision detection.
-			levelPtr->moveCharacters();
+			//levelPtr->moveCharacters();
 
             // The camera constantly centers on the player, modulo the boundaries of the level.
             CameraController::setCameraOnCharacter(camera, *levelPtr, *player, SCREEN_WIDTH, SCREEN_HEIGHT);

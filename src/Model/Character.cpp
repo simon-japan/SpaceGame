@@ -4,6 +4,8 @@
 
 #include "Character.h"
 
+#include "Level.h"
+
 Character::Character(int w, int h, int startingX, int startingY, std::string n)
         : mVelX(0), mVelY(0), direction(right), GameObject(n)
 {
@@ -62,4 +64,14 @@ void Character::setThrust(Direction d, bool isActive) {
         direction = left;
     }
 }
+
+void Character::onCollide(GameObject & o) {
+    GameObject::onCollide(o);
+}
+
+void Character::updateState() {
+    GameObject::updateState();
+}
+
+
 

@@ -18,7 +18,6 @@ public:
 private:
     std::string name;
     bool tangible;
-
 };
 
 

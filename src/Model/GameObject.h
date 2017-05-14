@@ -8,17 +8,32 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <SDL_rect.h>
+#include "Property.h"
+
 
 class GameObject {
 
 public:
-    GameObject(std::string n): uuid(boost::uuids::random_generator()()), name(n), mBox(), blocked(false) {}
+    // Constructors
+    GameObject(std::string n):
+            uuid(boost::uuids::random_generator()()),
+            name(n),
+            mBox(),
+            blocked(false),
+            properties()
+    {
+        properties.push_back(std::unique_ptr<>)
+    }
 
-    GameObject(GameObject const & rhs): uuid(rhs.uuid), name(rhs.name), mBox(rhs.mBox), blocked(rhs.blocked),
-                                        tangible(rhs.tangible) {}
+    // Copy constructor
+    GameObject(GameObject const & rhs):
+            uuid(rhs.uuid),
+            name(rhs.name),
+            mBox(rhs.mBox),
+            blocked(rhs.blocked),
+            tangible(rhs.tangible) {}
 
-    bool operator == (GameObject const & rhs) { return uuid == rhs.uuid; }
-
+    // Copy assignment
     GameObject& operator = (GameObject const & rhs)
     {
         uuid = rhs.uuid;
@@ -29,37 +44,43 @@ public:
         return *this;
     }
 
+    // Destructor
     virtual ~GameObject() {}
 
+    // Comparison
+    bool operator == (GameObject const & rhs) { return uuid == rhs.uuid; }
+
+    // Accessors
     const boost::uuids::uuid getUUID() const { return uuid; }
 
     virtual std::string getName() const { return name; }
 
-    virtual bool isTangible() const { return tangible; }
-
-    void setTangible(bool t) { tangible = t; }
-
-    bool collidesWith(GameObject & o);
-
     SDL_Rect getCollisionBox() const { return mBox; };
-
-    void setCollisionBox(SDL_Rect b);
 
     bool isBlocked() const;
 
+    bool collidesWith(GameObject & o);
+
+    // Mutators
+
+    void setCollisionBox(SDL_Rect b);
+
     void setBlocked(bool b);
 
+    virtual void onLevelExit();
+
+    virtual void onCollide(GameObject & o);
+
+    virtual void updateState();
+
 private:
-
     boost::uuids::uuid uuid;
-
     std::string name;
+    std::vector<std::unique_ptr<Property>> properties;
 
 protected:
     bool tangible;
-
     SDL_Rect mBox;
-
     bool blocked;
 
 };
