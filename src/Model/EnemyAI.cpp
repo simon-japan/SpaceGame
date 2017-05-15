@@ -11,11 +11,9 @@
 // (doesn't happen right now, but would be good to have some kind of guarantee)
 
 void EnemyAI::updateState() {
-    Physical physical = gameObject.getPhysical();
-    auto xVel = physical.getXVelocity();
-    auto yVel = physical.getYVelocity();
+    Physical & physical = gameObject.getPhysical();
 
-    if (xVel == 0 && yVel == 0)
+    if (physical.getXVelocity() == 0 && physical.getYVelocity() == 0)
     {
         int newDirection = rand() % 4;
         switch (newDirection)
@@ -48,8 +46,10 @@ void EnemyAI::updateState() {
     }
     else if(gameObject.getPhysical().isBlocked())
     {
-        if (gameObject.getName().compare("bullet")) // It's not a bullet, so must be an enemy
+        if (gameObject.getName().compare("bullet") != 0) // It's not a bullet, so must be an enemy
         {
+            int xVel = physical.getXVelocity();
+            int yVel = physical.getYVelocity();
             if (xVel > 0) {
                 physical.setThrust(right, false);
                 physical.setThrust(Direction::down, true);

@@ -44,7 +44,6 @@ void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount)
     // Copy of the object's collision box
     SDL_Rect collisionBox = o.getCollisionBox();
 
-
     collisionBox.x += xAmount;
 
     //If the character went too far to the left or right or touched a wall
