@@ -62,3 +62,15 @@ TEST(GameObjectTests, GameObjectsCanMove)
     level.updateObjects();
     EXPECT_NE(objectPtr->getCollisionBox().x, 0);
 }
+
+TEST(GameObjectTests, GameObjectsCanBeObstructed)
+{
+    Level level(100, 100);
+    auto object1Ptr(std::make_shared<GameObject>("myObject1", 0, 0, 1, 1));
+    auto object2Ptr(std::make_shared<GameObject>("myObject2", 5, 0, 10, 10));
+    object1Ptr->getPhysical().setThrust(right, true);
+    level.addCharacter(std::shared_ptr<GameObject>(object1Ptr));
+    level.addCharacter(std::shared_ptr<GameObject>(object2Ptr));
+    level.updateObjects();
+    EXPECT_EQ(object1Ptr->getCollisionBox().x, 0);
+}
