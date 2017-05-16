@@ -32,3 +32,5 @@ void GameObject::updateState(Level & level) {
     physical.updateState(level);
 }
 
+// Todo: how to handle collisions that destroy one of the participants e.g the bullet?
+// Todo: better if GameObject doesn't get a reference to Level.
