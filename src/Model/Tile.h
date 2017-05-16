@@ -21,8 +21,6 @@ public:
 
     std::string getName() const override { return tileType.getName(); }
 
-    bool isTangible() const { return tileType.isTangible(); }
-
     ~Tile() {}
 
     // TODO: add MOVE SEMANTICS!!

@@ -51,7 +51,7 @@ void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount)
         collisionBox.x -= xAmount;
         o.onLevelExit();
     }
-    checkCollisions(collisionBox, o);
+
     if (checkCollisions(collisionBox, o)) {
         //move back
         collisionBox.x -= xAmount;
@@ -66,12 +66,13 @@ void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount)
         collisionBox.y -= yAmount;
         o.onLevelExit();
     }
-    checkCollisions(collisionBox, o);
+
     if (checkCollisions(collisionBox, o)) {
         //move back
         collisionBox.y -= yAmount;
         o.getPhysical().setBlocked(true);
     }
+
     o.setCollisionBox(collisionBox);
 }
 

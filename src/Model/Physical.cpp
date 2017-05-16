@@ -9,7 +9,6 @@ void Physical::updateState(Level & level) {
     if (mVelX != 0 || mVelY != 0)
     {
         blocked = false;
-        SDL_Rect box = gameObject.getCollisionBox();
         level.tryMoveGameObject(gameObject, mVelX, mVelY);
     }
 }
