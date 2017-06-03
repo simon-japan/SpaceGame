@@ -17,27 +17,17 @@ void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
     GameObjectRenderer * gameObjectRenderer = nullptr;
 
     //Render tiles from level
-    const std::vector<std::shared_ptr<Tile> > & tiles = level.getTiles();
-    for( const auto & tile : tiles )
+    const std::vector<std::shared_ptr<GameObject> > & gameObjects = level.getGameObjects();
+    for( const auto & gameObject : gameObjects )
     {
-        if (rendererRegistry.find(tile->getUUID()) == rendererRegistry.end())
+        auto uuid = gameObject->getUUID();
+        if (rendererRegistry.find(uuid) == rendererRegistry.end())
         {
-            addTileSpriteRenderer(*tile);
+            rendererRegistry.emplace(uuid, gameObjectRendererFactory.createGameObjectRenderer(*gameObject));
         }
-        gameObjectRenderer = &*rendererRegistry[tile->getUUID()];
+        gameObjectRenderer = &*rendererRegistry[uuid];
         gameObjectRenderer->render(camera, sdlRenderer);
 
-    }
-
-    //Render characters - after all of the tiles, because the characters are on top.
-    for (auto character : level.getCharacters()) {
-
-        if (rendererRegistry.find(character->getUUID()) == rendererRegistry.end())
-        {
-            addCharacterSpriteRenderer(*character);
-        }
-        gameObjectRenderer = &*rendererRegistry[character->getUUID()];
-        gameObjectRenderer->render(camera, sdlRenderer);
     }
 
     //Update screen
@@ -45,12 +35,4 @@ void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
 
 }
 
-void Renderer::addCharacterSpriteRenderer(GameObject & subject) {
-    rendererRegistry.emplace(subject.getUUID(), spriteRendererFactory.createCharacterRenderer(subject));
-}
-
-void Renderer::addTileSpriteRenderer(const Tile & subject) {
-    rendererRegistry.emplace(subject.getUUID(), spriteRendererFactory.createTileRenderer(subject));
-}
-
-
+// Todo: implement a z-buffer or something so that the sprites can go on top of the tiles, etc.

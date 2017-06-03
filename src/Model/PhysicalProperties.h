@@ -15,18 +15,18 @@ enum Direction { left, right, up, down };
 //Maximum axis velocity
 static const int MAX_VEL = 10;
 
-class Physical : public Property{
+class PhysicalProperties : public Property{
 public:
-    Physical(GameObject & go, int x, int y, Direction d) :
+    PhysicalProperties(GameObject & go, int x, int y, Direction d) :
             Property(go),
             mVelX(x),
             mVelY(y),
             direction(left)
     {}
 
-    virtual ~Physical(){};
+    virtual ~PhysicalProperties(){};
 
-    void updateState(Level & level);
+    void updateState();
 
     // Accessors
 
@@ -47,11 +47,6 @@ public:
     void setTangible(bool t) { tangible = t; }
 
     void setBlocked(bool b) { blocked = b; }
-
-    // Move somewhere else
-    //virtual int getHealth() const = 0;
-    //virtual void takeHit(int attackPower) = 0;
-    //virtual void getAttackPower() = 0;
 
 private:
     //The velocity of the character

@@ -129,7 +129,7 @@ int main( int argc, char* args[] )
 		//The player's avatar is a special character that is always loaded, regardless of the level.
 		auto player = make_shared<GameObject>(std::string("Player"), 0, 0, 50, 50);
 
-        levelPtr->addCharacter(player);
+        levelPtr->addGameObject(player);
 
         // The GameController responds to user input (all it does at the moment is to move the avatar around).
         GameController gameController(*player, *levelPtr);

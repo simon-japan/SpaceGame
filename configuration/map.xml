@@ -15,10 +15,10 @@
         <tileType sprite="tile_blue_bottomright" mapid="11" tangible="true"/>
     </tileTypes>
     <Characters>
-        <Character name="Slug">
+        <Character name="Slug" sprite="slug">
             <Rect w="50" h="50" x="200" y="0"/>
         </Character>
-        <Character name="Slug2">
+        <Character name="Slug2" sprite="slug">
             <Rect w="50" h="50" x="300" y="0"/>
         </Character>
     </Characters>

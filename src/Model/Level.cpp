@@ -17,26 +17,21 @@ int Level::getWidth()
     return max_x - min_x;
 }
 
-void Level::addTile(int x, int y, const TileType & tileType)
-{
-    tiles.emplace_back(new Tile(x, y, tileType));
-    if (x > max_x) {
-        max_x = x + TILE_WIDTH;
+void Level::addGameObject(std::shared_ptr<GameObject> gameObjectPtr){
+    gameObjects.push_back(gameObjectPtr);
+    SDL_Rect bounds = gameObjectPtr->getCollisionBox();
+    if (bounds.x > max_x) {
+        max_x = bounds.x + bounds.w;
     }
-    if (x < min_x) {
-        min_x = x - TILE_WIDTH;
+    if (bounds.x < min_x) {
+        min_x = bounds.x - bounds.w;
     }
-    if (y > max_y) {
-        max_y = y + TILE_HEIGHT;
+    if (bounds.y > max_y) {
+        max_y = bounds.y + bounds.h;
     }
-    if (y < min_y) {
-        min_y = y + TILE_HEIGHT;
+    if (bounds.y < min_y) {
+        min_y = bounds.y + bounds.h;
     }
-}
-
-void Level::addCharacter(std::shared_ptr<GameObject> character)
-{
-    characters.push_back(character);
 }
 
 void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount)
@@ -52,10 +47,10 @@ void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount)
         o.onLevelExit();
     }
 
-    if (checkCollisions(collisionBox, o)) {
+    if (checkCollisions(o)) {
         //move back
         collisionBox.x -= xAmount;
-        o.getPhysical().setBlocked(true);
+        o.getPhysicalProperties().setBlocked(true);
     }
 
     collisionBox.y += yAmount;
@@ -67,10 +62,10 @@ void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount)
         o.onLevelExit();
     }
 
-    if (checkCollisions(collisionBox, o)) {
+    if (checkCollisions(o)) {
         //move back
         collisionBox.y -= yAmount;
-        o.getPhysical().setBlocked(true);
+        o.getPhysicalProperties().setBlocked(true);
     }
 
     o.setCollisionBox(collisionBox);
@@ -90,23 +85,19 @@ bool Level::wouldExitLevel(SDL_Rect target, Axis axis)
     return false;
 }
 
-bool Level::checkCollisions(SDL_Rect target, GameObject & o)
+bool Level::checkCollisions(GameObject & target)
 {
-    vector<shared_ptr<GameObject>> tilesWithinReach;
-    collisionQuadTree.retrieve(tilesWithinReach, o);
+    SDL_Rect target_box = target.getCollisionBox();
+    vector<shared_ptr<GameObject>> objectsWithinReach;
+    collisionQuadTree.retrieve(objectsWithinReach, target);
     bool collided = false;
 
-    for (auto & tile : tilesWithinReach) {
-        if (tile->getPhysical().isTangible() && Geometry::checkCollision(target, tile->getCollisionBox())) {
-            o.onCollide(*tile);
-            collided = true;
-        }
-    }
-
-    // Currently, not using BSP for collision detection between characters (because they may move around the map)
-    for (auto character : characters) {
-        if (o.getUUID() != character->getUUID() && Geometry::checkCollision(target, character->getCollisionBox())) {
-            o.onCollide(*character);
+    for (auto & otherObject : objectsWithinReach) {
+        if (target.getUUID() != target.getUUID() &&
+                otherObject->getPhysicalProperties().isTangible() &&
+            Geometry::checkCollision(target_box, otherObject->getCollisionBox()))
+        {
+            target.onCollide(*otherObject);
             collided = true;
         }
     }
@@ -118,8 +109,28 @@ void Level::updateObjects()
 {
     refreshQuadTree();
 
-    for (auto character : characters) {
-        character->updateState(*this);
+    for (vector<shared_ptr<GameObject>>::iterator it = gameObjects.begin(); it != gameObjects.end();) {
+        shared_ptr<GameObject> gameObjectPtr = *it;
+        gameObjectPtr->updateState();
+
+        auto & physicalProperties = gameObjectPtr->getPhysicalProperties();
+        int velX = physicalProperties.getXVelocity();
+        int velY = physicalProperties.getYVelocity();
+
+        if (velX != 0 || velY != 0)
+        {
+            physicalProperties.setBlocked(false);
+            tryMoveGameObject(*gameObjectPtr, velX, velY);
+        }
+
+        if (gameObjectPtr->getHealthProperties().getHealth() <= 0)
+        {
+            gameObjects.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
     }
 }
 
@@ -133,7 +144,7 @@ void Level::refreshQuadTree()
     levelBounds.h = getHeight();
     collisionQuadTree.clear(levelBounds);
 
-    for (auto object : tiles) {
+    for (auto object : gameObjects) {
         collisionQuadTree.insert(object);
     }
 }

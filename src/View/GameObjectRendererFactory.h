@@ -14,18 +14,12 @@
 class GameObjectRendererFactory {
 public:
 
-    enum RENDERER_FACTORIES
-    {
-        CHARACTER,
-        TILE
-    };
+    GameObjectRendererFactory(SpriteRepository & s): spriteRepository(s) {};
 
-    //GameObjectRendererFactory(SpriteRepository & s): spriteRepository(s) {};
+    std::unique_ptr<GameObjectRenderer> createGameObjectRenderer(GameObject & subject);
 
-    virtual std::unique_ptr<GameObjectRenderer> createTileRenderer(const Tile & subject) { return nullptr; };
-
-    virtual std::unique_ptr<GameObjectRenderer> createCharacterRenderer(GameObject & subject) {return nullptr;};
-
+private:
+    SpriteRepository & spriteRepository;
 };
 
 

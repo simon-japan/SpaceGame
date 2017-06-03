@@ -2,18 +2,14 @@
 // Created by SJ Holland on 2017/05/14.
 //
 
-#include "Physical.h"
+#include "PhysicalProperties.h"
 #include "Level.h"
 
-void Physical::updateState(Level & level) {
-    if (mVelX != 0 || mVelY != 0)
-    {
-        blocked = false;
-        level.tryMoveGameObject(gameObject, mVelX, mVelY);
-    }
+void PhysicalProperties::updateState() {
+
 }
 
-void Physical::setThrust(Direction d, bool isActive) {
+void PhysicalProperties::setThrust(Direction d, bool isActive) {
     //Adjust the velocity
     if (isActive) {
         switch (d) {

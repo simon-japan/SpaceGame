@@ -9,8 +9,10 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <SDL_rect.h>
 #include "Property.h"
-#include "Physical.h"
+#include "PhysicalProperties.h"
 #include "EnemyAI.h"
+#include "VisualProperties.h"
+#include "HealthProperties.h"
 
 
 class GameObject {
@@ -21,7 +23,9 @@ public:
             uuid(boost::uuids::random_generator()()),
             name(n),
             mBox(),
-            physical(*this, 0, 0, left),
+            physicalProperties(*this, 0, 0, left),
+            visualProperties(*this),
+            healthProperties(*this),
             ai(*this)
     {}
 
@@ -40,15 +44,18 @@ public:
             uuid(rhs.uuid),
             name(rhs.name),
             mBox(rhs.mBox),
-            physical(*this,
-                     rhs.physical.getXVelocity(),
-                     rhs.physical.getYVelocity(),
-                     rhs.physical.getFacingDirection()
+            physicalProperties(*this,
+                     rhs.physicalProperties.getXVelocity(),
+                     rhs.physicalProperties.getYVelocity(),
+                     rhs.physicalProperties.getFacingDirection()
             ),
+            visualProperties(*this),
+            healthProperties(*this),
             ai(*this)
     {}
 
     // Copy assignment
+    // Todo: don't I need to copy the other stuff?
     GameObject& operator = (GameObject const & rhs)
     {
         uuid = rhs.uuid;
@@ -72,7 +79,11 @@ public:
 
     bool collidesWith(GameObject & o);
 
-    Physical & getPhysical() { return physical; }
+    PhysicalProperties & getPhysicalProperties() { return physicalProperties; }
+
+    VisualProperties & getVisualProperties() { return visualProperties; }
+
+    HealthProperties & getHealthProperties() { return healthProperties; }
 
     // Mutators
     void setCollisionBox(SDL_Rect b);
@@ -81,7 +92,7 @@ public:
 
     virtual void onCollide(GameObject & o);
 
-    virtual void updateState(Level & level);
+    virtual void updateState();
 
 private:
     boost::uuids::uuid uuid;
@@ -89,7 +100,9 @@ private:
 
 protected:
     SDL_Rect mBox;
-    Physical physical;
+    PhysicalProperties physicalProperties;
+    VisualProperties visualProperties;
+    HealthProperties healthProperties;
     EnemyAI ai;
 };
 

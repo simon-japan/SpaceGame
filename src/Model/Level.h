@@ -31,23 +31,19 @@ public:
 
     Level() : Level(0, 0) {};
 
-    void addTile(int x, int y, const TileType & tileType);
-
-    void addCharacter(std::shared_ptr<GameObject> character);
+    void addGameObject(std::shared_ptr<GameObject> gameObjectPtr);
 
     int getHeight();
 
     int getWidth();
 
-    const std::vector<std::shared_ptr<Tile>> & getTiles() const { return tiles; };
-
-    const std::vector<std::shared_ptr<GameObject>> & getCharacters() const { return characters; };
+    const std::vector<std::shared_ptr<GameObject>> & getGameObjects() const { return gameObjects; };
 
     void tryMoveGameObject(GameObject & o, int xAmount, int yAmount);
 
     bool wouldExitLevel(SDL_Rect target, Axis axis);
 
-    bool checkCollisions(SDL_Rect target, GameObject & o);
+    bool checkCollisions(GameObject & target);
 
     void updateObjects();
 
@@ -58,8 +54,7 @@ private:
     int min_x;
     int max_y;
     int min_y;
-    std::vector<std::shared_ptr<Tile>> tiles;
-    std::vector<std::shared_ptr<GameObject>> characters;
+    std::vector<std::shared_ptr<GameObject>> gameObjects;
     QuadTree collisionQuadTree;
 };
 

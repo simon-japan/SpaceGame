@@ -7,7 +7,7 @@
 void CharacterSpriteRenderer::render(SDL_Rect camera, SDL_Renderer *sdlRenderer) {
     SDL_Rect playerBox = character.getCollisionBox();
     Sprite * playerSprite = nullptr;
-    Physical & physical = character.getPhysical();
+    PhysicalProperties & physical = character.getPhysicalProperties();
     if (physical.getXVelocity() || physical.getYVelocity())
     {
         if (physical.getFacingDirection() == Direction::right) {

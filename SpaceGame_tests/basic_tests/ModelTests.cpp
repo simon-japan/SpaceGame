@@ -6,6 +6,8 @@
 #include "../../src/Model/Tile.h"
 #include "../../src/Model/Level.h"
 
+using namespace std;
+
 TEST(TileTests, TileCreation) {
     TileType tt("SimonTile", true);
     Tile tile (1,2, tt);
@@ -46,9 +48,9 @@ TEST(LevelTests, DimensionsUpdateCorrectly)
 {
     Level level;
     TileType whateverType("eh", false);
-    level.addTile(0,0, whateverType);
-    level.addTile(0,80, whateverType);
-    level.addTile(-80,0, whateverType);
+    level.addGameObject(make_shared<Tile>(0, 0, whateverType));
+    level.addGameObject(make_shared<Tile>(0,80, whateverType));
+    level.addGameObject(make_shared<Tile>(-80,0, whateverType));
     EXPECT_EQ(level.getHeight(),160);
     EXPECT_EQ(level.getWidth(), 160);
 }
@@ -57,8 +59,8 @@ TEST(GameObjectTests, GameObjectsCanMove)
 {
     Level level(100, 100);
     auto objectPtr(std::make_shared<GameObject>("myObject", 0, 0, 1, 1));
-    objectPtr->getPhysical().setThrust(right, true);
-    level.addCharacter(std::shared_ptr<GameObject>(objectPtr));
+    objectPtr->getPhysicalProperties().setThrust(Direction::right, true);
+    level.addGameObject(std::shared_ptr<GameObject>(objectPtr));
     level.updateObjects();
     EXPECT_NE(objectPtr->getCollisionBox().x, 0);
 }
@@ -68,9 +70,9 @@ TEST(GameObjectTests, GameObjectsCanBeObstructed)
     Level level(100, 100);
     auto object1Ptr(std::make_shared<GameObject>("myObject1", 0, 0, 1, 1));
     auto object2Ptr(std::make_shared<GameObject>("myObject2", 5, 0, 10, 10));
-    object1Ptr->getPhysical().setThrust(right, true);
-    level.addCharacter(std::shared_ptr<GameObject>(object1Ptr));
-    level.addCharacter(std::shared_ptr<GameObject>(object2Ptr));
+    object1Ptr->getPhysicalProperties().setThrust(Direction::right, true);
+    level.addGameObject(std::shared_ptr<GameObject>(object1Ptr));
+    level.addGameObject(std::shared_ptr<GameObject>(object2Ptr));
     level.updateObjects();
     EXPECT_EQ(object1Ptr->getCollisionBox().x, 0);
 }

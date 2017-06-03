@@ -12,7 +12,7 @@ class Character;
 using namespace std;
 
 void GameController::handlePlayerInput(SDL_Event& e) {
-    Physical & playerPhysical = player.getPhysical();
+    PhysicalProperties & playerPhysical = player.getPhysicalProperties();
     //If a key was pressed
     if( e.type == SDL_KEYDOWN && e.key.repeat == 0 )
     {
@@ -41,8 +41,8 @@ void GameController::handlePlayerInput(SDL_Event& e) {
                 bulletBox.w = 20;
                 bulletBox.h = 20;
                 bulletPtr->setCollisionBox(bulletBox);
-                bulletPtr->getPhysical().setThrust(playerPhysical.getFacingDirection(), true);
-                level.addCharacter(bulletPtr);
+                bulletPtr->getPhysicalProperties().setThrust(playerPhysical.getFacingDirection(), true);
+                level.addGameObject(bulletPtr);
                 break;
             }
             default:break;

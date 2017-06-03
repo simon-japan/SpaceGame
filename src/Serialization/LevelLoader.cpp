@@ -51,7 +51,9 @@ unique_ptr<Level> LevelLoader::loadLevel(std::string filename) {
             if (it != tileTypeLookup.end())
             {
                 const TileType & tt = it->second;
-                levelPointer->addTile( x, y, tt);
+                auto tile = make_shared<Tile>(x, y, tt);
+                tile->getVisualProperties().setDefaultSpriteName(tt.getName());
+                levelPointer->addGameObject(tile);
             }
             else
             {
@@ -83,15 +85,24 @@ void LevelLoader::loadTileTypes(XmlDomDocument & doc) {
 
 void LevelLoader::loadCharacters(XmlDomDocument & doc, Level & level) {
     for (int i = 0; i < doc.getChildCount("Characters", 0, "Character"); i++) {
+        // Load object name
         string characterName(doc.getChildAttribute("Characters", 0, i, "Character", "name"));
+        auto characterP(make_shared<GameObject>(characterName));
+
+        // Load hit box
         SDL_Rect characterRect;
         characterRect.w = atoi(doc.getChildAttribute("Character", i, 0, "Rect", "w").c_str());
         characterRect.h = atoi(doc.getChildAttribute("Character", i, 0, "Rect", "h").c_str());
         characterRect.x = atoi(doc.getChildAttribute("Character", i, 0, "Rect", "x").c_str());
         characterRect.y =atoi(doc.getChildAttribute("Character", i, 0, "Rect", "y").c_str());
-        auto characterP(make_shared<GameObject>(characterName));
         characterP->setCollisionBox(characterRect);
-        level.addCharacter(characterP);
+
+        // Load sprite assingment
+        string spriteName(doc.getChildAttribute("Characters", 0, i, "Character", "sprite"));
+        characterP->getVisualProperties().setDefaultSpriteName(spriteName);
+
+        // Add the created object to the level
+        level.addGameObject(characterP);
     }
 }
 

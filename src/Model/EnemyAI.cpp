@@ -3,15 +3,14 @@
 //
 
 #include "EnemyAI.h"
-#include "Physical.h"
+#include "PhysicalProperties.h"
 #include "GameObject.h"
 
-// TODO: ensure that bodies don't teleport through walls
 // TODO: different types of AI - not just decided by one big function
-// (doesn't happen right now, but would be good to have some kind of guarantee)
+
 
 void EnemyAI::updateState() {
-    Physical & physical = gameObject.getPhysical();
+    PhysicalProperties & physical = gameObject.getPhysicalProperties();
 
     if (physical.getXVelocity() == 0 && physical.getYVelocity() == 0)
     {
@@ -44,7 +43,7 @@ void EnemyAI::updateState() {
             }
         }
     }
-    else if(gameObject.getPhysical().isBlocked())
+    else if(gameObject.getPhysicalProperties().isBlocked())
     {
         if (gameObject.getName().compare("bullet") != 0) // It's not a bullet, so must be an enemy
         {

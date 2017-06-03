@@ -18,18 +18,25 @@ void GameObject::setCollisionBox(SDL_Rect b) {
 }
 
 void GameObject::onLevelExit() {
-    physical.setBlocked(true);
+    physicalProperties.setBlocked(true);
 }
 
 void GameObject::onCollide(GameObject & o) {
-
+    // todo: this sucks
+    if (o.getName().compare("bullet") == 0)
+    {
+        healthProperties.takeHit(o.healthProperties.getAttackPower());
+    }
 }
 
-void GameObject::updateState(Level & level) {
+void GameObject::updateState() {
     if (name.compare("Player") != 0 ) {
         ai.updateState();
     }
-    physical.updateState(level);
+    physicalProperties.updateState();
+    healthProperties.updateState();
+    visualProperties.updateState();
+
 }
 
 // Todo: how to handle collisions that destroy one of the participants e.g the bullet?
