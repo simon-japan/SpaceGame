@@ -39,9 +39,11 @@ void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount)
     // Copy of the object's collision box
     SDL_Rect collisionBox = o.getCollisionBox();
 
+    //If the character went too far to the left or right or touched a wall
     collisionBox.x += xAmount;
 
-    //If the character went too far to the left or right or touched a wall
+    o.setCollisionBox(collisionBox);
+
     if (wouldExitLevel(collisionBox, Xaxis)) {
         collisionBox.x -= xAmount;
         o.onLevelExit();
@@ -53,15 +55,16 @@ void Level::tryMoveGameObject(GameObject & o, int xAmount, int yAmount)
         o.getPhysicalProperties().setBlocked(true);
     }
 
+    //If the character went too far up or down or touched a wall
     collisionBox.y += yAmount;
 
-    //If the character went too far to the left or right or touched a wall
+    o.setCollisionBox(collisionBox);
+
     if (wouldExitLevel(collisionBox, Yaxis)) {
         //move back
         collisionBox.y -= yAmount;
         o.onLevelExit();
     }
-
     if (checkCollisions(o)) {
         //move back
         collisionBox.y -= yAmount;
@@ -93,7 +96,7 @@ bool Level::checkCollisions(GameObject & target)
     bool collided = false;
 
     for (auto & otherObject : objectsWithinReach) {
-        if (target.getUUID() != target.getUUID() &&
+        if (target.getUUID() != otherObject->getUUID() &&
                 otherObject->getPhysicalProperties().isTangible() &&
             Geometry::checkCollision(target_box, otherObject->getCollisionBox()))
         {
