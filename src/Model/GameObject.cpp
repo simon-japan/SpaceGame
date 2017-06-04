@@ -19,6 +19,10 @@ void GameObject::setCollisionBox(SDL_Rect b) {
 
 void GameObject::onLevelExit() {
     physicalProperties.setBlocked(true);
+    if (getName().compare("bullet") == 0)
+    {
+        healthProperties.takeHit(100);
+    }
 }
 
 void GameObject::onCollide(GameObject & o) {
@@ -26,6 +30,10 @@ void GameObject::onCollide(GameObject & o) {
     if (o.getName().compare("bullet") == 0)
     {
         healthProperties.takeHit(o.healthProperties.getAttackPower());
+    }
+    if (getName().compare("bullet") == 0)
+    {
+        healthProperties.takeHit(100);
     }
 }
 
