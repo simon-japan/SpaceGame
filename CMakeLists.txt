@@ -10,7 +10,11 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED >=2.0.0)
 find_package(SDL2_ttf REQUIRED)
 find_package(SDL2_mixer REQUIRED)
-find_package(xercesc)
+
+include(SelectLibraryConfigurations)
+include(FindXercesC)
+find_package(XercesC REQUIRED)
+include_directories( ${XercesC_INCLUDE_DIR} )
 
 include_directories(
         ${SDL2_INCLUDE_DIR}
@@ -20,7 +24,22 @@ include_directories(
         ${XercesC_INCLUDE_DIRS}
 )
 
-set(SOURCE_FILES src/View/GameTexture.cpp src/View/GameTexture.h src/Model/Tile.cpp src/Model/Tile.h src/Model/Geometry.cpp src/Model/Geometry.h src/Model/Level.cpp src/Model/Level.h src/View/Renderer.cpp src/View/Renderer.h src/View/Sprite.cpp src/View/Sprite.h src/View/SpriteRepository.cpp src/View/SpriteRepository.h src/Serialization/SpriteLoader.cpp src/Serialization/SpriteLoader.h src/View/TextureRepository.cpp src/View/TextureRepository.h src/Serialization/XmlDomErrorHandler.cpp src/Serialization/XmlDomErrorHandler.h src/Serialization/XmlDOMDocument.cpp src/Serialization/XmlDOMDocument.h src/Serialization/LevelLoader.cpp src/Serialization/LevelLoader.h src/Model/TileType.cpp src/Model/TileType.h src/View/Clip.cpp src/View/Clip.h src/View/CharacterSpriteRenderer.cpp src/View/CharacterSpriteRenderer.h src/Model/GameObject.cpp src/Model/GameObject.h src/View/GameObjectRenderer.cpp src/View/GameObjectRenderer.h src/View/GameObjectRendererFactory.cpp src/View/GameObjectRendererFactory.h src/View/TileSpriteRenderer.cpp src/View/TileSpriteRenderer.h src/Controller/GameController.cpp src/Controller/GameController.h src/Controller/CameraController.cpp src/Controller/CameraController.h src/Model/EnemyAI.cpp src/Model/EnemyAI.h src/Model/QuadTree.cpp src/Model/QuadTree.h src/Model/PhysicalProperties.h src/Model/Property.h src/Model/PhysicalProperties.cpp src/Model/VisualProperties.cpp src/Model/VisualProperties.h src/Model/HealthProperties.cpp src/Model/HealthProperties.h src/Model/AI.h src/Model/Enemy.h)
+set(SOURCE_FILES src/View/GameTexture.cpp src/View/GameTexture.h src/Model/Tile.cpp src/Model/Tile.h
+        src/Model/Geometry.cpp src/Model/Geometry.h src/Model/Level.cpp src/Model/Level.h src/View/Renderer.cpp
+        src/View/Renderer.h src/View/Sprite.cpp src/View/Sprite.h src/View/SpriteRepository.cpp
+        src/View/SpriteRepository.h src/Serialization/SpriteLoader.cpp src/Serialization/SpriteLoader.h
+        src/View/TextureRepository.cpp src/View/TextureRepository.h src/Serialization/XmlDomErrorHandler.cpp
+        src/Serialization/XmlDomErrorHandler.h src/Serialization/XmlDOMDocument.cpp src/Serialization/XmlDOMDocument.h
+        src/Serialization/LevelLoader.cpp src/Serialization/LevelLoader.h src/Model/TileType.cpp src/Model/TileType.h
+        src/View/Clip.cpp src/View/Clip.h src/View/CharacterSpriteRenderer.cpp src/View/CharacterSpriteRenderer.h
+        src/Model/GameObject.cpp src/Model/GameObject.h src/View/GameObjectRenderer.cpp src/View/GameObjectRenderer.h
+        src/View/GameObjectRendererFactory.cpp src/View/GameObjectRendererFactory.h src/View/TileSpriteRenderer.cpp
+        src/View/TileSpriteRenderer.h src/Controller/GameController.cpp src/Controller/GameController.h
+        src/Controller/CameraController.cpp src/Controller/CameraController.h src/Model/EnemyAI.cpp
+        src/Model/EnemyAI.h src/Model/QuadTree.cpp src/Model/QuadTree.h src/Model/PhysicalProperties.h
+        src/Model/Property.h src/Model/PhysicalProperties.cpp src/Model/VisualProperties.cpp
+        src/Model/VisualProperties.h src/Model/HealthProperties.cpp src/Model/HealthProperties.h src/Model/AI.h
+        src/Model/Enemy.h)
 
 add_library(SpaceGameLib STATIC ${SOURCE_FILES})
 
