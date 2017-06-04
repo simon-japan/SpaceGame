@@ -12,12 +12,16 @@ class Enemy : public GameObject
 {
 public:
 
-    Enemy(std::string name) : GameObject(name) {}
+    Enemy(std::string name) : GameObject(name) {
+        makeAI();
+    }
 
-    Enemy(const std::string & n, int x, int y, int w, int h) : GameObject(n, x, y, w, h){}
+    Enemy(const std::string & n, int x, int y, int w, int h) : GameObject(n, x, y, w, h){
+        makeAI();
+    }
 
 protected:
-    AI makeAI() override { return EnemyAI(*this); }
+    virtual void makeAI() override { aiPtr = std::unique_ptr<AI>(new EnemyAI(*this)); }
 
 };
 

@@ -24,9 +24,10 @@ public:
             mBox(),
             physicalProperties(*this, 0, 0, left),
             visualProperties(*this),
-            healthProperties(*this),
-            ai(makeAI())
-    {}
+            healthProperties(*this)
+    {
+        makeAI();
+    }
 
     GameObject(std::string n, int x, int y, int w, int h):
             GameObject(n)
@@ -78,9 +79,9 @@ protected:
     PhysicalProperties physicalProperties;
     VisualProperties visualProperties;
     HealthProperties healthProperties;
-    AI ai;
+    std::unique_ptr<AI> aiPtr;
 
-    virtual AI makeAI() { return AI(*this); }
+    virtual void makeAI() { aiPtr = std::unique_ptr<AI>(new AI(*this)); }
 };
 
 

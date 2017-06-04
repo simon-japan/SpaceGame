@@ -31,7 +31,7 @@ void GameObject::onCollide(GameObject & o) {
 
 void GameObject::updateState() {
     if (name.compare("Player") != 0 ) {
-        ai.updateState();
+        aiPtr->updateState();
     }
     physicalProperties.updateState();
     healthProperties.updateState();
