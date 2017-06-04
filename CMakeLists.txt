@@ -35,7 +35,7 @@ target_link_libraries(
 
 add_executable(SpaceGame src/main.cpp)
 
-find_package(Boost 1.57.0 COMPONENTS system filesystem REQUIRED)
+find_package(Boost 1.54.0 COMPONENTS system filesystem REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 add_executable(BoostTest src/main.cpp)
 target_link_libraries(BoostTest ${Boost_LIBRARIES})
