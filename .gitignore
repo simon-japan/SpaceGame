@@ -2,3 +2,4 @@
 SpaceGame_tests/lib/
 bin/
 resources/fonts/
+cmake-build-debug/
