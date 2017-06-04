@@ -55,6 +55,20 @@ TEST(LevelTests, DimensionsUpdateCorrectly)
     EXPECT_EQ(level.getWidth(), 160);
 }
 
+TEST(LevelTests, OnCollideIsTriggered)
+{
+    Level level(100, 100);
+    auto object1Ptr(std::make_shared<GameObject>("myObject1", 0, 0, 1, 1));
+    auto object2Ptr(std::make_shared<GameObject>("myObject2", 5, 0, 10, 10));
+    object1Ptr->getPhysicalProperties().setTangible(true);
+    object2Ptr->getPhysicalProperties().setTangible(true);
+    object1Ptr->getPhysicalProperties().setThrust(Direction::right, true);
+    level.addGameObject(std::shared_ptr<GameObject>(object1Ptr));
+    level.addGameObject(std::shared_ptr<GameObject>(object2Ptr));
+    level.updateObjects();
+
+}
+
 TEST(GameObjectTests, GameObjectsCanMove)
 {
     Level level(100, 100);

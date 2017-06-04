@@ -7,7 +7,7 @@
 
 void HealthProperties::takeHit(int attackPower)
 {
-    if (not destructible)
+    if (destructible)
     {
         health -= attackPower;
     }

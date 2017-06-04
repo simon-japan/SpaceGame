@@ -104,6 +104,8 @@ void LevelLoader::loadCharacters(XmlDomDocument & doc, Level & level) {
         characterP->getVisualProperties().setDefaultSpriteName(spriteName);
         characterP->getVisualProperties().setZ(1);
 
+        characterP->getPhysicalProperties().setTangible(true);
+
         // Add the created object to the level
         level.addGameObject(characterP);
     }

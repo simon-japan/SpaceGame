@@ -11,7 +11,7 @@
 class HealthProperties : public Property
 {
 public:
-    HealthProperties(GameObject & go) : Property(go), health(1)
+    HealthProperties(GameObject & go) : Property(go), health(1), destructible(true)
     {}
 
     int getHealth() const { return health; }

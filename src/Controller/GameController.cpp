@@ -42,6 +42,7 @@ void GameController::handlePlayerInput(SDL_Event& e) {
                 bulletBox.h = 20;
                 bulletPtr->setCollisionBox(bulletBox);
                 bulletPtr->getPhysicalProperties().setThrust(playerPhysical.getFacingDirection(), true);
+                bulletPtr->getPhysicalProperties().setTangible(true);
                 level.addGameObject(bulletPtr);
                 break;
             }

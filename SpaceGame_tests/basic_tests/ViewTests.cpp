@@ -42,4 +42,4 @@ TEST_F(ViewTest, SpriteRendererCreation)
     std::unique_ptr<GameObjectRenderer> renderer = gameObjectRendererFactory->createGameObjectRenderer(gameObject);
 }
 
-# todo: WIP
+// todo: WIP
