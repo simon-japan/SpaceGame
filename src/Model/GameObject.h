@@ -18,7 +18,6 @@
 class GameObject {
 
 public:
-    // Constructors
     GameObject(std::string n):
             uuid(boost::uuids::random_generator()()),
             name(n),
@@ -26,10 +25,9 @@ public:
             physicalProperties(*this, 0, 0, left),
             visualProperties(*this),
             healthProperties(*this),
-            ai(*this)
+            ai(makeAI())
     {}
 
-    // Constructors
     GameObject(std::string n, int x, int y, int w, int h):
             GameObject(n)
     {
@@ -39,35 +37,12 @@ public:
         mBox.h = h;
     }
 
-    // Copy constructor
-    GameObject(GameObject const & rhs):
-            uuid(rhs.uuid),
-            name(rhs.name),
-            mBox(rhs.mBox),
-            physicalProperties(*this,
-                     rhs.physicalProperties.getXVelocity(),
-                     rhs.physicalProperties.getYVelocity(),
-                     rhs.physicalProperties.getFacingDirection()
-            ),
-            visualProperties(*this),
-            healthProperties(*this),
-            ai(*this)
-    {}
+    // No copying
+    GameObject(GameObject const & rhs) = delete;
+    GameObject& operator = (GameObject const & rhs) = delete;
 
-    // Copy assignment
-    // Todo: don't I need to copy the other stuff?
-    GameObject& operator = (GameObject const & rhs)
-    {
-        uuid = rhs.uuid;
-        name = rhs.name;
-        mBox = rhs.mBox;
-        return *this;
-    }
-
-    // Destructor
     virtual ~GameObject() {}
 
-    // Comparison
     bool operator == (GameObject const & rhs) { return uuid == rhs.uuid; }
 
     // Accessors
@@ -103,7 +78,9 @@ protected:
     PhysicalProperties physicalProperties;
     VisualProperties visualProperties;
     HealthProperties healthProperties;
-    EnemyAI ai;
+    AI ai;
+
+    virtual AI makeAI() { return AI(*this); }
 };
 
 

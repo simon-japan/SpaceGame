@@ -12,5 +12,7 @@ Tile::Tile( int x, int y, const TileType & t): tileType (t), GameObject(t.getNam
     mBox.x = x;
     mBox.y = y;
     physicalProperties.setTangible(tileType.isTangible());
+    visualProperties.setRenderWidth(TILE_WIDTH);
+    visualProperties.setRenderHeight(TILE_HEIGHT);
 }
 

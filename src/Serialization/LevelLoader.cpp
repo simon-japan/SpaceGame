@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include "LevelLoader.h"
+#include "../Model/Enemy.h"
 #include <boost/tokenizer.hpp>
 #include <iostream>
 
@@ -53,6 +54,7 @@ unique_ptr<Level> LevelLoader::loadLevel(std::string filename) {
                 const TileType & tt = it->second;
                 auto tile = make_shared<Tile>(x, y, tt);
                 tile->getVisualProperties().setDefaultSpriteName(tt.getName());
+                tile->getVisualProperties().setZ(0);
                 levelPointer->addGameObject(tile);
             }
             else
@@ -87,7 +89,7 @@ void LevelLoader::loadCharacters(XmlDomDocument & doc, Level & level) {
     for (int i = 0; i < doc.getChildCount("Characters", 0, "Character"); i++) {
         // Load object name
         string characterName(doc.getChildAttribute("Characters", 0, i, "Character", "name"));
-        auto characterP(make_shared<GameObject>(characterName));
+        auto characterP(make_shared<Enemy>(characterName));
 
         // Load hit box
         SDL_Rect characterRect;
@@ -100,6 +102,7 @@ void LevelLoader::loadCharacters(XmlDomDocument & doc, Level & level) {
         // Load sprite assingment
         string spriteName(doc.getChildAttribute("Characters", 0, i, "Character", "sprite"));
         characterP->getVisualProperties().setDefaultSpriteName(spriteName);
+        characterP->getVisualProperties().setZ(1);
 
         // Add the created object to the level
         level.addGameObject(characterP);

@@ -26,7 +26,7 @@ public:
 
     virtual ~PhysicalProperties(){};
 
-    void updateState();
+    void updateState() override;
 
     // Accessors
 

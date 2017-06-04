@@ -1,4 +1,3 @@
-//Using SDL, SDL_image, standard IO, strings, and file streams
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
@@ -22,10 +21,8 @@ bool init();
 //Frees media and shuts down SDL
 void close();
 
-//The window we'll be rendering to
 SDL_Window* gWindow = nullptr;
 
-//The window renderer
 SDL_Renderer* gRenderer = nullptr;
 
 using namespace std;
@@ -128,34 +125,25 @@ int main( int argc, char* args[] )
 
 		//The player's avatar is a special character that is always loaded, regardless of the level.
 		auto player = make_shared<GameObject>(std::string("Player"), 0, 0, 50, 50);
+		player->getVisualProperties().setZ(1);
 
         levelPtr->addGameObject(player);
 
         // The GameController responds to user input (all it does at the moment is to move the avatar around).
         GameController gameController(*player, *levelPtr);
 
-		// The renderer is the top-level "view" object.
-		// It can render a whole scene: you give it the camera and the level (which contains all renderable objects)
-		// It will use the sprite repository to find the sprite for each object it needs to render,
-		// and uses the SDL renderer
 		Renderer renderer(gRenderer, spriteRepository);
 
-        SDL_Event e; //Event handler
-        bool quit = false; //Main loop flag
-
-		//While application is running
+        SDL_Event e;
+        bool quit = false;
 		while( !quit )
 		{
-			//Handle events on queue
 			while( SDL_PollEvent( &e ) != 0 )
 			{
-				//User requests quit
 				if( e.type == SDL_QUIT )
 				{
 					quit = true;
 				}
-
-				//Handle input from the player
                 gameController.handlePlayerInput(e);
 			}
 
@@ -167,8 +155,6 @@ int main( int argc, char* args[] )
             // Render everything in the level that is visible to the camera
             renderer.renderLevel(camera, *levelPtr);
 		}
-
-		//Free resources and close SDL
 		close();
 	}
 

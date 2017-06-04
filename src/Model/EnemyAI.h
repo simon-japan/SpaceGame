@@ -6,13 +6,14 @@
 #define SPACEGAME_ENEMYAI_H
 
 #include "Property.h"
+#include "AI.h"
 
 class GameObject;
 
-class EnemyAI : public Property{
+class EnemyAI : public AI{
 public:
-    EnemyAI(GameObject & go) : Property(go) {}
-    void updateState();
+    EnemyAI(GameObject & go) : AI(go) {};
+    void updateState() override;
 };
 
 

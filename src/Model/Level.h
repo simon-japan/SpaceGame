@@ -37,7 +37,7 @@ public:
 
     int getWidth();
 
-    const std::vector<std::shared_ptr<GameObject>> & getGameObjects() const { return gameObjects; };
+    std::vector<std::shared_ptr<GameObject>> & getGameObjects() { return gameObjects; };
 
     void tryMoveGameObject(GameObject & o, int xAmount, int yAmount);
 

@@ -2,9 +2,8 @@
 // Created by SJ Holland on 4/5/16.
 //
 
-#include <iostream>
+#include <algorithm>
 #include "Renderer.h"
-#include "../Model/Geometry.h"
 
 using namespace std;
 
@@ -17,7 +16,8 @@ void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
     GameObjectRenderer * gameObjectRenderer = nullptr;
 
     //Render tiles from level
-    const std::vector<std::shared_ptr<GameObject> > & gameObjects = level.getGameObjects();
+    std::vector<std::shared_ptr<GameObject> > & gameObjects = level.getGameObjects();
+    std::sort(gameObjects.begin(), gameObjects.end(), compareZDepth);
     for( const auto & gameObject : gameObjects )
     {
         auto uuid = gameObject->getUUID();
@@ -35,4 +35,7 @@ void Renderer::renderLevel(SDL_Rect & camera, Level & level) {
 
 }
 
-// Todo: implement a z-buffer or something so that the sprites can go on top of the tiles, etc.
+bool Renderer::compareZDepth(const std::shared_ptr<GameObject> & go1, const std::shared_ptr<GameObject> & go2)
+{
+    return go1->getVisualProperties().getZ() < go2->getVisualProperties().getZ();
+}

@@ -16,6 +16,7 @@
 #include "CharacterSpriteRenderer.h"
 #include "GameObjectRendererFactory.h"
 #include <boost/functional/hash.hpp>
+#include <memory>
 
 class Renderer {
 
@@ -30,6 +31,8 @@ private:
     GameObjectRendererFactory gameObjectRendererFactory;
 
     std::unordered_map<boost::uuids::uuid, std::unique_ptr<GameObjectRenderer>, boost::hash<boost::uuids::uuid>> rendererRegistry;
+
+    static bool compareZDepth(const std::shared_ptr<GameObject> & go1, const std::shared_ptr<GameObject> & go2);
 };
 
 
